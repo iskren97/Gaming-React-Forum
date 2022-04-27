@@ -1,7 +1,15 @@
 import './App.css';
+import Header from './components/Header/Header';
+import Main from './components/MainContent/Main';
+import Footer from './components/Footer/Footer';
 
 const App = () => {
-  return <h1>Forum</h1>;
+  return (
+    <div>
+      <Header />
+      <Main />
+    </div>
+  );
 };
 
 export default App;
