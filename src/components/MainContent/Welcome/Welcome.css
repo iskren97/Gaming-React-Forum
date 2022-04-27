@@ -2,12 +2,13 @@
   display: flex;
   justify-content: space-between;
   color: white;
+  align-items: center;
 
   position: relative;
   background: #17f084;
   background-image: url(https://c-3d.niceshops.com/upload/image/product/large/default/surefire-skirmish-gaming-headset-1-pc-401553-en.jpg);
 
-  margin-bottom: 20px;
+  margin-bottom: 30px;
   background-size: cover;
   background-position: center;
 }
@@ -18,28 +19,19 @@
   color: #fff;
 
   padding: 40px;
-  padding-top: 75px;
+  padding-top: 120px;
   padding-bottom: 75px;
 
   background-size: cover;
   background-position: center;
 }
 
-.telerik-section {
-  position: relative;
-
-  color: #fff;
-
-  padding: 40px;
-  padding-top: 0;
-  padding-bottom: 75px;
-}
-
 .telerik-name-logo {
-  display: grid;
-  grid-template-rows: 50px 50px;
+  font-size: 20px;
 
-  margin-top: 5px;
+  display: grid;
+  grid-template-rows: 50px 1fr;
+  row-gap: 15px;
 
   text-align: center;
 }

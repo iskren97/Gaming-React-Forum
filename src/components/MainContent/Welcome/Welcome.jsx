@@ -12,7 +12,7 @@ const Welcome = () => {
         </div>
       </div>
 
-      <div className="telerik-section">
+      <div className="inner-welcome-section">
         <div className="telerik-name-logo">
           <p>Powered by:</p>
           <img className="telerik-logo" src={logo} alt="telerik logo"></img>
