@@ -10,13 +10,13 @@
 
   margin-bottom: 30px;
   background-size: cover;
-  background-position: center;
+  background-repeat: no-repeat;
+  /* background-attachment: fixed; */
+  background-position: 50% 80%;
 }
 
 .inner-welcome-section {
   position: relative;
-
-  color: #fff;
 
   padding: 40px;
   padding-top: 120px;
