@@ -5,3 +5,23 @@ p {
 h2 {
   margin: 0;
 }
+
+.category-preview {
+  cursor: pointer;
+}
+
+.category-preview h2:hover {
+  text-decoration: underline;
+}
+
+.category-preview {
+  display: grid;
+  grid-template-columns: 50px 1fr;
+  column-gap: 25px;
+}
+
+.general-img {
+  width: 50px;
+  height: 50px;
+  object-fit: cover;
+}

@@ -1,49 +1,37 @@
-import './Categories.css';
 import Container from '@mui/material/Container';
 import * as React from 'react';
-import { styled } from '@mui/material/styles';
-import Paper from '@mui/material/Paper';
 import Grid from '@mui/material/Grid';
+import Items from './Items';
 
-import ForumIcon from '@mui/icons-material/Forum';
-
-const Item = styled(Paper)(({ theme }) => ({
-  backgroundColor: theme.palette.mode === 'dark' ? '#1A2027' : '#fff',
-  ...theme.typography.body2,
-  padding: theme.spacing(1),
-  textAlign: 'center',
-  color: theme.palette.text.secondary,
-}));
+import generalLogo from '../../icons/general.png';
+import shooterLogo from '../../icons/sniper.png';
+import mmoLogo from '../../icons/mmorpg.webp';
+import adventureLogo from '../../icons/adventure.jpg';
 
 const Categories = () => {
   return (
-    <Container fixed sx={{ height: '100vh' }}>
+    <Container maxWidth="sm" sx={{ height: '100vh' }}>
       <Grid container spacing={2} direction="column">
         <Grid item xs={12}>
           <h1>Gaming discussions:</h1>
         </Grid>
 
         <Grid item xs={4}>
-          <Item>
-            <ForumIcon />
-            <h2>General Gaming</h2>
-          </Item>
+          <Items name="General Discussion" topic="games" logo={generalLogo} />
         </Grid>
         <Grid item xs={6}>
-          <Item>
-            <h2>Action Games</h2>
-          </Item>
+          <Items name="Shooters" topic="shooting games" logo={shooterLogo} />
         </Grid>
         <Grid item xs={6}>
-          <Item>
-            <h2>Role-playing Games</h2>
-          </Item>
+          <Items name="MMORPG" topic="MMORPGs" logo={mmoLogo} />
         </Grid>
 
         <Grid item xs={6}>
-          <Item>
-            <h2>Shooters</h2>
-          </Item>
+          <Items
+            name="Adventure"
+            topic="adventure games"
+            logo={adventureLogo}
+          />
         </Grid>
 
         <Grid item xs={12}>
@@ -51,25 +39,17 @@ const Categories = () => {
         </Grid>
 
         <Grid item xs={6}>
-          <Item>
-            <h2>Gaming Accessories</h2>
-          </Item>
+          <Items />
         </Grid>
         <Grid item xs={6}>
-          <Item>
-            <h2>Gaming Laptops</h2>
-          </Item>
+          <Items />
         </Grid>
         <Grid item xs={6}>
-          <Item>
-            <h2>Role-playing Games</h2>
-          </Item>
+          <Items />
         </Grid>
 
         <Grid item xs={6}>
-          <Item>
-            <h2>Role-playing Games</h2>
-          </Item>
+          <Items />
         </Grid>
       </Grid>
     </Container>
