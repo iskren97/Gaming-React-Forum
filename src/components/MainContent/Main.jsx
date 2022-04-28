@@ -1,6 +1,8 @@
 import React from 'react';
 import Categories from './Categories/Categories';
 import Welcome from './Welcome/Welcome';
+import Scroll from '../Scroll/Scroll';
+
 import './Categories/Categories.css';
 
 const Main = () => {
@@ -13,6 +15,7 @@ const Main = () => {
       <div className="category-container">
         <Categories />
       </div>
+      <Scroll showBelow={250} />
     </div>
   );
 };
