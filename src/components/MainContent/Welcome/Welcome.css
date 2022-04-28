@@ -5,14 +5,11 @@
   align-items: center;
 
   position: relative;
-  background: #17f084;
-  background-image: url(https://c-3d.niceshops.com/upload/image/product/large/default/surefire-skirmish-gaming-headset-1-pc-401553-en.jpg);
+  background-image: url(https://wallpaperforu.com/wp-content/uploads/2020/06/gaming-wallpaper-20060120533427.jpg);
 
-  margin-bottom: 30px;
   background-size: cover;
   background-repeat: no-repeat;
-  /* background-attachment: fixed; */
-  background-position: 50% 80%;
+  background-position: 50% 30%;
 }
 
 .inner-welcome-section {
@@ -31,7 +28,6 @@
 
   display: grid;
   grid-template-rows: 50px 1fr;
-  row-gap: 15px;
 
   text-align: center;
 }
@@ -47,22 +43,23 @@
 .join-button {
   color: #fff;
   background: #dc191b;
-  padding: 0 15px;
   box-shadow: 0 4px 8px 0 rgb(107 119 128 / 12%),
     2px 0 8px rgb(107 119 128 / 8%);
+
   border: none;
   border-radius: 15px;
-  border-color: #b71517;
 
   text-align: center;
-  outline: none;
-  height: 34px;
+
+  padding: 11px;
+
   text-decoration: none;
+
   display: inline-flex;
   align-items: center;
   justify-content: center;
+
   cursor: pointer;
   -webkit-appearance: none;
-  will-change: box-shadow;
   transition: all 0.3s cubic-bezier(0.25, 0.8, 0.25, 1);
 }

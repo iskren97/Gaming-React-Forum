@@ -6,12 +6,19 @@ h2 {
   margin: 0;
 }
 
-.category-preview {
-  cursor: pointer;
+.category-container {
+  color: black;
+}
+
+.category-container h2 {
+  display: inline-block;
 }
 
 .category-preview h2:hover {
-  text-decoration: underline;
+  font-size: 1.5rem;
+  transition: 0.25s ease;
+
+  cursor: pointer;
 }
 
 .category-preview {
@@ -21,7 +28,7 @@ h2 {
 }
 
 .general-img {
-  width: 50px;
+  width: 55px;
   height: 50px;
   object-fit: cover;
 }

@@ -5,12 +5,20 @@ import Items from './Items';
 
 import generalLogo from '../../icons/general.png';
 import shooterLogo from '../../icons/sniper.png';
-import mmoLogo from '../../icons/mmorpg.webp';
-import adventureLogo from '../../icons/adventure.jpg';
+import mmoLogo from '../../icons/mmo.png';
+import adventureLogo from '../../icons/adventure.png';
 
 const Categories = () => {
   return (
-    <Container maxWidth="sm" sx={{ height: '100vh' }}>
+    <Container
+      maxWidth="md"
+      sx={{
+        height: '100vh',
+        backgroundColor: 'white',
+        boxShadow: '0 1px 6px rgba(0,0,0,0.2)',
+        marginTop: '50px',
+      }}
+    >
       <Grid container spacing={2} direction="column">
         <Grid item xs={12}>
           <h1>Gaming discussions:</h1>
