@@ -29,10 +29,6 @@ const rows = [
 
 function CategoryView() {
 
-
-
-
-
   return (
     <div className="viewContainer">
     <div className="hero-image">
@@ -44,7 +40,7 @@ function CategoryView() {
     
     <div className="contentContainer"> 
     <div className="categoryRow">
-      <span className="categoryTitle">  Gaming Discussions &gt; Shooters   </span>
+      <span className="categoryTitle">  Gaming Discussions &gt; Shooters  </span>
         <div className="buttonsGroup">
         <Button variant="contained" style={{borderRadius: "2em"}}>Category</Button>
         <Button variant="contained" style={{borderRadius: "2em"}}>Top</Button>

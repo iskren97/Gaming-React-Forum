@@ -11,11 +11,11 @@
 .viewContainer {
   display: flex;
   flex-direction: column;
-  overflow: scroll;
   justify-content: flex-start;
   align-content: space-between;
   align-items: stretch;
-  width: 100vw;
+  width: 100%;
+  overflow-x: hidden;
 }
 
 .contentContainer {
