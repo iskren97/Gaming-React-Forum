@@ -3,6 +3,7 @@ import background from '../../assets/gamesBackground.jpg'
 import './CategoryView.css'
 import Button from '@mui/material/Button';
 
+import {useState} from 'react'
 
 import Table from '@mui/material/Table';
 import TableBody from '@mui/material/TableBody';
@@ -12,22 +13,49 @@ import TableHead from '@mui/material/TableHead';
 import TableRow from '@mui/material/TableRow';
 
 
+import TableRowComponent from './TableRowComponent/TableRowComponent'
 
 
-function createData(topic, title, author, date, replies, rating) {
-  return { topic, title, author, date, replies, rating };
+const comments = [
+  {
+    author: "JimmyBoy",
+    content: "Game is goood",
+    date: "21/03/12",
+    rating: "5"
+
+  },{
+    author: "Your boy",
+    content: "bad game",
+    date: "21/1/22",
+    rating: "3"
+    
+  },{
+    author: "FatBoiFat",
+    content: "Got nuggets?",
+    date: "21/05/12",
+    rating: "1"
+    
+  }
+]
+
+
+function createData(title, content, author, date, replies, rating,comments) {
+  return {title, content, author, date, replies, rating,comments };
 }
 
 const rows = [
-  createData('Shooter', "Crosshair picks", "Lil Camper", "20/4/2022", 3, 2),
-  createData('Action', "Are we ever going to see Just Cause 5?", "thrills3eker101","31.05/2021", 67, 81),
-  createData('RPG', "WoW retri paladin build", "RetriOverProt", "8/08/2022",49, 3),
-  createData('RPG', "Where to go after final boss", "justLost", "8/11/2022",13, 21),
-  createData('Shooter', "Best gaming moust for CS GO", "DumbAi", "3/08/2022",9, 9),
+  createData( "Crosshair picks","So what would you guys say is the best crosshair? I think about a classic red dot or a cross but want to hear your opinions on the topic. What are your favorite colors? i feel some games are better with a dot and other with a cross. Any software that could do that for me? I see the MSI monitors have them build in but i'm not sure. And i want to text some more to have a bit more lines here.i feel some games are better with a dot and other with a cross. Any software that could do that for me? I see the MSI monitors have them build in but i'm not sure. And i want to text some more to have a bit more lines here.i feel some games are better with a dot and other with a cross. Any software that could do that for me? I see the MSI monitors have them build in but i'm not sure. And i want to text some more to have a bit more lines here.", "Lil Camper", "20/4/2022", 3, 2, comments),
+  createData( "Are we ever going to see Just Cause 5?"," YEAH I SAID IT! I don't know how much longer it's gonna take but i can't take it anymore. This game is just AMAZING! And now what? we prob won't see it again.YEAH I SAID IT! I don't know how much longer it's gonna take but i can't take it anymore. This game is just AMAZING! And now what? we prob won't see it again.YEAH I SAID IT! I don't know how much longer it's gonna take but i can't take it anymore. This game is just AMAZING! And now what? we prob won't see it again.YEAH I SAID IT! I don't know how much longer it's gonna take but i can't take it anymore. This game is just AMAZING! And now what? we prob won't see it again.YEAH I SAID IT! I don't know how much longer it's gonna take but i can't take it anymore. This game is just AMAZING! And now what? we prob won't see it again.YEAH I SAID IT! I don't know how much longer it's gonna take but i can't take it anymore. This game is just AMAZING! And now what? we prob won't see it again.", "thrills3eker101","31.05/2021", 67, 81),
+  createData( "WoW retri paladin build","IT's just the best i no.", "RetriOverProt", "8/08/2022",49, 3),
+  createData( "Where to go after final boss","Now i have no life...HALP ", "justLost", "8/11/2022",13, 21),
+  createData( "Best gaming moust for CS GO","Issi worth spending 200 dollers on am mouse", "DumbAi", "3/08/2022",9, 9),
 ];
 
-
+ 
 function CategoryView() {
+  
+ 
+  
 
   return (
     <div className="viewContainer">
@@ -57,8 +85,8 @@ function CategoryView() {
       <Table sx={{ width: "100%" }} aria-label="simple table">
         <TableHead>
           <TableRow>
-            <TableCell align="center" style={{fontWeight: "bold"}}>Topic</TableCell>
             <TableCell align="center" style={{fontWeight: "bold"}}>Title</TableCell>
+            <TableCell align="center" style={{fontWeight: "bold"}}>Content</TableCell>
             <TableCell align="center" style={{fontWeight: "bold"}}>Author</TableCell>
             <TableCell align="center" style={{fontWeight: "bold"}}>Date</TableCell>
             <TableCell align="center" style={{fontWeight: "bold"}}>Replies</TableCell>
@@ -67,19 +95,8 @@ function CategoryView() {
         </TableHead>
         <TableBody>
           {rows.map((row) => (
-            <TableRow
-              key={row.name}
-              sx={{ '&:last-child td, &:last-child th': { border: 0 } }}
-              className="tableRow"
-            >
               
-              <TableCell align="center" >{row.topic}</TableCell>
-              <TableCell align="center">{row.title}</TableCell>
-              <TableCell align="center">{row.author}</TableCell>
-              <TableCell align="center">{row.date}</TableCell>
-              <TableCell align="center">{row.replies}</TableCell>
-              <TableCell align="center">{row.rating}</TableCell>
-            </TableRow>
+           <TableRowComponent row={row} />
           ))}
         </TableBody>
       </Table>
