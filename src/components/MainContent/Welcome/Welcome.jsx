@@ -8,14 +8,22 @@ const Welcome = () => {
       <div className="inner-welcome-section">
         <div className="media">
           <h1>Welcome to the forum!</h1>
-          <a className="join-button">Join the community</a>
+          <a href="#" className="join-button">
+            Join the community
+          </a>
         </div>
       </div>
 
-      <div className="telerik-section">
+      <div className="inner-welcome-section">
         <div className="telerik-name-logo">
           <p>Powered by:</p>
-          <img className="telerik-logo" src={logo} alt="telerik logo"></img>
+          <a
+            href="https://www.telerikacademy.com/"
+            target="_blank"
+            rel="noreferrer"
+          >
+            <img className="telerik-logo" src={logo} alt="telerik logo"></img>
+          </a>
         </div>
       </div>
     </div>

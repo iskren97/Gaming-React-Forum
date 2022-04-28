@@ -5,3 +5,30 @@ p {
 h2 {
   margin: 0;
 }
+
+.category-container {
+  color: black;
+}
+
+.category-container h2 {
+  display: inline-block;
+}
+
+.category-preview h2:hover {
+  font-size: 1.5rem;
+  transition: 0.25s ease;
+
+  cursor: pointer;
+}
+
+.category-preview {
+  display: grid;
+  grid-template-columns: 50px 1fr;
+  column-gap: 25px;
+}
+
+.general-img {
+  width: 55px;
+  height: 50px;
+  object-fit: cover;
+}
