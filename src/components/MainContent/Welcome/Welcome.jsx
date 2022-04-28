@@ -1,6 +1,7 @@
 import React from 'react';
 import logo from './telerik.svg';
 import './Welcome.css';
+import LoginModal from '../../LoginModal/LoginModal';
 
 const Welcome = () => {
   return (
@@ -8,8 +9,8 @@ const Welcome = () => {
       <div className="inner-welcome-section">
         <div className="media">
           <h1>Welcome to the forum!</h1>
-          <a href="#" className="join-button">
-            Join the community
+          <a className="join-button">
+            <LoginModal />
           </a>
         </div>
       </div>
