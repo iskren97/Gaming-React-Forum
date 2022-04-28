@@ -16,7 +16,7 @@ const style = {
   p: 4,
 };
 
-const LoginModal = () => {
+const JoinModal = () => {
   const [open, setOpen] = useState(false);
   const handleOpen = () => setOpen(true);
   const handleClose = () => setOpen(false);
@@ -48,4 +48,4 @@ const LoginModal = () => {
   );
 };
 
-export default LoginModal;
+export default JoinModal;

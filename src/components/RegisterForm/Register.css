@@ -1,14 +1,14 @@
-form {
+.register-form {
   max-width: 500px;
   margin: 0 auto;
 }
 
-form p {
+.register-form p {
   color: red;
   font-weight: bold;
 }
 
-form input {
+.register-form input {
   display: block;
   box-sizing: border-box;
   width: 100%;
@@ -20,7 +20,7 @@ form input {
   font-weight: bold;
 }
 
-form label {
+.register-form label {
   line-height: 1;
   text-align: left;
   display: block;
@@ -30,7 +30,7 @@ form label {
   font-weight: 200;
 }
 
-button[type='submit'],
+.register-form button[type='submit'],
 input[type='submit'] {
   cursor: pointer;
   background: #47db00;
@@ -41,15 +41,16 @@ input[type='submit'] {
   font-size: 18px;
   font-weight: bold;
   letter-spacing: 10px;
+  transition: background-color 0.15s;
 }
 
-button[type='submit']:hover,
+.register-form button[type='submit']:hover,
 input[type='submit']:hover {
   background: #087006;
   color: white;
 }
 
-button[type='submit']:active,
+.register-form button[type='submit']:active,
 input[type='button']:active,
 input[type='submit']:active {
   transition: 0.3s all;
@@ -58,36 +59,30 @@ input[type='submit']:active {
   opacity: 0.8;
 }
 
-input:disabled {
+.register-form input:disabled {
   opacity: 0.4;
 }
 
-input[type='button']:hover {
+.register-form input[type='button']:hover {
   transition: 0.3s all;
 }
 
-button[type='submit'],
+.register-form button[type='submit'],
 input[type='button'],
 input[type='submit'] {
   -webkit-appearance: none;
 }
 
 button[type='button'] {
-  display: block;
-  appearance: none;
   background: #333;
-  color: white;
-  border: none;
-  text-transform: uppercase;
   padding: 10px 20px;
-  border-radius: 4px;
 }
 
-form hr {
+.register-form hr {
   margin-top: 30px;
 }
 
-form button {
+.register-form button {
   display: block;
   appearance: none;
   margin-top: 40px;

@@ -16,7 +16,7 @@ const Register = () => {
   }; //  form submit function which will invoke after successful validation
 
   return (
-    <form onSubmit={handleSubmit(onSubmit)}>
+    <form onSubmit={handleSubmit(onSubmit)} className="register-form">
       <label>First Name</label>
       <input
         {...register('firstName', {

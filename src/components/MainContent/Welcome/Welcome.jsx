@@ -1,7 +1,7 @@
 import React from 'react';
 import logo from './telerik.svg';
 import './Welcome.css';
-import LoginModal from '../../LoginModal/LoginModal';
+import LoginModal from '../../JoinCommunityModal/JoinModal';
 
 const Welcome = () => {
   return (
