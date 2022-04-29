@@ -52,18 +52,4 @@
   overflow: visible;
 }
 
-.gridItem {
-  color: white;
-}
 
-.gridContainer {
-  max-width: 100%;
-  margin: 2rem;
-  background-color: white;
-}
-
-
-.tableRow:hover{
-  background-color:rgb(199, 192, 192);
-  transition: all 0.5s;
-}

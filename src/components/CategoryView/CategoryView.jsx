@@ -3,17 +3,20 @@ import background from '../../assets/gamesBackground.jpg'
 import './CategoryView.css'
 import Button from '@mui/material/Button';
 
-import {useState} from 'react'
-
-import Table from '@mui/material/Table';
-import TableBody from '@mui/material/TableBody';
-import TableCell from '@mui/material/TableCell';
-import TableContainer from '@mui/material/TableContainer';
-import TableHead from '@mui/material/TableHead';
-import TableRow from '@mui/material/TableRow';
 
 
-import TableRowComponent from './TableRowComponent/TableRowComponent'
+// import Table from '@mui/material/Table';
+// import TableBody from '@mui/material/TableBody';
+// import TableCell from '@mui/material/TableCell';
+// import TableContainer from '@mui/material/TableContainer';
+// import TableHead from '@mui/material/TableHead';
+// import TableRow from '@mui/material/TableRow';
+
+
+import Container from '@mui/material/Container';
+import Grid from '@mui/material/Grid';
+import TopicRow from './TopicRow/TopicRow';
+
 
 
 const comments = [
@@ -58,58 +61,104 @@ function CategoryView() {
   
 
   return (
-    <div className="viewContainer">
+    <div  className="viewContainer">  
     <div className="hero-image">
-    <img src={background} alt="background" ></img>
-    </div>
+         <img src={background} alt="background" ></img>
+         </div>
+    
+    <Container
+    maxWidth="lg"
+    sx={{
+      height: 'auto',
+      backgroundColor: 'white',
+      boxShadow: '0 1px 6px rgba(0,0,0,0.2)',
+      marginTop: '50px',
+      paddingBottom: '55px',
+    }}
+  >
+    <Grid container direction="column">
+      <Grid item xs={12}>
+        <h1>Gaming discussions:</h1>
+      </Grid>
+
+
+      {rows.map((row) => (
+      <Grid sx={{marginTop: "0.5rem"}} >
+              
+                          <TopicRow row={row} />
+
+      </Grid>
+                         ))}
+
+    
+    
+    </Grid>
+  </Container>
+  </div>
+  )
+  
+}
+
+export default CategoryView
+
+
+
+// function CategoryView() {
+  
+ 
+  
+
+//   return (
+//     <div className="viewContainer">
+//     <div className="hero-image">
+//     <img src={background} alt="background" ></img>
+//     </div>
 
 
 
     
-    <div className="contentContainer"> 
-    <div className="categoryRow">
-      <span className="categoryTitle">  Gaming Discussions &gt; Shooters  </span>
-        <div className="buttonsGroup">
-        <Button variant="contained" style={{borderRadius: "2em"}}>Category</Button>
-        <Button variant="contained" style={{borderRadius: "2em"}}>Top</Button>
-        <Button variant="contained" style={{borderRadius: "2em"}}>Latest</Button>
-        <Button variant="contained" style={{borderRadius: "2em"}}>Liked</Button>
-        </div>
-    </div>
+//     <div className="contentContainer"> 
+//     <div className="categoryRow">
+//       <span className="categoryTitle">  Gaming Discussions &gt; Shooters  </span>
+//         <div className="buttonsGroup">
+//         <Button variant="contained" style={{borderRadius: "2em"}}>Category</Button>
+//         <Button variant="contained" style={{borderRadius: "2em"}}>Top</Button>
+//         <Button variant="contained" style={{borderRadius: "2em"}}>Latest</Button>
+//         <Button variant="contained" style={{borderRadius: "2em"}}>Liked</Button>
+//         </div>
+//     </div>
      
 
     
 
-    <div className="gridContainer" >
-    <TableContainer >
-      <Table sx={{ width: "100%" }} aria-label="simple table">
-        <TableHead>
-          <TableRow>
-            <TableCell align="center" style={{fontWeight: "bold"}}>Title</TableCell>
-            <TableCell align="center" style={{fontWeight: "bold"}}>Content</TableCell>
-            <TableCell align="center" style={{fontWeight: "bold"}}>Author</TableCell>
-            <TableCell align="center" style={{fontWeight: "bold"}}>Date</TableCell>
-            <TableCell align="center" style={{fontWeight: "bold"}}>Replies</TableCell>
-            <TableCell align="center" style={{fontWeight: "bold"}}>Rating</TableCell>
-          </TableRow>
-        </TableHead>
-        <TableBody>
-          {rows.map((row) => (
+//     <div className="gridContainer" >
+//     <TableContainer >
+//       <Table sx={{ width: "100%" }} aria-label="simple table">
+//         <TableHead>
+//           <TableRow>
+//             <TableCell align="center" style={{fontWeight: "bold"}}>Title</TableCell>
+//             <TableCell align="center" style={{fontWeight: "bold"}}>Content</TableCell>
+//             <TableCell align="center" style={{fontWeight: "bold"}}>Author</TableCell>
+//             <TableCell align="center" style={{fontWeight: "bold"}}>Date</TableCell>
+//             <TableCell align="center" style={{fontWeight: "bold"}}>Replies</TableCell>
+//             <TableCell align="center" style={{fontWeight: "bold"}}>Rating</TableCell>
+//           </TableRow>
+//         </TableHead>
+//         <TableBody>
+//           {rows.map((row) => (
               
-           <TableRowComponent row={row} />
-          ))}
-        </TableBody>
-      </Table>
-    </TableContainer>
+//            <TableRowComponent row={row} />
+//           ))}
+//         </TableBody>
+//       </Table>
+//     </TableContainer>
 
 
-    </div>
+//     </div>
 
 
-      </div>
+//       </div>
 
-    </div>
-  )
-}
-
-export default CategoryView
+//     </div>
+//   )
+// }
