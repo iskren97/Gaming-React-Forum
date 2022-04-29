@@ -1,0 +1,24 @@
+.footer-grid {
+  text-align: center;
+}
+
+footer {
+  color: white;
+
+  height: auto;
+  max-width: 100%;
+
+  padding-bottom: 7px;
+  margin-top: 50px;
+
+  box-shadow: 0 1px 6px rgba(0, 0, 0, 0.2);
+  background-color: rgba(29, 30, 34, 0.85);
+}
+
+footer h3 {
+  margin: 0;
+}
+
+footer a {
+  cursor: pointer;
+}

@@ -26,7 +26,7 @@ const Scroll = ({ showBelow }) => {
   });
 
   return (
-    <div>
+    <div style={{ display: 'inline-block', position: 'absolute' }}>
       {show && (
         <IconButton
           className="icon-btn"
