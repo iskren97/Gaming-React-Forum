@@ -14,9 +14,9 @@ h2 {
   display: inline-block;
 }
 
-.category-preview h2:hover {
-  font-size: 1.5rem;
-  transition: 0.25s ease;
+.category-info:hover {
+  font-size: 0.9rem;
+  transition: 0.15s;
 
   cursor: pointer;
 }

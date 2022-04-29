@@ -17,7 +17,7 @@ const Items = ({ name, topic, logo }) => {
         <div>
           <img className="general-img" src={logo} alt="img"></img>
         </div>
-        <div>
+        <div className="category-info">
           <h2>{name}</h2>
           <p>Discuss everything about {topic}</p>
         </div>
