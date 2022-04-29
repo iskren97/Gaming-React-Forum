@@ -41,6 +41,24 @@ const JoinModal = () => {
         aria-describedby="modal-modal-description"
       >
         <Box sx={style}>
+          <button
+            style={{
+              background: 'none',
+              border: 'none',
+              width: '0.7em',
+              fontSize: '30px',
+              fontFamily: 'algerian, courier',
+              position: 'absolute',
+              top: '0',
+              right: '0',
+              marginRight: '20px',
+              cursor: 'pointer',
+            }}
+            onClick={handleClose}
+          >
+            X
+          </button>
+
           <Register />
         </Box>
       </Modal>
