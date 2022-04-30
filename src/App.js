@@ -8,8 +8,8 @@ const App = () => {
   return (
     <div>
       <Header />
-      <Main />
-      {/* <CategoryView /> */}
+      {/* <Main /> */}
+      <CategoryView />
     </div>
   );
 };

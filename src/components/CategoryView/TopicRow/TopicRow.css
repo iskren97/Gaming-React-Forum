@@ -1,8 +1,21 @@
-.gridItem{
-  transition: all .5s ease-in-out;
+
+.arrowTriggered{
+  transform: rotate(180deg);
+}
+
+.arrowTrigger{
+  transform: rotate(0deg);
 }
 
 
-.gridItemClicked{
+.rowHeaderStyle{
+  cursor: pointer;
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+  width: 100%;
+}
 
+.rowHeaderStyle:hover{
+  box-shadow: 0 1px 6px rgba(0,0,0,0.2);
 }
