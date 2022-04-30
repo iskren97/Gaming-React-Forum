@@ -22,7 +22,7 @@ import TopicRow from './TopicRow/TopicRow';
 const comments = [
   {
     author: "JimmyBoy",
-    content: "Game is goood",
+    content: "Game is goood. I LIKED PREVIOUS BETTER BUT HEY.LETS ADD SOME LINES UH?Game is goood. I LIKED PREVIOUS BETTER BUT HEY.LETS ADD SOME LINES UH?Game is goood. I LIKED PREVIOUS BETTER BUT HEY.LETS ADD SOME LINES UH?Game is goood. I LIKED PREVIOUS BETTER BUT HEY.LETS ADD SOME LINES UH?Game is goood. I LIKED PREVIOUS BETTER BUT HEY.LETS ADD SOME LINES UH?Game is goood. I LIKED PREVIOUS BETTER BUT HEY.LETS ADD SOME LINES UH?Game is goood. I LIKED PREVIOUS BETTER BUT HEY.LETS ADD SOME LINES UH?Game is goood. I LIKED PREVIOUS BETTER BUT HEY.LETS ADD SOME LINES UH?Game is goood. I LIKED PREVIOUS BETTER BUT HEY.LETS ADD SOME LINES UH?Game is goood. I LIKED PREVIOUS BETTER BUT HEY.LETS ADD SOME LINES UH?Game is goood. I LIKED PREVIOUS BETTER BUT HEY.LETS ADD SOME LINES UH?",
     date: "21/03/12",
     rating: "5"
 
@@ -67,13 +67,14 @@ function CategoryView() {
          </div>
     
     <Container
-    maxWidth="lg"
+    maxWidth="xl"
     sx={{
       height: 'auto',
       backgroundColor: 'white',
       boxShadow: '0 1px 6px rgba(0,0,0,0.2)',
-      marginTop: '50px',
-      paddingBottom: '55px',
+      marginTop: '2rem',
+      marginBottom: '2rem',
+      paddingBottom: '1rem',
     }}
   >
     <Grid container direction="column">
@@ -83,12 +84,10 @@ function CategoryView() {
 
 
       {rows.map((row) => (
-      <Grid sx={{marginTop: "0.5rem"}} >
-              
-                          <TopicRow row={row} />
-
+      <Grid sx={{marginTop: "0.5rem"}} >         
+       <TopicRow row={row} />
       </Grid>
-                         ))}
+     ))}
 
     
     
@@ -101,64 +100,3 @@ function CategoryView() {
 
 export default CategoryView
 
-
-
-// function CategoryView() {
-  
- 
-  
-
-//   return (
-//     <div className="viewContainer">
-//     <div className="hero-image">
-//     <img src={background} alt="background" ></img>
-//     </div>
-
-
-
-    
-//     <div className="contentContainer"> 
-//     <div className="categoryRow">
-//       <span className="categoryTitle">  Gaming Discussions &gt; Shooters  </span>
-//         <div className="buttonsGroup">
-//         <Button variant="contained" style={{borderRadius: "2em"}}>Category</Button>
-//         <Button variant="contained" style={{borderRadius: "2em"}}>Top</Button>
-//         <Button variant="contained" style={{borderRadius: "2em"}}>Latest</Button>
-//         <Button variant="contained" style={{borderRadius: "2em"}}>Liked</Button>
-//         </div>
-//     </div>
-     
-
-    
-
-//     <div className="gridContainer" >
-//     <TableContainer >
-//       <Table sx={{ width: "100%" }} aria-label="simple table">
-//         <TableHead>
-//           <TableRow>
-//             <TableCell align="center" style={{fontWeight: "bold"}}>Title</TableCell>
-//             <TableCell align="center" style={{fontWeight: "bold"}}>Content</TableCell>
-//             <TableCell align="center" style={{fontWeight: "bold"}}>Author</TableCell>
-//             <TableCell align="center" style={{fontWeight: "bold"}}>Date</TableCell>
-//             <TableCell align="center" style={{fontWeight: "bold"}}>Replies</TableCell>
-//             <TableCell align="center" style={{fontWeight: "bold"}}>Rating</TableCell>
-//           </TableRow>
-//         </TableHead>
-//         <TableBody>
-//           {rows.map((row) => (
-              
-//            <TableRowComponent row={row} />
-//           ))}
-//         </TableBody>
-//       </Table>
-//     </TableContainer>
-
-
-//     </div>
-
-
-//       </div>
-
-//     </div>
-//   )
-// }

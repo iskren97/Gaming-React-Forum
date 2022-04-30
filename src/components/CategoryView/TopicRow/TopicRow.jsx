@@ -4,6 +4,10 @@ import Paper from '@mui/material/Paper';
 import Grid from '@mui/material/Grid';
 import './TopicRow.css'
 import {useState, useEffect, useRef } from 'react'
+import KeyboardArrowDownIcon from '@mui/icons-material/KeyboardArrowDown';
+import ThumbUpAltIcon from '@mui/icons-material/ThumbUpAlt';
+import ThumbDownAltIcon from '@mui/icons-material/ThumbDownAlt';
+import CommentRow from './CommentRow/CommentRow'
 
 const Item = styled(Paper)(({ theme }) => ({
   backgroundColor: theme.palette.mode === 'dark' ? '#1A2027' : '#fff',
@@ -13,6 +17,7 @@ const Item = styled(Paper)(({ theme }) => ({
   color: theme.palette.text.primary,
 }));
 
+
 const TopicRow = ({ row }) => {
 
   const [open, setOpen] = useState(false);
@@ -21,16 +26,16 @@ const TopicRow = ({ row }) => {
   const headerRef = useRef(null)
   
   let innerContent = ''
-  !open ? innerContent = row.content.slice(0,40) + '...' : innerContent = row.content;
+  !open ? row.content.length > 80 ? innerContent = row.content.slice(0,120) + '...' : innerContent = row.content : innerContent = row.content;
 
 
   useEffect(() => {
     if(elementRef.current.clientHeight){
       
-        setHeight(elementRef.current.clientHeight + headerRef.current.clientHeight + 16) 
+        setHeight(elementRef.current.clientHeight + headerRef.current.clientHeight + 26) 
     
     }
-   })
+   },[open])
   
 
   const on_show_styles = {height: height, transition: "height 0.15s ease-in", overflow: "hidden"};
@@ -38,31 +43,107 @@ const TopicRow = ({ row }) => {
 
 
 
-
   return (
-    <Item onClick={(()=> setOpen(!open))} style={open ? on_show_styles : on_hide_styles} >
-        <Grid container direction="column" >
-          <h2 ref={headerRef} >{row.title}</h2>
-          <Grid container direction="row-reverse" >
-          <Grid item={true} xs={1} style={{display: "flex", justifyContent: "flex-end", alignItems: "center"}}>
-          {row.rating}
+    <>
+      <Item style={open ? on_show_styles : on_hide_styles}>
+        <Grid container direction="column">
+          <Grid
+            container
+            direction="row"
+            onClick={() => setOpen(!open)}
+            className="rowHeaderStyle"
+          >
+            <h2 ref={headerRef}> {row.title} </h2>
+            <KeyboardArrowDownIcon
+              className={open ? "arrowTriggered" : "arrowTrigger"}
+              sx={{ transition: "0.25s ease-in-out" }}
+            />
           </Grid>
-          <Grid item={true} xs={1} style={{display: "flex", justifyContent: "center", alignItems: "center"}}>
-          {row.replies}
-          </Grid>
-          <Grid item={true} xs={2} style={{display: "flex", justifyContent: "center", alignItems: "center"}}>
-          {row.author}
-          </Grid>
-          <Grid item={true} xs={2} style={{display: "flex", justifyContent: "center", alignItems: "center"}}>
-          {row.date}
-          </Grid>
-          <Grid item={true} xs={6} style={{display: "flex", justifyContent: "flex-start", alignItems: "center"}} ref={elementRef}  >
-          {innerContent} 
-          </Grid>
+          <Grid container direction="row-reverse" sx={{ marginTop: "10px" }}>
+            <Grid
+              item
+              xs={1}
+              style={{
+                display: "flex",
+                flexDirection: "column",
+                justifyContent: "flex-start",
+                alignItems: "flex-end",
+              }}
+            >
+              <div>Rating</div>
+              <div> <ThumbDownAltIcon/>{row.rating}<ThumbUpAltIcon/></div>
+            </Grid>
+            <Grid
+              item
+              xs={1}
+              style={{
+                display: "flex",
+                flexDirection: "column",
+                justifyContent: "flex-start",
+                alignItems: "flex-end",
+              }}
+            >
+              <div>Replies</div>
+              {row.replies}
+            </Grid>
+            <Grid
+              item
+              xs={2}
+              style={{
+                display: "flex",
+                flexDirection: "column",
+                justifyContent: "flex-start",
+                alignItems: "flex-end",
+              }}
+            >
+              <div>Author</div>
+              {row.author}
+            </Grid>
+            <Grid
+              item
+              xs={1}
+              style={{
+                display: "flex",
+                flexDirection: "column",
+                justifyContent: "flex-start",
+                alignItems: "flex-end",
+              }}
+            >
+              <div>Date</div>
+              {row.date}
+            </Grid>
+            <Grid
+              item
+              xs={7}
+              style={{
+                display: "flex",
+                justifyContent: "flex-start",
+                alignItems: "flex-start",
+              }}
+              ref={elementRef}
+            >
+              {innerContent}
+            </Grid>
           </Grid>
         </Grid>
-     
-    </Item>
+      </Item>
+
+      {open ? (
+        row.comments ? (
+          <Grid
+            container
+            direction="column"
+            justifyContent="flex-start"
+            alignItems="flex-end"
+            alignContent="flex-end"
+          >
+            {row.comments.map((comment, index) => {
+              return <CommentRow key={index} comment={comment} />;
+            })}
+          </Grid>
+        ) : null
+      ) : null}
+    </>
   );
 };
 
