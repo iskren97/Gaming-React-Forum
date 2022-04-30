@@ -1,7 +1,15 @@
 .icon-btn {
-  position: fixed;
-  left: 1700px;
-  bottom: 100px;
   width: 65px;
   height: 65px;
+
+  bottom: 4em;
+}
+
+.scroll-holder {
+  display: flex;
+  justify-content: right;
+  margin: 0;
+  padding: 0;
+
+  padding-right: 6em;
 }

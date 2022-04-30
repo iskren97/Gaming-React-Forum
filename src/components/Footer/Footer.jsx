@@ -48,7 +48,7 @@ const Footer = () => {
         </Grid>
 
         <Grid item xs={3}>
-          <h3>Socials Follow</h3>
+          <h3>Socials</h3>
           <Divider sx={{ bgcolor: '#47DB00' }} variant={'middle'} />
 
           <Grid
