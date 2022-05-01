@@ -1,4 +1,5 @@
 import React from 'react';
+
 import Grid from '@mui/material/Grid';
 import { Divider } from '@mui/material';
 
@@ -21,7 +22,7 @@ const Footer = () => {
           <h3>About</h3>
           <Divider sx={{ bgcolor: '#47DB00' }} variant={'middle'} />
 
-          <a>
+          <a href="/about">
             <InfoIcon style={{ marginTop: '6px' }} />
           </a>
           <p>Who are we?</p>
@@ -31,7 +32,7 @@ const Footer = () => {
           <h3>Contact</h3>
           <Divider sx={{ bgcolor: '#47DB00' }} variant={'middle'} />
 
-          <a>
+          <a href="/about">
             <ContactPageIcon style={{ marginTop: '6px' }} />
           </a>
           <p>Feel free to contact us</p>
@@ -41,7 +42,7 @@ const Footer = () => {
           <h3>Support</h3>
           <Divider sx={{ bgcolor: '#47DB00' }} variant={'middle'} />
 
-          <a>
+          <a href="/about">
             <RecommendIcon style={{ marginTop: '6px' }} />
           </a>
           <p>Show us your appreciation</p>
@@ -61,25 +62,25 @@ const Footer = () => {
             }}
           >
             <Grid item>
-              <a>
+              <a href="/about">
                 <InstagramIcon />
               </a>
             </Grid>
 
             <Grid item>
-              <a>
+              <a href="/about">
                 <FacebookIcon />
               </a>
             </Grid>
 
             <Grid item>
-              <a>
+              <a href="/about">
                 <YouTubeIcon />
               </a>
             </Grid>
 
             <Grid item>
-              <a>
+              <a href="/about">
                 <LinkedInIcon />
               </a>
             </Grid>

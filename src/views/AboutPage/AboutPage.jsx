@@ -11,7 +11,7 @@ const AboutPage = () => {
   const [value, setValue] = useState(null);
 
   return (
-    <Grid container spacing={0} direction="row">
+    <Grid container spacing={0} direction="row" sx={{ paddingTop: '200px' }}>
       <Grid item xs={4}>
         <Profile
           name="Iskren Gyorev"
