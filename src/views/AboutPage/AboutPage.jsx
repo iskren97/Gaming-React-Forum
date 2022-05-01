@@ -1,11 +1,9 @@
 import React, { useState } from 'react';
 import Profile from '../Profile/Profile';
 
-import Box from '@mui/material/Box';
 import Rating from '@mui/material/Rating';
-import Typography from '@mui/material/Typography';
 
-import { Container, Grid } from '@mui/material';
+import { Grid } from '@mui/material';
 
 const AboutPage = () => {
   const [value, setValue] = useState(null);

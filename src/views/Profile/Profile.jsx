@@ -49,9 +49,14 @@ const Profile = () => {
           <p>24 years old</p>
         </Grid>
         <Grid item xs={12} sx={{ textAlign: 'center' }}>
-          <p>
-            <LocationOnIcon /> Vidin
-          </p>
+          <a
+            href="https://www.google.com/maps/place/%D0%92%D0%B8%D0%B4%D0%B8%D0%BD/@43.9796191,22.8423547,13z/data=!3m1!4b1!4m5!3m4!1s0x475379eca2009025:0x1f853ae2f877d8b7!8m2!3d43.996159!4d22.8679302"
+            target="_blank"
+            rel="noreferrer"
+            style={{ textDecoration: 'none' }}
+          >
+            <LocationOnIcon /> Vidin, Bulgaria
+          </a>
         </Grid>
         <Grid item textAlign="center">
           <a href="https://www.instagram.com/" target="_blank" rel="noreferrer">
@@ -59,9 +64,6 @@ const Profile = () => {
           </a>
           <a href="https://www.instagram.com/" target="_blank" rel="noreferrer">
             <FacebookIcon />
-          </a>
-          <a href="https://www.instagram.com/" target="_blank" rel="noreferrer">
-            <YouTubeIcon />
           </a>
           <a href="https://www.instagram.com/" target="_blank" rel="noreferrer">
             <LinkedInIcon />
