@@ -11,9 +11,8 @@ import AboutPage from './views/AboutPage/AboutPage';
 const App = () => {
   return (
     <BrowserRouter>
-      <div>
-        <Header />
-      </div>
+      <Header />
+
       <Routes>
         <Route path="/" element={<Main />} />
         <Route path="/home" element={<Main />} />
