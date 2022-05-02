@@ -1,0 +1,46 @@
+.profileContainer{
+  display: flex;
+  flex-direction: column;
+  justify-content: flex-start;
+  align-content: space-between;
+  align-items: center;
+  width: 100%;
+  overflow-x: hidden;
+}
+
+.profileBackground {
+  display: block;
+  position: relative;
+  width: 100vw;
+  height: 950px;
+  overflow: hidden;
+  margin-top: -350px;
+}
+
+.avatar{
+  width: 15em;
+  height: 15em;
+  border: 0.25rem solid black;
+  border-radius: 50%;
+  background-color: white;
+  overflow: visible;
+}
+
+.profileRow{
+  display: flex;
+  flex-direction: row;
+  align-items: flex-end;
+}
+
+.profilePosts{
+  display:flex;
+  flex-direction: column;
+}
+
+.topicEditDelete {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  gap: 0.5em;
+  margin: 0.25em;
+}

@@ -38,8 +38,8 @@ const TopicRow = ({ row }) => {
    },[open])
   
 
-  const on_show_styles = {height: height, transition: "height 0.15s ease-in", overflow: "hidden"};
-  const on_hide_styles = {height: height, transition: "height 0.15s ease-out", overflow: "hidden"};
+  const on_show_styles = {height: height, transition: "height 0.15s ease-in", overflow: "hidden", width: '100%'};
+  const on_hide_styles = {height: height, transition: "height 0.15s ease-out", overflow: "hidden", width: '100%'};
 
 
 
