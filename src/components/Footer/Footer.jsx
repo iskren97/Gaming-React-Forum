@@ -1,4 +1,5 @@
 import React from 'react';
+import './Footer.css';
 
 import Grid from '@mui/material/Grid';
 import { Divider } from '@mui/material';
@@ -9,10 +10,7 @@ import RecommendIcon from '@mui/icons-material/Recommend';
 
 import InstagramIcon from '@mui/icons-material/Instagram';
 import FacebookIcon from '@mui/icons-material/Facebook';
-import YouTubeIcon from '@mui/icons-material/YouTube';
 import LinkedInIcon from '@mui/icons-material/LinkedIn';
-
-import './Footer.css';
 
 const Footer = () => {
   return (
@@ -70,12 +68,6 @@ const Footer = () => {
             <Grid item>
               <a href="/about">
                 <FacebookIcon />
-              </a>
-            </Grid>
-
-            <Grid item>
-              <a href="/about">
-                <YouTubeIcon />
               </a>
             </Grid>
 

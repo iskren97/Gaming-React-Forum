@@ -1,12 +1,10 @@
 import React from 'react';
-import './Profile.css';
 
 import { Container } from '@mui/material';
 import Grid from '@mui/material/Grid';
 import { Divider } from '@mui/material';
 
 import SchoolIcon from '@mui/icons-material/School';
-
 import InstagramIcon from '@mui/icons-material/Instagram';
 import FacebookIcon from '@mui/icons-material/Facebook';
 import LocationOnIcon from '@mui/icons-material/LocationOn';
@@ -27,14 +25,15 @@ const Profile = ({ name, img, age, location, town, ins, fb, linked }) => {
       }}
     >
       <Grid container spacing={2} direction="column">
-        <Grid item xs={12} sx={{ textAlign: 'center' }}>
+        <Grid item sx={{ textAlign: 'center' }}>
           <img
             src={img}
             style={{ width: '160px', height: '160px', objectFit: 'cover' }}
             alt="profile-pic"
           />
         </Grid>
-        <Grid item xs={12} sx={{ textAlign: 'center' }}>
+
+        <Grid item sx={{ textAlign: 'center' }}>
           <h3>{name}</h3>
           <p style={{ fontStyle: 'italic' }}>
             <a
@@ -50,10 +49,11 @@ const Profile = ({ name, img, age, location, town, ins, fb, linked }) => {
           <p style={{ marginTop: '15px' }}>About</p>
           <Divider />
         </Grid>
-        <Grid item xs={12} sx={{ textAlign: 'center' }}>
+
+        <Grid item sx={{ textAlign: 'center' }}>
           <p>{age} years old</p>
         </Grid>
-        <Grid item xs={12} sx={{ textAlign: 'center' }}>
+        <Grid item sx={{ textAlign: 'center' }}>
           <a
             href={location}
             target="_blank"
@@ -63,6 +63,7 @@ const Profile = ({ name, img, age, location, town, ins, fb, linked }) => {
             <LocationOnIcon /> {town}, Bulgaria
           </a>
         </Grid>
+
         <Grid item textAlign="center">
           <a href={ins} target="_blank" rel="noreferrer">
             <InstagramIcon />
