@@ -3,6 +3,7 @@ import Box from '@mui/material/Box';
 import Button from '@mui/material/Button';
 import Modal from '@mui/material/Modal';
 import Register from '../RegisterForm/Register';
+import { Divider } from '@mui/material';
 
 const style = {
   position: 'absolute',
@@ -41,23 +42,33 @@ const JoinModal = () => {
         aria-describedby="modal-modal-description"
       >
         <Box sx={style}>
-          <button
+          <div
             style={{
-              background: 'none',
-              border: 'none',
-              width: '0.7em',
-              fontSize: '30px',
-              fontFamily: 'algerian, courier',
-              position: 'absolute',
-              top: '0',
-              right: '0',
-              marginRight: '20px',
-              cursor: 'pointer',
+              display: 'flex',
+              top: '-50px',
+              justifyContent: 'space-between',
+              alignItems: 'center',
             }}
-            onClick={handleClose}
           >
-            X
-          </button>
+            <h2>Register</h2>
+
+            <button
+              style={{
+                background: 'none',
+                border: 'none',
+                fontSize: '27px',
+                fontWeight: 'bold',
+                cursor: 'pointer',
+              }}
+              onClick={handleClose}
+            >
+              X
+            </button>
+          </div>
+
+          <br />
+
+          <Divider sx={{ bgcolor: '#47DB00' }} />
 
           <Register />
         </Box>

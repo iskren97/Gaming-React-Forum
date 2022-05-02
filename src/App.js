@@ -5,32 +5,31 @@ import Footer from './components/Footer/Footer';
 import CategoryView from './components/CategoryView/CategoryView';
 import ProfilePage from './components/ProfilePage/ProfilePage';
 
-
 import { BrowserRouter, Routes, Route } from 'react-router-dom';
 
 import AboutPage from './views/AboutPage/AboutPage';
+import ErrorPage from './views/ErrorPage/ErrorPage';
 
 const App = () => {
   return (
-    // <BrowserRouter>
-    //   <div>
-    //     <Header />
-    //   </div>
-    //   <Routes>
-    //     <Route path="/" element={<Main />} />
-    //     <Route path="/home" element={<Main />} />
-    //     <Route path="/about" element={<AboutPage />} />
-    //   </Routes>
-    // </BrowserRouter>
-
-
-
-    <div>
+    <BrowserRouter>
       <Header />
-      {/* <Main /> */}
-      <ProfilePage />
-      {/* <CategoryView /> */}
-    </div>
+
+      <Routes>
+        <Route path="/" element={<Main />} />
+        <Route path="/home" element={<Main />} />
+        <Route path="/about" element={<AboutPage />} />
+        <Route path="*" element={<ErrorPage />} />
+      </Routes>
+    </BrowserRouter>
+
+    // <div>
+    //   <Header />
+    //   <Main />
+    //   {/* <ErrorPage /> */}
+    //   {/* <ProfilePage /> */}
+    //   {/* <CategoryView /> */}
+    // </div>
   );
 };
 
