@@ -80,3 +80,11 @@
   background-color: white;
   overflow: visible;
 }
+
+.profilePic:hover{
+  cursor:pointer;
+}
+
+.userNameStyle{
+  color:white;
+}
