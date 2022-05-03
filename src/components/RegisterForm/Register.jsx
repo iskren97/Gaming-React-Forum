@@ -1,10 +1,14 @@
 import React from 'react';
-import ReactDOM from 'react-dom';
-import { useForm } from 'react-hook-form';
-
 import './Register.css';
 
-const Register = () => {
+import { useForm } from 'react-hook-form';
+import { registerUser } from '../../services/auth.service';
+
+const Register = ({ closeModal }) => {
+  const closeOnSubmit = () => {
+    closeModal();
+  };
+
   const {
     register,
     handleSubmit,
@@ -12,8 +16,11 @@ const Register = () => {
   } = useForm();
 
   const onSubmit = (data) => {
-    alert(JSON.stringify(data));
-  }; //  form submit function which will invoke after successful validation
+    registerUser(data.email, data.password);
+    // alert(JSON.stringify(data));
+
+    closeOnSubmit();
+  };
 
   return (
     <form onSubmit={handleSubmit(onSubmit)} className="register-form">
@@ -63,11 +70,57 @@ const Register = () => {
         <p>Alphabetical characters only</p>
       )}
 
-      <label>Email or username to be decided</label>
-      <input {...register('age', { min: 18, max: 99 })} />
+      <label>Email</label>
+      <input
+        {...register('email', {
+          minLength: 3,
+          maxLength: 320,
+          required: true,
+        })}
+      />
+      {errors?.email?.type === 'required' && <p>⚠ This field is required</p>}
 
-      {errors.age && (
-        <p>You Must be older then 18 and younger then 99 years old</p>
+      {errors?.email?.type === 'minLength' && (
+        <p>Email cannot be less than 3 characters</p>
+      )}
+      {errors?.email?.type === 'maxLength' && (
+        <p>Email cannot exceed 320 characters</p>
+      )}
+
+      <label>Username</label>
+      <input
+        {...register('username', {
+          required: true,
+          minLength: 3,
+          maxLength: 30,
+        })}
+      />
+      {errors?.username?.type === 'required' && <p>⚠ This field is required</p>}
+
+      {errors?.username?.type === 'minLength' && (
+        <p>Username cannot be less than 3 characters</p>
+      )}
+      {errors?.username?.type === 'maxLength' && (
+        <p>Username cannot exceed 30 characters</p>
+      )}
+
+      <label>Password</label>
+      <input
+        type="password"
+        {...register('password', {
+          required: true,
+          minLength: 6,
+          maxLength: 20,
+        })}
+      />
+      {errors?.password?.type === 'required' && <p>⚠ This field is required</p>}
+
+      {errors?.password?.type === 'minLength' && (
+        <p>Password cannot be less than 6 characters </p>
+      )}
+
+      {errors?.password?.type === 'maxLength' && (
+        <p>Password cannot exceed 20 characters </p>
       )}
 
       <input type="submit" />
