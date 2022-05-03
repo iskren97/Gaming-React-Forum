@@ -9,6 +9,7 @@ import { createUserHandle } from '../../services/users.service';
 
 import AppContext from '../../providers/AppContext';
 import { useNavigate } from 'react-router-dom';
+import { get } from 'firebase/database';
 
 const Register = ({ closeModal }) => {
   const { setContext } = useContext(AppContext);
@@ -27,28 +28,55 @@ const Register = ({ closeModal }) => {
   const onSubmit = (data) => {
     // alert(JSON.stringify(data));
 
-    getUserByHandle(data.username)
-      .then((snapshot) => {
-        if (snapshot.exists()) {
+    (async () => {
+      try {
+        const getUser = await getUserByHandle(data.username);
+
+        if (getUser.exists()) {
           return alert(`User with username ${data.username} already exists!`);
         }
 
-        return registerUser(data.email, data.password);
-      })
-      .then((credential) => {
-        return createUserHandle(
+        const credential = await registerUser(data.email, data.password);
+
+        createUserHandle(
           data.firstName,
           data.lastName,
           data.email,
           data.username,
           credential.user.uid
-        ).then(() =>
-          setContext({
-            user: data.username,
-          })
         );
-      })
-      .finally(() => closeOnSubmit());
+
+        setContext({ user: data.username });
+        closeOnSubmit();
+      } catch (err) {
+        if (err.message.includes('auth/email-already-in-use')) {
+          alert('Email already used!');
+        }
+      }
+    })();
+
+    // getUserByHandle(data.username)
+    //   .then((snapshot) => {
+    //     if (snapshot.exists()) {
+    //       return alert(`User with username ${data.username} already exists!`);
+    //     }
+
+    //     return registerUser(data.email, data.password);
+    //   })
+    //   .then((credential) => {
+    //     return createUserHandle(
+    //       data.firstName,
+    //       data.lastName,
+    //       data.email,
+    //       data.username,
+    //       credential.user.uid
+    //     ).then(() =>
+    //       setContext({
+    //         user: data.username,
+    //       })
+    //     );
+    //   })
+    //   .finally(() => closeOnSubmit());
   };
 
   return (
