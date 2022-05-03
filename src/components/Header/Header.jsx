@@ -42,7 +42,7 @@ const Header = () => {
     setAnchorEl(null);
   };
 
-  const {user} = useContext(AppContext)
+  const {user, userData} = useContext(AppContext)
   const { setContext } = useContext(AppContext);
 
   
@@ -74,23 +74,23 @@ const Header = () => {
       loginUser(form.email, form.password)
       .then(u => {
 
-        return setContext({
-                  user: u.user.email,
-                  userData: u.user.uid,
-                });
+        // return setContext({
+        //           user: u.user.email,
+        //           userData: u.user.uid,
+        //         });
 
             // FIX THE IMPLEMENTATION TO BE THE ONE BELOW
 
-        // return getUserData(u.user.uid)
-        //   .then(snapshot => {
-        //     if (snapshot.exists()) {
-        //       setContext({
-        //         user: u.user,
-        //         userData: snapshot.val()[Object.keys(snapshot.val())[0]],
-        //       });
+        return getUserData(u.user.uid)
+          .then(snapshot => {
+            if (snapshot.exists()) {
+              setContext({
+                user: u.user.email,
+                userData: snapshot.val()[Object.keys(snapshot.val())[0]],
+              });
 
-        //     }
-        //   });
+            }
+          });
       }).catch(()=>{
 
         handleWrongPassword();
@@ -155,7 +155,7 @@ const Header = () => {
 
 
      <div className="elementsContainer">
-      <h3 className="userNameStyle">{user}</h3>
+      <h3 className="userNameStyle">{userData.username}</h3>
       
       
       <Box sx={{ display: 'flex', alignItems: 'center', textAlign: 'center' }}>
