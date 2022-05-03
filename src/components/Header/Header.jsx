@@ -27,11 +27,13 @@ import AppContext from '../../providers/AppContext'
 import {loginUser} from '../../services/auth.service'
 import {logoutUser} from '../../services/auth.service'
 import { getUserData } from '../../services/users.service';
-
+import Alert from '@mui/material/Alert';
+import ClickAwayListener from '@mui/base/ClickAwayListener';
 
 const Header = () => {
   //DropDownProfile logic
-  const [anchorEl, setAnchorEl] = React.useState(null);
+  const [anchorEl, setAnchorEl] = useState(null);
+  const [invalidLogin, setInvalidLogin] = useState(false);
   const open = Boolean(anchorEl);
   const handleClick = (event) => {
     setAnchorEl(event.currentTarget);
@@ -59,6 +61,12 @@ const Header = () => {
   };
 
 
+  const handleWrongPassword = () =>{
+    setInvalidLogin(true)
+  }
+
+
+
 
   const login = (e) => {
     e.preventDefault();
@@ -83,10 +91,25 @@ const Header = () => {
 
         //     }
         //   });
-      }).catch(()=>alert("Email or Password is incorrect"))
+      }).catch(()=>{
+
+        handleWrongPassword();
+      })
 
    
   };
+
+
+  const handleKeyEnter = (event) => {
+
+    if (event.key === 'Enter') {
+      if(invalidLogin === true){
+      setInvalidLogin(false)
+      }else{
+        login(event)
+      }
+    }
+  }
 
   const logout = () => {
     logoutUser()
@@ -97,7 +120,13 @@ const Header = () => {
 
 
 
-  return (
+  return (<>
+  {invalidLogin ? 
+  <ClickAwayListener onClickAway={()=>setInvalidLogin(false)}>
+  <Alert className="alertButton" onClose={()=>setInvalidLogin(false)}severity="error" sx={{position: 'fixed', zIndex: '3', top: '12vh', width: "30vw", marginLeft: '35vw', boxShadow: "0px 4px 24px 3px rgb(0 0 0)", alignItems: 'center'}} variant="filled">Incorrect email or password</Alert> 
+  </ClickAwayListener>
+  : null}
+    
     <div className="container">
       <div className="buttonsContainer">
       <HomeIcon style={{color: "#ffffff", transition: "0.25s ease"}} fontSize="large" className="navBarElement"/>
@@ -114,10 +143,14 @@ const Header = () => {
       <input type="text" placeholder="Search anything..." className="searchBox"/>
       </div>
       
-     { !user ? <div className="loginContainer">
-        <input type="email" id="email" placeholder="Email" value={form.email} onChange={updateForm('email')}></input><br />
-        <input type="password" id="password" placeholder="Password" value={form.password} onChange={updateForm('password')}></input><br /><br />
-       <Button onClick={login} variant="contained">Login</Button>
+     { !user ? 
+     <div className="loginContainer">
+        <input onKeyDown={handleKeyEnter} className="inputField" type="email" id="email" placeholder="Email" value={form.email} onChange={updateForm('email')}></input><br />
+        <input onKeyDown={handleKeyEnter} className="inputField" type="password" id="password" placeholder="Password" value={form.password} onChange={updateForm('password')}></input><br /><br />
+       <Button onClick={login} variant="contained" style={{background: '#47DB00'}}>Login</Button>
+        
+
+       
      </div> :
 
 
@@ -192,6 +225,7 @@ const Header = () => {
       
     
     </div>
+    </>
   )
 };
 

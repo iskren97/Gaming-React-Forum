@@ -94,3 +94,16 @@
   flex-direction:row;
   gap: 0.25em;
 }
+
+.alertButton button[type='button'] {
+  padding: 10px 10px;
+  background: none;
+}
+
+.inputField{
+  width: 12rem;
+}
+
+.inputField:focus {
+  outline: none;
+}
