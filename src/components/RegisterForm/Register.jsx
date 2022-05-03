@@ -1,13 +1,18 @@
-import React from 'react';
+import React, { useContext } from 'react';
 import './Register.css';
 
 import { useForm } from 'react-hook-form';
 import { registerUser } from '../../services/auth.service';
 
+import { getUserByHandle } from '../../services/users.service';
+import { createUserHandle } from '../../services/users.service';
+
+import AppContext from '../../providers/AppContext';
+import { useNavigate } from 'react-router-dom';
+
 const Register = ({ closeModal }) => {
-  const closeOnSubmit = () => {
-    closeModal();
-  };
+  const { setContext } = useContext(AppContext);
+  const navigate = useNavigate();
 
   const {
     register,
@@ -15,11 +20,35 @@ const Register = ({ closeModal }) => {
     formState: { errors },
   } = useForm();
 
+  const closeOnSubmit = () => {
+    closeModal();
+  };
+
   const onSubmit = (data) => {
-    registerUser(data.email, data.password);
     // alert(JSON.stringify(data));
 
-    closeOnSubmit();
+    getUserByHandle(data.username)
+      .then((snapshot) => {
+        if (snapshot.exists()) {
+          return alert(`User with username ${data.username} already exists!`);
+        }
+
+        return registerUser(data.email, data.password);
+      })
+      .then((credential) => {
+        return createUserHandle(
+          data.firstName,
+          data.lastName,
+          data.email,
+          data.username,
+          credential.user.uid
+        ).then(() =>
+          setContext({
+            user: data.username,
+          })
+        );
+      })
+      .finally(() => closeOnSubmit());
   };
 
   return (
