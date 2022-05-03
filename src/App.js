@@ -7,11 +7,23 @@ import ProfilePage from './components/ProfilePage/ProfilePage';
 
 import { BrowserRouter, Routes, Route } from 'react-router-dom';
 
+
 import AboutPage from './views/AboutPage/AboutPage';
 import ErrorPage from './views/ErrorPage/ErrorPage';
 
+import { initializeApp } from 'firebase/app';
+import { useState } from 'react';
+import AppContext from './providers/AppContext'
+
 const App = () => {
+  const [appState, setAppState] = useState({
+    user: null,
+    userData: null,
+  });
+
+
   return (
+    <AppContext.Provider value={{...appState, setContext: setAppState}}>
     <BrowserRouter>
       <Header />
 
@@ -22,6 +34,7 @@ const App = () => {
         <Route path="*" element={<ErrorPage />} />
       </Routes>
     </BrowserRouter>
+    </AppContext.Provider>
 
     // <div>
     //   <Header />
