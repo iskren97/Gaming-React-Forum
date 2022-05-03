@@ -88,3 +88,9 @@
 .userNameStyle{
   color:white;
 }
+
+.loginContainer{
+  display:flex;
+  flex-direction:row;
+  gap: 0.25em;
+}
