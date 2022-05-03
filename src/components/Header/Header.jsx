@@ -1,6 +1,6 @@
 import React from 'react';
 import './Header.css';
-import { useState } from 'react'
+import { useState, useContext } from 'react'
 
 import HomeIcon from '@mui/icons-material/Home';
 import PeopleIcon from '@mui/icons-material/People';
@@ -8,7 +8,7 @@ import LibraryAddIcon from '@mui/icons-material/LibraryAdd';
 import ExploreIcon from '@mui/icons-material/Explore';
 import StarIcon from '@mui/icons-material/Star';
 import SearchIcon from '@mui/icons-material/Search';
-
+import Button from '@mui/material/Button';
 
 import Box from '@mui/material/Box';
 import Avatar from '@mui/material/Avatar';
@@ -22,6 +22,13 @@ import Logout from '@mui/icons-material/Logout';
 import AccountCircleIcon from '@mui/icons-material/AccountCircle';
 import avatar from '../../assets/avatar.jpg';
 
+import AppContext from '../../providers/AppContext'
+
+import {loginUser} from '../../services/auth.service'
+import {logoutUser} from '../../services/auth.service'
+import { getUserData } from '../../services/users.service';
+
+
 const Header = () => {
   //DropDownProfile logic
   const [anchorEl, setAnchorEl] = React.useState(null);
@@ -31,6 +38,61 @@ const Header = () => {
   };
   const handleClose = () => {
     setAnchorEl(null);
+  };
+
+  const {user} = useContext(AppContext)
+  const { setContext } = useContext(AppContext);
+
+  
+
+  const [form, setForm] = useState({
+    email: '',
+    password: '',
+  });
+
+
+  const updateForm = prop => e => {
+    setForm({
+      ...form,
+      [prop]: e.target.value,
+    });
+  };
+
+
+
+  const login = (e) => {
+    e.preventDefault();
+   
+      loginUser(form.email, form.password)
+      .then(u => {
+
+        return setContext({
+                  user: u.user.email,
+                  userData: u.user.uid,
+                });
+
+            // FIX THE IMPLEMENTATION TO BE THE ONE BELOW
+
+        // return getUserData(u.user.uid)
+        //   .then(snapshot => {
+        //     if (snapshot.exists()) {
+        //       setContext({
+        //         user: u.user,
+        //         userData: snapshot.val()[Object.keys(snapshot.val())[0]],
+        //       });
+
+        //     }
+        //   });
+      }).catch(()=>alert("Email or Password is incorrect"))
+
+   
+  };
+
+  const logout = () => {
+    logoutUser()
+      .then(() => {
+        setContext({ user: null, userData: null });
+      });
   };
 
 
@@ -52,13 +114,15 @@ const Header = () => {
       <input type="text" placeholder="Search anything..." className="searchBox"/>
       </div>
       
-     
-         
-     
+     { !user ? <div className="loginContainer">
+        <input type="email" id="email" placeholder="Email" value={form.email} onChange={updateForm('email')}></input><br />
+        <input type="password" id="password" placeholder="Password" value={form.password} onChange={updateForm('password')}></input><br /><br />
+       <Button onClick={login} variant="contained">Login</Button>
+     </div> :
 
-      
-      <div className="elementsContainer">
-      <h3 className="userNameStyle">TestUser123</h3>
+
+     <div className="elementsContainer">
+      <h3 className="userNameStyle">{user}</h3>
       
       
       <Box sx={{ display: 'flex', alignItems: 'center', textAlign: 'center' }}>
@@ -110,7 +174,7 @@ const Header = () => {
           My Profile
         </MenuItem>
         <Divider />
-        <MenuItem>
+        <MenuItem onClick={logout}>
           <ListItemIcon>
             <Logout fontSize="medium" />
           </ListItemIcon>
@@ -121,6 +185,10 @@ const Header = () => {
 
 
       </div>
+     }
+         
+     
+
       
     
     </div>
