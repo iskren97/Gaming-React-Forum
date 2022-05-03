@@ -7,14 +7,11 @@ import ProfilePage from './components/ProfilePage/ProfilePage';
 
 import { BrowserRouter, Routes, Route } from 'react-router-dom';
 
-
 import AboutPage from './views/AboutPage/AboutPage';
 import ErrorPage from './views/ErrorPage/ErrorPage';
 
-
 import { useState } from 'react';
-import AppContext from './providers/AppContext'
-
+import AppContext from './providers/AppContext';
 
 const App = () => {
   const [appState, setAppState] = useState({
@@ -22,19 +19,18 @@ const App = () => {
     userData: null,
   });
 
-
   return (
     <BrowserRouter>
-    <AppContext.Provider value={{...appState, setContext: setAppState}}>
-      <Header />
+      <AppContext.Provider value={{ ...appState, setContext: setAppState }}>
+        <Header />
 
-      <Routes>
-        <Route path="/" element={<Main />} />
-        <Route path="/home" element={<Main />} />
-        <Route path="/about" element={<AboutPage />} />
-        <Route path="*" element={<ErrorPage />} />
-      </Routes>
-    </AppContext.Provider>
+        <Routes>
+          <Route path="/" element={<Main />} />
+          <Route path="/home" element={<Main />} />
+          <Route path="/about" element={<AboutPage />} />
+          <Route path="*" element={<ErrorPage />} />
+        </Routes>
+      </AppContext.Provider>
     </BrowserRouter>
 
     // <div>
