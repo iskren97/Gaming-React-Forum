@@ -10,6 +10,7 @@ import { createUserHandle } from '../../services/users.service';
 import AppContext from '../../providers/AppContext';
 import { useNavigate } from 'react-router-dom';
 import { get } from 'firebase/database';
+import { getUserData } from '../../services/users.service';
 
 const Register = ({ closeModal }) => {
   const { setContext } = useContext(AppContext);
@@ -44,9 +45,22 @@ const Register = ({ closeModal }) => {
           data.email,
           data.username,
           credential.user.uid
-        );
+        )
 
-        setContext({ user: data.username });
+        getUserData(credential.user.uid)
+        .then(snapshot => {
+          if (snapshot.exists()) {
+            setContext({
+              user: data.email,
+              userData: snapshot.val()[Object.keys(snapshot.val())[0]],
+            });
+
+          }
+        });
+
+        
+          
+        //setContext({ user: data.username, });   
         closeOnSubmit();
       } catch (err) {
         if (err.message.includes('auth/email-already-in-use')) {
