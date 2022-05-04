@@ -129,7 +129,9 @@ const Header = () => {
     
     <div className="container">
       <div className="buttonsContainer">
+      <a href="/">
       <HomeIcon style={{color: "#ffffff", transition: "0.25s ease"}} fontSize="large" className="navBarElement"/>
+      </a>
       <PeopleIcon style={{color: "#ffffff", transition: "0.25s ease"}} fontSize="large" className="navBarElement"/>
       <LibraryAddIcon style={{color: "#ffffff", transition: "0.25s ease"}} fontSize="large" className="navBarElement"/>
       <ExploreIcon style={{color: "#ffffff", transition: "0.25s ease"}} fontSize="large" className="navBarElement"/>
@@ -204,7 +206,9 @@ const Header = () => {
         <ListItemIcon>
         <AccountCircleIcon fontSize="medium"/>
           </ListItemIcon>
+          <a href="/profile">
           My Profile
+          </a>
         </MenuItem>
         <Divider />
         <MenuItem onClick={logout}>
