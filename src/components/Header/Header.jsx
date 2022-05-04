@@ -201,15 +201,16 @@ const Header = () => {
         transformOrigin={{ horizontal: 'right', vertical: 'top' }}
         anchorOrigin={{ horizontal: 'right', vertical: 'bottom' }}
       >
-    
+        <a href='/profile'>
         <MenuItem sx={{bgcolor: 'white'}}>
         <ListItemIcon>
         <AccountCircleIcon fontSize="medium"/>
           </ListItemIcon>
-          <a href="/profile">
+          
           My Profile
-          </a>
+          
         </MenuItem>
+        </a>
         <Divider />
         <MenuItem onClick={logout}>
           <ListItemIcon>
