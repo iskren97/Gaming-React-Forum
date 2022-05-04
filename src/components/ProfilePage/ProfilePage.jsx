@@ -8,11 +8,14 @@ import {
 } from 'firebase/storage';
 import { storage } from '../../config/firebase-config';
 
-import { updateUserProfilePicture } from '../../services/users.service';
+import {
+  updateDescription,
+  updateUserProfilePicture,
+} from '../../services/users.service';
 
 import Container from '@mui/material/Container';
 import Grid from '@mui/material/Grid';
-import { Box, Button, Divider, Modal } from '@mui/material';
+import { Box, Divider, Icon, IconButton, Modal, Tooltip } from '@mui/material';
 
 import background from '../../assets/lR2zdL.jpg';
 import defaultAvatar from '../../assets/avatar.jpg';
@@ -97,9 +100,15 @@ const ProfilePage = () => {
     e.preventDefault();
 
     const file = e.target[0]?.files?.[0];
-    // console.log(file);
 
-    if (!file) return alert(`Please select a file!`);
+    if (!file) return swal('Oops..', 'Please select a file!', 'error');
+
+    if (file['type'].split('/')[0] !== 'image')
+      return swal(
+        'Something went wrong...',
+        'Please upload an image!',
+        'error'
+      );
 
     const picture = storageRef(storage, `images/${username}/avatar`);
 
@@ -121,6 +130,34 @@ const ProfilePage = () => {
         });
       })
       .catch(console.error);
+  };
+
+  // updateDescription(username);
+
+  const test = () => {
+    swal({
+      content: {
+        element: 'input',
+        attributes: {
+          placeholder: 'Type your description',
+          type: 'text',
+        },
+      },
+    }).then((description) => {
+      if (!description) {
+        return;
+      }
+
+      updateDescription(username, description).then(() => {
+        setContext({
+          user,
+          userData: {
+            ...userData,
+            userDescription: description,
+          },
+        });
+      });
+    });
   };
 
   return (
@@ -161,15 +198,17 @@ const ProfilePage = () => {
 
               <Grid>
                 <a
+                  arrow
                   onClick={handleOpen}
                   style={{
                     color: 'black',
                     fontSize: '13.5px',
                     textTransform: 'none',
-                    cursor: 'pointer',
                   }}
                 >
-                  Change picture <EditIcon />
+                  <Tooltip title="Change profile picture" placement="right-end">
+                    <EditIcon sx={{ cursor: 'pointer' }} />
+                  </Tooltip>
                 </a>
               </Grid>
 
@@ -241,8 +280,12 @@ const ProfilePage = () => {
 
               <Grid item>
                 <p style={{ marginBottom: '24px' }}>
-                  This is my super awesome description that i can also change{' '}
-                  <EditIcon />
+                  {userData.userDescription}{' '}
+                  <a onClick={test}>
+                    <Tooltip title="Change description" placement="right-end">
+                      <EditIcon sx={{ cursor: 'pointer' }} />
+                    </Tooltip>
+                  </a>
                 </p>
               </Grid>
 

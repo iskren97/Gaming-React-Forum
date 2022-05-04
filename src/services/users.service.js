@@ -34,3 +34,9 @@ export const updateUserProfilePicture = (username, url) => {
     [`users/${username}/avatarUrl`]: url,
   });
 };
+
+export const updateDescription = (username, description) => {
+  return update(ref(db), {
+    [`users/${username}/userDescription`]: description,
+  });
+};
