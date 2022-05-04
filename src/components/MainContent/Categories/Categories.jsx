@@ -33,25 +33,25 @@ const Categories = () => {
         </Grid>
 
         <Grid item xs={4}>
-          <a href="/category">
+          <a href="/general_discussion">
             <Items name="General Discussion" topic="games" logo={generalLogo} />
           </a>
         </Grid>
 
         <Grid item xs={6}>
-          <a href="/category">
+          <a href="/shooters">
             <Items name="Shooters" topic="shooting games" logo={shooterLogo} />
           </a>
         </Grid>
 
         <Grid item xs={6}>
-          <a href="/category">
+          <a href="/mmorpg">
             <Items name="MMORPG" topic="MMORPGs" logo={mmoLogo} />
           </a>
         </Grid>
 
         <Grid item xs={6}>
-          <a href="/category">
+          <a href="/adventure">
             <Items
               name="Adventure"
               topic="adventure games"
@@ -65,7 +65,7 @@ const Categories = () => {
         </Grid>
 
         <Grid item xs={6}>
-          <a href="/category">
+          <a href="/gaming_pc">
             <Items
               name="Gaming Laptops and PCs"
               topic="gaming machines"
@@ -75,7 +75,7 @@ const Categories = () => {
         </Grid>
 
         <Grid item xs={6}>
-          <a href="/category">
+          <a href="/gaming_accessories">
             <Items
               name="Gaming Accessories"
               topic="gaming accessories"
@@ -89,7 +89,7 @@ const Categories = () => {
         </Grid>
 
         <Grid item xs={6}>
-          <a href="/category">
+          <a href="/tournaments">
             <Items
               name="Tournaments"
               topic="popular gaming events and tournaments"
@@ -99,7 +99,7 @@ const Categories = () => {
         </Grid>
 
         <Grid item xs={6}>
-          <a href="/category">
+          <a href="/streaming">
             <Items
               name="Streaming"
               topic="your favorite streamers"
@@ -109,7 +109,7 @@ const Categories = () => {
         </Grid>
 
         <Grid item xs={6}>
-          <a href="/category">
+          <a href="/entertainment">
             <Items
               name="Entertainment"
               topic="your favorite sources of entertainment"

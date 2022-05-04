@@ -57,8 +57,15 @@ const App = () => {
           <Route path="/home" element={<Main />} />
           <Route path="/about" element={<AboutPage />} />
           <Route path="*" element={<ErrorPage />} />
-          <Route path="/category" element={<CategoryView />} />
-          <Route path="/profile" element={<ProfilePage />} />
+          <Route path="/general_discussion" element={<CategoryView topic={"General Discussion"} />} />
+          <Route path="/shooters" element={<CategoryView topic={"Shooters"}/>} />
+          <Route path="/mmorpg" element={<CategoryView topic={"MMORPG"}/>} />
+          <Route path="/adventure" element={<CategoryView topic={"Adventure"}/>} />
+          <Route path="/gaming_pc" element={<CategoryView topic={"Gaming Laptops and PCs"}/>} />
+          <Route path="/gaming_accessories" element={<CategoryView topic={"Gaming Accessories"}/>} />
+          <Route path="/tournaments" element={<ProfilePage topic={"Tournaments"}/>} />
+          <Route path="/streaming" element={<ProfilePage topic={"Streaming"}/>} />
+          <Route path="/entertainment" element={<ProfilePage topic={"Entertainment"}/>} />
         </Routes>
       </AppContext.Provider>
     </BrowserRouter>

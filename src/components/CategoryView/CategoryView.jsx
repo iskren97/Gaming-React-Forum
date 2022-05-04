@@ -2,10 +2,13 @@ import React from 'react'
 import background from '../../assets/gamesBackground.jpg'
 import './CategoryView.css'
 import Button from '@mui/material/Button';
+import { useState, useContext } from 'react'
 
 import Container from '@mui/material/Container';
 import Grid from '@mui/material/Grid';
 import TopicRow from './TopicRow/TopicRow';
+import TopicPostModal from './TopicPostModal/TopicPostModal'
+import AppContext from '../../providers/AppContext'
 
 
 
@@ -45,17 +48,40 @@ const rows = [
 ];
 
  
-function CategoryView() {
+function CategoryView({topic}) {
   
- 
+ const [postModal, setPostModal] = useState(false)
+ const {user, userData, setContext} = useContext(AppContext)
+
+
+  const onClose = () => {
+    setPostModal(!postModal)
+  }
   
 
-  return (
+  return (<>
+  
+      
     <div  className="viewContainer">  
     <div className="hero-image">
          <img src={background} alt="background" ></img>
          </div>
     
+      {postModal  ? <TopicPostModal onClose={onClose}/> : null}
+
+         <div className="categoryRow">
+            <div className="buttonsGroup">
+            {user ? <Button onClick={()=>setPostModal(!postModal)} variant="contained" style={{borderRadius: "2em"}}>Create a Post</Button> : null}
+            </div>
+            <div className="buttonsGroup">
+                <Button variant="contained" style={{borderRadius: "2em"}}>Category</Button>
+                <Button variant="contained" style={{borderRadius: "2em"}}>Top</Button>
+                <Button variant="contained" style={{borderRadius: "2em"}}>Latest</Button>
+                <Button variant="contained" style={{borderRadius: "2em"}}>Liked</Button>
+            </div>
+        </div>
+
+
     <Container
     maxWidth="xl"
     sx={{
@@ -69,7 +95,7 @@ function CategoryView() {
   >
     <Grid container direction="column">
       <Grid item xs={12}>
-        <h1>Gaming discussions:</h1>
+        <h1><a href="/">Home</a> {">"} {topic}</h1>
       </Grid>
 
 
@@ -84,9 +110,72 @@ function CategoryView() {
     </Grid>
   </Container>
   </div>
+
+  </>
   )
   
 }
 
 export default CategoryView
 
+
+
+// function CategoryView() {
+  
+ 
+  
+
+//   return (
+//     <div className="viewContainer">
+//     <div className="hero-image">
+//     <img src={background} alt="background" ></img>
+//     </div>
+
+
+
+    
+//     <div className="contentContainer"> 
+//     <div className="categoryRow">
+//       <span className="categoryTitle">  Gaming Discussions &gt; Shooters  </span>
+//         <div className="buttonsGroup">
+//         <Button variant="contained" style={{borderRadius: "2em"}}>Category</Button>
+//         <Button variant="contained" style={{borderRadius: "2em"}}>Top</Button>
+//         <Button variant="contained" style={{borderRadius: "2em"}}>Latest</Button>
+//         <Button variant="contained" style={{borderRadius: "2em"}}>Liked</Button>
+//         </div>
+//     </div>
+     
+
+    
+
+//     <div className="gridContainer" >
+//     <TableContainer >
+//       <Table sx={{ width: "100%" }} aria-label="simple table">
+//         <TableHead>
+//           <TableRow>
+//             <TableCell align="center" style={{fontWeight: "bold"}}>Title</TableCell>
+//             <TableCell align="center" style={{fontWeight: "bold"}}>Content</TableCell>
+//             <TableCell align="center" style={{fontWeight: "bold"}}>Author</TableCell>
+//             <TableCell align="center" style={{fontWeight: "bold"}}>Date</TableCell>
+//             <TableCell align="center" style={{fontWeight: "bold"}}>Replies</TableCell>
+//             <TableCell align="center" style={{fontWeight: "bold"}}>Rating</TableCell>
+//           </TableRow>
+//         </TableHead>
+//         <TableBody>
+//           {rows.map((row) => (
+              
+//            <TableRowComponent row={row} />
+//           ))}
+//         </TableBody>
+//       </Table>
+//     </TableContainer>
+
+
+//     </div>
+
+
+//       </div>
+
+//     </div>
+//   )
+// }

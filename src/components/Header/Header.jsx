@@ -44,8 +44,8 @@ const Header = ({loading}) => {
     setAnchorEl(null);
   };
 
-  const {user, userData} = useContext(AppContext)
-  const { setContext } = useContext(AppContext);
+  const {user, userData, setContext} = useContext(AppContext)
+
 
 
 
