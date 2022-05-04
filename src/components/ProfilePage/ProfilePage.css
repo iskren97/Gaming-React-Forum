@@ -19,13 +19,13 @@
 
 .avatar {
   margin-top: 10px;
+  object-fit: cover;
 
   width: 12em;
   height: 12em;
-  border: 0.15rem solid black;
+  border: 0.13rem solid black;
   border-radius: 50%;
   background-color: white;
-  overflow: visible;
 }
 
 .profilePosts {
@@ -39,4 +39,60 @@
   justify-content: center;
   gap: 0.5em;
   margin: 0.25em;
+}
+
+input[type='file'] {
+  display: none;
+}
+
+.upload-form-holder {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.custom-file-upload {
+  border: 1px solid #ccc;
+  display: inline-block;
+  padding: 6px 12px;
+  cursor: pointer;
+
+  display: inline-block;
+  vertical-align: middle;
+}
+
+.upload-pic-btn {
+  padding: 13px 13px;
+  font-size: 15px;
+  border: none;
+  cursor: pointer;
+  background-color: #47db00;
+  letter-spacing: 3px;
+}
+
+.custom-file-upload:hover {
+  border: 1px solid;
+}
+
+.custom-file-upload:active {
+  background: #47db00;
+}
+
+.upload-pic-btn:hover {
+  background: #087006;
+  color: white;
+}
+
+.upload-pic-btn:active {
+  transition: 0.15s;
+  opacity: 0.5;
+}
+
+.swal-button {
+  padding: 13px 13px;
+  font-size: 17px;
+  border: none;
+  cursor: pointer;
+  background-color: #47db00;
+  letter-spacing: 3px;
 }

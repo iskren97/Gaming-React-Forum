@@ -16,12 +16,15 @@ import { Box, Button, Divider, Modal } from '@mui/material';
 
 import background from '../../assets/lR2zdL.jpg';
 import defaultAvatar from '../../assets/avatar.jpg';
+import FileUploadIcon from '@mui/icons-material/FileUpload';
 
 import EditIcon from '@mui/icons-material/Edit';
 import TopicRow from '../CategoryView/TopicRow/TopicRow';
 import DeleteForeverIcon from '@mui/icons-material/DeleteForever';
 
 import AppContext from '../../providers/AppContext';
+
+import swal from 'sweetalert';
 
 const style = {
   position: 'absolute',
@@ -88,13 +91,13 @@ const ProfilePage = () => {
   const handleClose = () => setOpen(false);
 
   const { user, userData, setContext } = useContext(AppContext);
-  console.log(userData);
   const username = userData?.username;
 
   const uploadPicture = (e) => {
     e.preventDefault();
 
     const file = e.target[0]?.files?.[0];
+    // console.log(file);
 
     if (!file) return alert(`Please select a file!`);
 
@@ -111,6 +114,9 @@ const ProfilePage = () => {
                 avatarUrl: url,
               },
             });
+
+            swal('Good job!', 'Image uploaded successfully!', 'success');
+            handleClose();
           });
         });
       })
@@ -118,123 +124,152 @@ const ProfilePage = () => {
   };
 
   return (
-    <div className="profileContainer">
-      <div className="profileBackground">
-        <img src={background} alt="background"></img>
-      </div>
+    <>
+      {user ? (
+        <div className="profileContainer">
+          <div className="profileBackground">
+            <img src={background} alt="background"></img>
+          </div>
 
-      <Container
-        maxWidth="lg"
-        sx={{
-          height: 'auto',
-          backgroundColor: 'white',
-          boxShadow: '0 1px 6px rgba(0,0,0,0.2)',
-          marginTop: '50px',
-          paddingBottom: '55px',
-        }}
-      >
-        <Grid
-          container
-          direction="column"
-          spacing={1}
-          sx={{ textAlign: 'center' }}
-        >
-          <Grid item>
-            {userData.avatarUrl ? (
-              <img src={userData.avatarUrl} alt="profile" />
-            ) : (
-              <img src={defaultAvatar} alt="profile"></img>
-            )}
-          </Grid>
-
-          <Grid>
-            <a
-              onClick={handleOpen}
-              style={{
-                color: 'black',
-                fontSize: '13.5px',
-                textTransform: 'none',
-                cursor: 'pointer',
-              }}
-            >
-              Change picture <EditIcon />
-            </a>
-          </Grid>
-
-          <Modal
-            open={open}
-            onClose={handleClose}
-            aria-labelledby="modal-modal-title"
-            aria-describedby="modal-modal-description"
+          <Container
+            maxWidth="lg"
+            sx={{
+              height: 'auto',
+              backgroundColor: 'white',
+              boxShadow: '0 1px 6px rgba(0,0,0,0.2)',
+              marginTop: '50px',
+              paddingBottom: '55px',
+            }}
           >
-            <Box sx={style}>
-              <div
-                style={{
-                  display: 'flex',
-                  top: '-50px',
-                  justifyContent: 'space-between',
-                  alignItems: 'center',
-                }}
-              >
-                <h4>Upload a picture</h4>
-                <Divider sx={{ bgcolor: '#47DB00' }} />
+            <Grid
+              container
+              direction="column"
+              spacing={1}
+              sx={{ textAlign: 'center' }}
+            >
+              <Grid item>
+                {userData.avatarUrl ? (
+                  <img
+                    className="avatar"
+                    src={userData.avatarUrl}
+                    alt="profile"
+                  />
+                ) : (
+                  <img src={defaultAvatar} alt="profile"></img>
+                )}
+              </Grid>
 
-                <button
+              <Grid>
+                <a
+                  onClick={handleOpen}
                   style={{
-                    background: 'none',
-                    border: 'none',
-                    fontSize: '20px',
-                    fontWeight: 'bold',
+                    color: 'black',
+                    fontSize: '13.5px',
+                    textTransform: 'none',
                     cursor: 'pointer',
                   }}
-                  onClick={handleClose}
                 >
-                  X
-                </button>
-              </div>
+                  Change picture <EditIcon />
+                </a>
+              </Grid>
 
-              <div>
-                <form onSubmit={uploadPicture}>
-                  <input type="file" name="file"></input>
-                  <button type="submit">Submit</button>
-                </form>
-              </div>
-            </Box>
-          </Modal>
+              <Modal
+                open={open}
+                onClose={handleClose}
+                aria-labelledby="modal-modal-title"
+                aria-describedby="modal-modal-description"
+              >
+                <Box sx={style}>
+                  <div
+                    style={{
+                      display: 'flex',
+                      top: '-50px',
+                      justifyContent: 'space-between',
+                      alignItems: 'center',
+                    }}
+                  >
+                    <h4>Upload a picture</h4>
 
-          <Grid item>
-            <h1>{userData.username}</h1>
-          </Grid>
+                    <button
+                      style={{
+                        background: 'none',
+                        border: 'none',
+                        fontSize: '20px',
+                        fontWeight: 'bold',
+                        cursor: 'pointer',
+                      }}
+                      onClick={handleClose}
+                    >
+                      X
+                    </button>
+                  </div>
 
-          <Grid item>
-            <p style={{ marginBottom: '24px' }}>
-              This is my super awesome description that i can also change{' '}
-              <EditIcon />
-            </p>
-          </Grid>
+                  <form onSubmit={uploadPicture}>
+                    <label
+                      htmlFor="file-upload"
+                      className="custom-file-upload"
+                      or
+                    >
+                      <Grid
+                        container
+                        direction="row"
+                        spacing={1}
+                        sx={{ textAlign: 'center', alignItems: 'center' }}
+                      >
+                        <Grid item xs={2}>
+                          <FileUploadIcon />
+                        </Grid>
 
-          <Divider />
-        </Grid>
-        <h1>My Posts:</h1>
+                        <Grid item xs={10}>
+                          Choose file
+                        </Grid>
+                      </Grid>
+                    </label>
 
-        <div className="profilePosts">
-          {rows.map((row) => (
-            <Grid
-              sx={{
-                marginTop: '0.5rem',
-                display: 'flex',
-                flexDirection: 'row',
-              }}
-            >
-              <TopicRow row={row} />
-              <div className="topicEditDelete">
-                <EditIcon /> <DeleteForeverIcon />{' '}
-              </div>
+                    <input id="file-upload" type="file" accept="image/*" />
+
+                    <button className="upload-pic-btn" type="submit">
+                      Submit
+                    </button>
+                  </form>
+                </Box>
+              </Modal>
+
+              <Grid item>
+                <h1>{userData.username}</h1>
+              </Grid>
+
+              <Grid item>
+                <p style={{ marginBottom: '24px' }}>
+                  This is my super awesome description that i can also change{' '}
+                  <EditIcon />
+                </p>
+              </Grid>
+
+              <Divider />
             </Grid>
-          ))}
+            <h1>My Posts:</h1>
+
+            <div className="profilePosts">
+              {rows.map((row) => (
+                <Grid
+                  sx={{
+                    marginTop: '0.5rem',
+                    display: 'flex',
+                    flexDirection: 'row',
+                  }}
+                >
+                  <TopicRow row={row} />
+                  <div className="topicEditDelete">
+                    <EditIcon /> <DeleteForeverIcon />{' '}
+                  </div>
+                </Grid>
+              ))}
+            </div>
+          </Container>
         </div>
-      </Container>
-    </div>
+      ) : null}
+    </>
   );
 };
 
