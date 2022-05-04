@@ -14,17 +14,17 @@
 }
 
 
-.register-form {
+.post-form {
   max-width: 500px;
   margin: 0 auto;
 }
 
-.register-form p {
+.post-form p {
   color: red;
   font-weight: bold;
 }
 
-.register-form input {
+.post-form input {
   display: block;
   box-sizing: border-box;
   width: 25em;
@@ -38,10 +38,10 @@
 }
 
 
-.register-form textarea{
+.post-form textarea{
   width: 100%;
 }
-.register-form label {
+.post-form label {
   line-height: 1;
   text-align: left;
   display: block;
@@ -51,7 +51,7 @@
   font-weight: 200;
 }
 
-.register-form button[type='submit'],
+.post-form button[type='submit'],
 input[type='submit'] {
   cursor: pointer;
   background: #47db00;
@@ -65,13 +65,13 @@ input[type='submit'] {
   transition: background-color 0.15s;
 }
 
-.register-form button[type='submit']:hover,
+.post-form button[type='submit']:hover,
 input[type='submit']:hover {
   background: #087006;
   color: white;
 }
 
-.register-form button[type='submit']:active,
+.post-form button[type='submit']:active,
 input[type='button']:active,
 input[type='submit']:active {
   transition: 0.3s all;
@@ -80,15 +80,15 @@ input[type='submit']:active {
   opacity: 0.8;
 }
 
-.register-form input:disabled {
+.post-form input:disabled {
   opacity: 0.4;
 }
 
-.register-form input[type='button']:hover {
+.post-form input[type='button']:hover {
   transition: 0.3s all;
 }
 
-.register-form button[type='submit'],
+.post-form button[type='submit'],
 input[type='button'],
 input[type='submit'] {
   -webkit-appearance: none;
@@ -99,11 +99,11 @@ button[type='button'] {
   padding: 10px 20px;
 }
 
-.register-form hr {
+.post-form hr {
   margin-top: 30px;
 }
 
-.register-form button {
+.post-form button {
   display: block;
   appearance: none;
   margin-top: 40px;

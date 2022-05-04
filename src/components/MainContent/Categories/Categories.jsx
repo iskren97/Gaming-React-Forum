@@ -40,9 +40,9 @@ const Categories = () => {
         </Grid>
 
         <Grid item xs={6}>
-          <NavLink to="/shooters"/>
+          <NavLink to="/shooters">
             <Items name="Shooters" topic="shooting games" logo={shooterLogo} />
-
+          </NavLink>
         </Grid>
 
         <Grid item xs={6}>

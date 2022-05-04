@@ -47,7 +47,7 @@ function TopicPostModal({onClose}) {
       alignItems: 'center',
     }}>
     
-    <form className="register-form">
+    <form className="post-form">
     <label>Title</label>
 
        <input maxLength="64" type="text" onChange={e => setTitle(e.target.value)}/>
