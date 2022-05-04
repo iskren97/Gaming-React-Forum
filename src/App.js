@@ -10,8 +10,12 @@ import { BrowserRouter, Routes, Route } from 'react-router-dom';
 import AboutPage from './views/AboutPage/AboutPage';
 import ErrorPage from './views/ErrorPage/ErrorPage';
 
-import { useState } from 'react';
+import { useState, useEffect } from 'react';
 import AppContext from './providers/AppContext';
+
+import { useAuthState } from 'react-firebase-hooks/auth';
+import { auth } from './config/firebase-config';
+import { getUserData } from './services/users.service';
 
 const App = () => {
   const [appState, setAppState] = useState({
@@ -19,10 +23,34 @@ const App = () => {
     userData: null,
   });
 
+  
+  let [user, loading, error] = useAuthState(auth);
+
+
+  useEffect(() => {
+    if (user === null) return;
+
+    getUserData(user.uid)
+      .then(snapshot => {
+        if (!snapshot.exists()) {
+          throw new Error('Something went wrong!');
+        }
+
+        setAppState({
+          user,
+          userData: snapshot.val()[Object.keys(snapshot.val())[0]],
+        });
+
+
+      })
+      .catch(e => alert(e.message));
+  }, [user]);
+
+
   return (
     <BrowserRouter>
       <AppContext.Provider value={{ ...appState, setContext: setAppState }}>
-        <Header />
+        <Header loading={loading}/>
 
         <Routes>
           <Route path="/" element={<Main />} />

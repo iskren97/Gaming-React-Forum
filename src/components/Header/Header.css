@@ -107,3 +107,28 @@
 .inputField:focus {
   outline: none;
 }
+
+.lds-dual-ring {
+  display: inline-block;
+  width: 80px;
+  height: 80px;
+}
+.lds-dual-ring:after {
+  content: " ";
+  display: block;
+  width: 2rem;
+  height: 2rem;
+  margin: .5rem;
+  border-radius: 50%;
+  border: 0.75rem solid #fff;
+  border-color: #fff transparent #fff transparent;
+  animation: lds-dual-ring 3s linear infinite;
+}
+@keyframes lds-dual-ring {
+  0% {
+    transform: rotate(0deg);
+  }
+  100% {
+    transform: rotate(360deg);
+  }
+}

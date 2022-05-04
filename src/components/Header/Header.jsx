@@ -30,7 +30,9 @@ import { getUserData } from '../../services/users.service';
 import Alert from '@mui/material/Alert';
 import ClickAwayListener from '@mui/base/ClickAwayListener';
 
-const Header = () => {
+
+
+const Header = ({loading}) => {
   //DropDownProfile logic
   const [anchorEl, setAnchorEl] = useState(null);
   const [invalidLogin, setInvalidLogin] = useState(false);
@@ -45,7 +47,7 @@ const Header = () => {
   const {user, userData} = useContext(AppContext)
   const { setContext } = useContext(AppContext);
 
-  
+
 
   const [form, setForm] = useState({
     email: '',
@@ -73,13 +75,6 @@ const Header = () => {
    
       loginUser(form.email, form.password)
       .then(u => {
-
-        // return setContext({
-        //           user: u.user.email,
-        //           userData: u.user.uid,
-        //         });
-
-            // FIX THE IMPLEMENTATION TO BE THE ONE BELOW
 
         return getUserData(u.user.uid)
           .then(snapshot => {
@@ -144,20 +139,11 @@ const Header = () => {
       <SearchIcon style={{position: "relative",left: "10%", color: "#ffffff" }} fontSize="large"/>
       <input type="text" placeholder="Search anything..." className="searchBox"/>
       </div>
+
       
-     { !user ? 
-     <div className="loginContainer">
-        <input onKeyDown={handleKeyEnter} className="inputField" type="email" id="email" placeholder="Email" value={form.email} onChange={updateForm('email')}></input><br />
-        <input onKeyDown={handleKeyEnter} className="inputField" type="password" id="password" placeholder="Password" value={form.password} onChange={updateForm('password')}></input><br /><br />
-       <Button onClick={login} variant="contained" style={{background: '#47DB00'}}>Login</Button>
-        
-
-       
-     </div> :
-
-
+      { loading ? <div className="lds-dual-ring"></div>  : user ?
      <div className="elementsContainer">
-      <h3 className="userNameStyle">{userData.username}</h3>
+      <h3 className="userNameStyle">{userData?.username}</h3>
       
       
       <Box sx={{ display: 'flex', alignItems: 'center', textAlign: 'center' }}>
@@ -222,7 +208,17 @@ const Header = () => {
 
 
 
-      </div>
+      </div> 
+
+      : <div className="loginContainer">
+        <input onKeyDown={handleKeyEnter} className="inputField" type="email" id="email" placeholder="Email" value={form.email} onChange={updateForm('email')}></input><br />
+        <input onKeyDown={handleKeyEnter} className="inputField" type="password" id="password" placeholder="Password" value={form.password} onChange={updateForm('password')}></input><br /><br />
+       <Button onClick={login} variant="contained" style={{background: '#47DB00'}}>Login</Button>
+        
+       
+       
+     </div> }
+     {
      }
          
      
