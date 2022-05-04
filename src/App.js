@@ -16,6 +16,7 @@ import AppContext from './providers/AppContext';
 import { useAuthState } from 'react-firebase-hooks/auth';
 import { auth } from './config/firebase-config';
 import { getUserData } from './services/users.service';
+import ScrollToTop from './components/Scroll/ScrollToTop';
 
 const App = () => {
   const [appState, setAppState] = useState({
@@ -23,15 +24,13 @@ const App = () => {
     userData: null,
   });
 
-  
   let [user, loading, error] = useAuthState(auth);
-
 
   useEffect(() => {
     if (user === null) return;
 
     getUserData(user.uid)
-      .then(snapshot => {
+      .then((snapshot) => {
         if (!snapshot.exists()) {
           throw new Error('Something went wrong!');
         }
@@ -40,17 +39,15 @@ const App = () => {
           user,
           userData: snapshot.val()[Object.keys(snapshot.val())[0]],
         });
-
-
       })
-      .catch(e => alert(e.message));
+      .catch((e) => alert(e.message));
   }, [user]);
-
 
   return (
     <BrowserRouter>
+      <ScrollToTop />
       <AppContext.Provider value={{ ...appState, setContext: setAppState }}>
-        <Header loading={loading}/>
+        <Header loading={loading} />
 
         <Routes>
           <Route path="/" element={<Main />} />

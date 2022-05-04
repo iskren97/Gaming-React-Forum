@@ -14,6 +14,7 @@ import mouseLogo from '../../icons/mouse.png';
 import tournamentLogo from '../../icons/tournament.png';
 import streamLogo from '../../icons/stream.png';
 import entLogo from '../../icons/ent.png';
+import { NavLink } from 'react-router-dom';
 
 const Categories = () => {
   return (
@@ -33,89 +34,89 @@ const Categories = () => {
         </Grid>
 
         <Grid item xs={4}>
-          <a href="/general_discussion">
+          <NavLink href="/general_discussion">
             <Items name="General Discussion" topic="games" logo={generalLogo} />
-          </a>
+          </NavLink>
         </Grid>
 
         <Grid item xs={6}>
-          <a href="/shooters">
+          <NavLink href="/shooters">
             <Items name="Shooters" topic="shooting games" logo={shooterLogo} />
-          </a>
+          </NavLink>
         </Grid>
 
         <Grid item xs={6}>
-          <a href="/mmorpg">
+          <NavLink href="/mmorpg">
             <Items name="MMORPG" topic="MMORPGs" logo={mmoLogo} />
-          </a>
+          </NavLink>
         </Grid>
 
         <Grid item xs={6}>
-          <a href="/adventure">
+          <NavLink href="/adventure">
             <Items
               name="Adventure"
               topic="adventure games"
               logo={adventureLogo}
             />
-          </a>
+          </NavLink>
         </Grid>
 
-        <Grid item xs={12}>
+        <Grid item>
           <h1>Computer hardware:</h1>
         </Grid>
 
         <Grid item xs={6}>
-          <a href="/gaming_pc">
+          <NavLink href="/gaming_pc">
             <Items
               name="Gaming Laptops and PCs"
               topic="gaming machines"
               logo={desktopLogo}
             />
-          </a>
+          </NavLink>
         </Grid>
 
         <Grid item xs={6}>
-          <a href="/gaming_accessories">
+          <NavLink href="/gaming_accessories">
             <Items
               name="Gaming Accessories"
               topic="gaming accessories"
               logo={mouseLogo}
             />
-          </a>
+          </NavLink>
         </Grid>
 
-        <Grid item xs={12}>
+        <Grid item>
           <h1>Community:</h1>
         </Grid>
 
         <Grid item xs={6}>
-          <a href="/tournaments">
+          <NavLink href="/tournaments">
             <Items
               name="Tournaments"
               topic="popular gaming events and tournaments"
               logo={tournamentLogo}
             />
-          </a>
+          </NavLink>
         </Grid>
 
         <Grid item xs={6}>
-          <a href="/streaming">
+          <NavLink href="/streaming">
             <Items
               name="Streaming"
               topic="your favorite streamers"
               logo={streamLogo}
             />
-          </a>
+          </NavLink>
         </Grid>
 
         <Grid item xs={6}>
-          <a href="/entertainment">
+          <NavLink href="/entertainment">
             <Items
               name="Entertainment"
               topic="your favorite sources of entertainment"
               logo={entLogo}
             />
-          </a>
+          </NavLink>
         </Grid>
       </Grid>
     </Container>

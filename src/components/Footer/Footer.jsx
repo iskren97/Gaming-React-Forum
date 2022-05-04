@@ -11,6 +11,7 @@ import RecommendIcon from '@mui/icons-material/Recommend';
 import InstagramIcon from '@mui/icons-material/Instagram';
 import FacebookIcon from '@mui/icons-material/Facebook';
 import LinkedInIcon from '@mui/icons-material/LinkedIn';
+import { NavLink } from 'react-router-dom';
 
 const Footer = () => {
   return (
@@ -20,9 +21,9 @@ const Footer = () => {
           <h3>About</h3>
           <Divider sx={{ bgcolor: '#47DB00' }} variant={'middle'} />
 
-          <a href="/about">
+          <NavLink to="/about">
             <InfoIcon style={{ marginTop: '6px' }} />
-          </a>
+          </NavLink>
           <p>Who are we?</p>
         </Grid>
 
@@ -30,9 +31,9 @@ const Footer = () => {
           <h3>Contact</h3>
           <Divider sx={{ bgcolor: '#47DB00' }} variant={'middle'} />
 
-          <a href="/about">
+          <NavLink to="/about">
             <ContactPageIcon style={{ marginTop: '6px' }} />
-          </a>
+          </NavLink>
           <p>Feel free to contact us</p>
         </Grid>
 
@@ -40,9 +41,9 @@ const Footer = () => {
           <h3>Support</h3>
           <Divider sx={{ bgcolor: '#47DB00' }} variant={'middle'} />
 
-          <a href="/about">
+          <NavLink to="/about">
             <RecommendIcon style={{ marginTop: '6px' }} />
-          </a>
+          </NavLink>
           <p>Show us your appreciation</p>
         </Grid>
 
@@ -60,21 +61,21 @@ const Footer = () => {
             }}
           >
             <Grid item>
-              <a href="/about">
+              <NavLink to="/about">
                 <InstagramIcon />
-              </a>
+              </NavLink>
             </Grid>
 
             <Grid item>
-              <a href="/about">
+              <NavLink to="/about">
                 <FacebookIcon />
-              </a>
+              </NavLink>
             </Grid>
 
             <Grid item>
-              <a href="/about">
+              <NavLink to="/about">
                 <LinkedInIcon />
-              </a>
+              </NavLink>
             </Grid>
           </Grid>
           <p>Follow us on social media</p>
