@@ -9,7 +9,7 @@ import Grid from '@mui/material/Grid';
 import TopicRow from './TopicRow/TopicRow';
 import TopicPostModal from './TopicPostModal/TopicPostModal'
 import AppContext from '../../providers/AppContext'
-
+import { NavLink } from 'react-router-dom';
 
 
 const comments = [
@@ -95,7 +95,7 @@ function CategoryView({topic}) {
   >
     <Grid container direction="column">
       <Grid item xs={12}>
-        <h1><a href="/">Home</a> {">"} {topic}</h1>
+        <h1><NavLink to="/">Home</NavLink> {">"} {topic}</h1>
       </Grid>
 
 
