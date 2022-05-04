@@ -34,31 +34,31 @@ const Categories = () => {
         </Grid>
 
         <Grid item xs={4}>
-          <NavLink href="/general_discussion">
+          <a href="/general_discussion">
             <Items name="General Discussion" topic="games" logo={generalLogo} />
-          </NavLink>
+          </a>
         </Grid>
 
         <Grid item xs={6}>
-          <NavLink href="/shooters">
+          <a href="/shooters">
             <Items name="Shooters" topic="shooting games" logo={shooterLogo} />
-          </NavLink>
+          </a>
         </Grid>
 
         <Grid item xs={6}>
-          <NavLink href="/mmorpg">
+          <a href="/mmorpg">
             <Items name="MMORPG" topic="MMORPGs" logo={mmoLogo} />
-          </NavLink>
+          </a>
         </Grid>
 
         <Grid item xs={6}>
-          <NavLink href="/adventure">
+          <a href="/adventure">
             <Items
               name="Adventure"
               topic="adventure games"
               logo={adventureLogo}
             />
-          </NavLink>
+          </a>
         </Grid>
 
         <Grid item>
@@ -66,23 +66,23 @@ const Categories = () => {
         </Grid>
 
         <Grid item xs={6}>
-          <NavLink href="/gaming_pc">
+          <a href="/gaming_pc">
             <Items
               name="Gaming Laptops and PCs"
               topic="gaming machines"
               logo={desktopLogo}
             />
-          </NavLink>
+          </a>
         </Grid>
 
         <Grid item xs={6}>
-          <NavLink href="/gaming_accessories">
+          <a href="/gaming_accessories">
             <Items
               name="Gaming Accessories"
               topic="gaming accessories"
               logo={mouseLogo}
             />
-          </NavLink>
+          </a>
         </Grid>
 
         <Grid item>
@@ -90,33 +90,33 @@ const Categories = () => {
         </Grid>
 
         <Grid item xs={6}>
-          <NavLink href="/tournaments">
+          <a href="/tournaments">
             <Items
               name="Tournaments"
               topic="popular gaming events and tournaments"
               logo={tournamentLogo}
             />
-          </NavLink>
+          </a>
         </Grid>
 
         <Grid item xs={6}>
-          <NavLink href="/streaming">
+          <a href="/streaming">
             <Items
               name="Streaming"
               topic="your favorite streamers"
               logo={streamLogo}
             />
-          </NavLink>
+          </a>
         </Grid>
 
         <Grid item xs={6}>
-          <NavLink href="/entertainment">
+          <a href="/entertainment">
             <Items
               name="Entertainment"
               topic="your favorite sources of entertainment"
               logo={entLogo}
             />
-          </NavLink>
+          </a>
         </Grid>
       </Grid>
     </Container>
