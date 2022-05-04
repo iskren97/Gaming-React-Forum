@@ -29,6 +29,8 @@ const App = () => {
           <Route path="/home" element={<Main />} />
           <Route path="/about" element={<AboutPage />} />
           <Route path="*" element={<ErrorPage />} />
+          <Route path="/category" element={<CategoryView />} />
+          <Route path="/profile" element={<ProfilePage />} />
         </Routes>
       </AppContext.Provider>
     </BrowserRouter>

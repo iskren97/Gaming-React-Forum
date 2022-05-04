@@ -33,21 +33,31 @@ const Categories = () => {
         </Grid>
 
         <Grid item xs={4}>
-          <Items name="General Discussion" topic="games" logo={generalLogo} />
-        </Grid>
-        <Grid item xs={6}>
-          <Items name="Shooters" topic="shooting games" logo={shooterLogo} />
-        </Grid>
-        <Grid item xs={6}>
-          <Items name="MMORPG" topic="MMORPGs" logo={mmoLogo} />
+          <a href="/category">
+            <Items name="General Discussion" topic="games" logo={generalLogo} />
+          </a>
         </Grid>
 
         <Grid item xs={6}>
-          <Items
-            name="Adventure"
-            topic="adventure games"
-            logo={adventureLogo}
-          />
+          <a href="/category">
+            <Items name="Shooters" topic="shooting games" logo={shooterLogo} />
+          </a>
+        </Grid>
+
+        <Grid item xs={6}>
+          <a href="/category">
+            <Items name="MMORPG" topic="MMORPGs" logo={mmoLogo} />
+          </a>
+        </Grid>
+
+        <Grid item xs={6}>
+          <a href="/category">
+            <Items
+              name="Adventure"
+              topic="adventure games"
+              logo={adventureLogo}
+            />
+          </a>
         </Grid>
 
         <Grid item xs={12}>
@@ -55,18 +65,23 @@ const Categories = () => {
         </Grid>
 
         <Grid item xs={6}>
-          <Items
-            name="Gaming Laptops and PCs"
-            topic="gaming machines"
-            logo={desktopLogo}
-          />
+          <a href="/category">
+            <Items
+              name="Gaming Laptops and PCs"
+              topic="gaming machines"
+              logo={desktopLogo}
+            />
+          </a>
         </Grid>
+
         <Grid item xs={6}>
-          <Items
-            name="Gaming Accessories"
-            topic="gaming accessories"
-            logo={mouseLogo}
-          />
+          <a href="/category">
+            <Items
+              name="Gaming Accessories"
+              topic="gaming accessories"
+              logo={mouseLogo}
+            />
+          </a>
         </Grid>
 
         <Grid item xs={12}>
@@ -74,27 +89,33 @@ const Categories = () => {
         </Grid>
 
         <Grid item xs={6}>
-          <Items
-            name="Tournaments"
-            topic="popular gaming events and tournaments"
-            logo={tournamentLogo}
-          />
+          <a href="/category">
+            <Items
+              name="Tournaments"
+              topic="popular gaming events and tournaments"
+              logo={tournamentLogo}
+            />
+          </a>
         </Grid>
 
         <Grid item xs={6}>
-          <Items
-            name="Streaming"
-            topic="your favorite streamers"
-            logo={streamLogo}
-          />
+          <a href="/category">
+            <Items
+              name="Streaming"
+              topic="your favorite streamers"
+              logo={streamLogo}
+            />
+          </a>
         </Grid>
 
         <Grid item xs={6}>
-          <Items
-            name="Entertainment"
-            topic="your favorite sources of entertainment"
-            logo={entLogo}
-          />
+          <a href="/category">
+            <Items
+              name="Entertainment"
+              topic="your favorite sources of entertainment"
+              logo={entLogo}
+            />
+          </a>
         </Grid>
       </Grid>
     </Container>
