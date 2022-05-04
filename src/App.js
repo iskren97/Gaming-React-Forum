@@ -54,15 +54,39 @@ const App = () => {
           <Route path="/home" element={<Main />} />
           <Route path="/about" element={<AboutPage />} />
           <Route path="*" element={<ErrorPage />} />
-          <Route path="/general_discussion" element={<CategoryView topic={"General Discussion"} />} />
-          <Route path="/shooters" element={<CategoryView topic={"Shooters"}/>} />
-          <Route path="/mmorpg" element={<CategoryView topic={"MMORPG"}/>} />
-          <Route path="/adventure" element={<CategoryView topic={"Adventure"}/>} />
-          <Route path="/gaming_pc" element={<CategoryView topic={"Gaming Laptops and PCs"}/>} />
-          <Route path="/gaming_accessories" element={<CategoryView topic={"Gaming Accessories"}/>} />
-          <Route path="/tournaments" element={<CategoryView topic={"Tournaments"}/>} />
-          <Route path="/streaming" element={<CategoryView topic={"Streaming"}/>} />
-          <Route path="/entertainment" element={<CategoryView topic={"Entertainment"}/>} />
+          <Route
+            path="/general_discussion"
+            element={<CategoryView topic={'General Discussion'} />}
+          />
+          <Route
+            path="/shooters"
+            element={<CategoryView topic={'Shooters'} />}
+          />
+          <Route path="/mmorpg" element={<CategoryView topic={'MMORPG'} />} />
+          <Route
+            path="/adventure"
+            element={<CategoryView topic={'Adventure'} />}
+          />
+          <Route
+            path="/gaming_pc"
+            element={<CategoryView topic={'Gaming Laptops and PCs'} />}
+          />
+          <Route
+            path="/gaming_accessories"
+            element={<CategoryView topic={'Gaming Accessories'} />}
+          />
+          <Route
+            path="/tournaments"
+            element={<CategoryView topic={'Tournaments'} />}
+          />
+          <Route
+            path="/streaming"
+            element={<CategoryView topic={'Streaming'} />}
+          />
+          <Route
+            path="/entertainment"
+            element={<CategoryView topic={'Entertainment'} />}
+          />
           <Route path="/profile" element={<ProfilePage />} />
         </Routes>
       </AppContext.Provider>

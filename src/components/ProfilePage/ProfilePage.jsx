@@ -190,13 +190,17 @@ const ProfilePage = () => {
                     alt="profile"
                   />
                 ) : (
-                  <img src={defaultAvatar} alt="profile"></img>
+                  <img
+                    className="avatar"
+                    src={defaultAvatar}
+                    alt="profile"
+                  ></img>
                 )}
               </Grid>
 
               <Grid>
                 <a
-                  href="/#"
+                  href="#/"
                   arrow
                   onClick={handleOpen}
                   style={{
@@ -280,7 +284,7 @@ const ProfilePage = () => {
               <Grid item>
                 <p style={{ marginBottom: '24px' }}>
                   {userData.userDescription}{' '}
-                  <a href="/#" onClick={test}>
+                  <a href="#/" onClick={test}>
                     <Tooltip title="Change description" placement="right-end">
                       <EditIcon sx={{ cursor: 'pointer' }} />
                     </Tooltip>
