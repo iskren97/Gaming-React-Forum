@@ -60,9 +60,10 @@ const App = () => {
           <Route path="/adventure" element={<CategoryView topic={"Adventure"}/>} />
           <Route path="/gaming_pc" element={<CategoryView topic={"Gaming Laptops and PCs"}/>} />
           <Route path="/gaming_accessories" element={<CategoryView topic={"Gaming Accessories"}/>} />
-          <Route path="/tournaments" element={<ProfilePage topic={"Tournaments"}/>} />
-          <Route path="/streaming" element={<ProfilePage topic={"Streaming"}/>} />
-          <Route path="/entertainment" element={<ProfilePage topic={"Entertainment"}/>} />
+          <Route path="/tournaments" element={<CategoryView topic={"Tournaments"}/>} />
+          <Route path="/streaming" element={<CategoryView topic={"Streaming"}/>} />
+          <Route path="/entertainment" element={<CategoryView topic={"Entertainment"}/>} />
+          <Route path="/profile" element={<ProfilePage />} />
         </Routes>
       </AppContext.Provider>
     </BrowserRouter>
