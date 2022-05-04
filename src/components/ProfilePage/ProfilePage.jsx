@@ -15,7 +15,7 @@ import {
 
 import Container from '@mui/material/Container';
 import Grid from '@mui/material/Grid';
-import { Box, Divider, Icon, IconButton, Modal, Tooltip } from '@mui/material';
+import { Box, Divider, Modal, Tooltip } from '@mui/material';
 
 import background from '../../assets/lR2zdL.jpg';
 import defaultAvatar from '../../assets/avatar.jpg';
@@ -132,8 +132,6 @@ const ProfilePage = () => {
       .catch(console.error);
   };
 
-  // updateDescription(username);
-
   const test = () => {
     swal({
       content: {
@@ -198,6 +196,7 @@ const ProfilePage = () => {
 
               <Grid>
                 <a
+                  href="/#"
                   arrow
                   onClick={handleOpen}
                   style={{
@@ -281,7 +280,7 @@ const ProfilePage = () => {
               <Grid item>
                 <p style={{ marginBottom: '24px' }}>
                   {userData.userDescription}{' '}
-                  <a onClick={test}>
+                  <a href="/#" onClick={test}>
                     <Tooltip title="Change description" placement="right-end">
                       <EditIcon sx={{ cursor: 'pointer' }} />
                     </Tooltip>
