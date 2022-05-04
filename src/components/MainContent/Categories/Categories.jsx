@@ -16,8 +16,6 @@ import streamLogo from '../../icons/stream.png';
 import entLogo from '../../icons/ent.png';
 
 const Categories = () => {
-
-  
   return (
     <Container
       maxWidth="md"

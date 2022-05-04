@@ -8,13 +8,10 @@ import { getUserByHandle } from '../../services/users.service';
 import { createUserHandle } from '../../services/users.service';
 
 import AppContext from '../../providers/AppContext';
-import { useNavigate } from 'react-router-dom';
-import { get } from 'firebase/database';
 import { getUserData } from '../../services/users.service';
 
 const Register = ({ closeModal }) => {
   const { setContext } = useContext(AppContext);
-  const navigate = useNavigate();
 
   const {
     register,
@@ -27,8 +24,6 @@ const Register = ({ closeModal }) => {
   };
 
   const onSubmit = (data) => {
-    // alert(JSON.stringify(data));
-
     (async () => {
       try {
         const getUser = await getUserByHandle(data.username);
@@ -45,22 +40,16 @@ const Register = ({ closeModal }) => {
           data.email,
           data.username,
           credential.user.uid
-        )
+        );
 
-        getUserData(credential.user.uid)
-        .then(snapshot => {
-          if (snapshot.exists()) {
-            setContext({
-              user: data.email,
-              userData: snapshot.val()[Object.keys(snapshot.val())[0]],
-            });
+        const userData = await getUserData(credential.user.uid);
+        if (userData.exists()) {
+          setContext({
+            user: data.email,
+            userData: userData.val()[Object.keys(userData.val())[0]],
+          });
+        }
 
-          }
-        });
-
-        
-          
-        //setContext({ user: data.username, });   
         closeOnSubmit();
       } catch (err) {
         if (err.message.includes('auth/email-already-in-use')) {
@@ -68,29 +57,6 @@ const Register = ({ closeModal }) => {
         }
       }
     })();
-
-    // getUserByHandle(data.username)
-    //   .then((snapshot) => {
-    //     if (snapshot.exists()) {
-    //       return alert(`User with username ${data.username} already exists!`);
-    //     }
-
-    //     return registerUser(data.email, data.password);
-    //   })
-    //   .then((credential) => {
-    //     return createUserHandle(
-    //       data.firstName,
-    //       data.lastName,
-    //       data.email,
-    //       data.username,
-    //       credential.user.uid
-    //     ).then(() =>
-    //       setContext({
-    //         user: data.username,
-    //       })
-    //     );
-    //   })
-    //   .finally(() => closeOnSubmit());
   };
 
   return (
