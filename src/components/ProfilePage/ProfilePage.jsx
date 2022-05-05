@@ -29,7 +29,6 @@ import AppContext from '../../providers/AppContext';
 
 import swal from 'sweetalert';
 import { getAllPosts } from '../../services/posts.service';
-import DisplayPost from './DisplayPost';
 
 const style = {
   position: 'absolute',
@@ -44,53 +43,6 @@ const style = {
 };
 
 const ProfilePage = () => {
-  const createData = (
-    title,
-    content,
-    author,
-    date,
-    replies,
-    rating,
-    comments
-  ) => {
-    return { title, content, author, date, replies, rating, comments };
-  };
-
-  const rows = [
-    createData(
-      'Are we ever going to see Just Cause 5?',
-      " YEAH I SAID IT! I don't know how much longer it's gonna take but i can't take it anymore. This game is just AMAZING! And now what? we prob won't see it again.YEAH I SAID IT! I don't know how much longer it's gonna take but i can't take it anymore. This game is just AMAZING! And now what? we prob won't see it again.YEAH I SAID IT! I don't know how much longer it's gonna take but i can't take it anymore. This game is just AMAZING! And now what? we prob won't see it again.YEAH I SAID IT! I don't know how much longer it's gonna take but i can't take it anymore. This game is just AMAZING! And now what? we prob won't see it again.YEAH I SAID IT! I don't know how much longer it's gonna take but i can't take it anymore. This game is just AMAZING! And now what? we prob won't see it again.YEAH I SAID IT! I don't know how much longer it's gonna take but i can't take it anymore. This game is just AMAZING! And now what? we prob won't see it again.",
-      'thrills3eker101',
-      '31.05/2021',
-      67,
-      81
-    ),
-    createData(
-      'WoW retri paladin build',
-      "IT's just the best i no.",
-      'RetriOverProt',
-      '8/08/2022',
-      49,
-      3
-    ),
-    createData(
-      'Where to go after final boss',
-      'Now i have no life...HALP ',
-      'justLost',
-      '8/11/2022',
-      13,
-      21
-    ),
-    createData(
-      'Best gaming moust for CS GO',
-      'Issi worth spending 200 dollers on am mouse',
-      'DumbAi',
-      '3/08/2022',
-      9,
-      9
-    ),
-  ];
-
   const [open, setOpen] = useState(false);
   const handleOpen = () => setOpen(true);
   const handleClose = () => setOpen(false);
