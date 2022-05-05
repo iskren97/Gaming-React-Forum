@@ -62,12 +62,13 @@ function CategoryView({topic}) {
     setPostModal(!postModal)
   }
   
+
   useEffect(()=>{
+    
 getAllPosts().then(posts =>{ 
   const filtered = [];
   
   posts.forEach(post => {
-
     if(post.category === topic){
       filtered.push(post)
     }
@@ -75,7 +76,6 @@ getAllPosts().then(posts =>{
   setCategoryPosts(filtered)})
     
   },[categoryPosts])
-
 
   return (<>
   
