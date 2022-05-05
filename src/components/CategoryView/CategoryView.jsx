@@ -67,7 +67,7 @@ function CategoryView({topic}) {
          <img src={background} alt="background" ></img>
          </div>
     
-      {postModal  ? <TopicPostModal onClose={onClose}/> : null}
+      {postModal  ? <TopicPostModal onClose={onClose} category={topic}/> : null}
 
          <div className="categoryRow">
             <div className="buttonsGroup">

@@ -16,7 +16,9 @@ import './TopicPostModal.css';
 
 import { addPost, getPostById } from '../../../services/posts.service';
 
-function TopicPostModal({onClose}) {
+import swal from 'sweetalert';
+
+function TopicPostModal({onClose, category}) {
 
   const { setContext } = useContext(AppContext);
   const [content, setContent] = useState('');
@@ -25,12 +27,33 @@ function TopicPostModal({onClose}) {
   const { userData: { username } } = useContext(AppContext);
 
 
+const handleValidation = (title, content) =>{
+  if(title === '' || title.length < 16 || title.length > 64){
+    swal(
+      'Something went wrong...',
+      'Post title must be between 16 and 64 characters long!',
+      'error'
+    );
+    return false
+  }
+  if(content === '' || content.length < 32 || content.length > 8192){
+    swal(
+      'Something went wrong...',
+      'Post content must be between 32 and 8192 characters long!',
+      'error'
+    );
+    return false
+  }
 
+  return true;
+}
 
   const createPost = () => {
-    onClose();
-    return addPost(title, content, username)
-      
+    if(handleValidation(title, content)){
+      onClose();
+      swal('Good job!', 'Post uploaded successfully!', 'success');
+      return addPost(title, content, username, category)
+    } 
 
   };
 
@@ -39,20 +62,20 @@ function TopicPostModal({onClose}) {
   <div className="postModalContainer">
     <div  style={{
       display: 'flex',
-      marginLeft: '20px',
-      marginRight: '20px',
-      width: 'auto',
+      marginLeft: '1em',
+      marginRight: '1em',
+      width: '100%',
       top: '-50px',
       justifyContent: 'space-between',
       alignItems: 'center',
     }}>
     
     <form className="post-form">
-    <label>Title</label>
+    <h3>Title</h3>
 
        <input maxLength="64" type="text" onChange={e => setTitle(e.target.value)}/>
    
-      <label>Content</label>
+      <h3>Content</h3>
       <textarea maxLength="8192" name="content" rows="5" style={{resize: "none"}} onChange={e => setContent(e.target.value)}></textarea>
   
       

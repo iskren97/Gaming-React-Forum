@@ -194,9 +194,23 @@ const Header = ({ loading }) => {
                 textAlign: 'center',
               }}
             >
-              <Avatar onClick={handleClick} sx={{ width: 48, height: 48 }}>
+              {/* <Avatar onClick={handleClick} sx={{ width: 48, height: 48 }}>
                 <img src={avatar} alt="pfp" className="profilePic"></img>
-              </Avatar>
+              </Avatar> */}
+
+              {userData.avatarUrl ? (
+                <Avatar onClick={handleClick} sx={{ width: 48, height: 48 }}>
+                  <img src={userData.avatarUrl} className="profilePic" alt="profile"/>
+                  </Avatar>
+                ) : (
+                  <Avatar onClick={handleClick} sx={{ width: 48, height: 48 }}>
+                  <img
+                    src={avatar}
+                    className="profilePic"
+                    alt="profile"
+                  />
+                  </Avatar>
+                )}
             </Box>
             <Menu
               anchorEl={anchorEl}

@@ -4,7 +4,7 @@ import { db } from '../config/firebase-config';
 
 
 
-export const addPost = (title, content, handle) => {
+export const addPost = (title, content, handle, category) => {
 
   return push(
     ref(db, 'posts'),
@@ -13,6 +13,7 @@ export const addPost = (title, content, handle) => {
       content,
       author: handle,
       createdOn: Date.now(),
+      category: category,
     },
   )
     .then(result => {
