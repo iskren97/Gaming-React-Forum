@@ -79,6 +79,7 @@
   border-radius: 50%;
   background-color: white;
   overflow: visible;
+  object-fit: cover;
 }
 
 .profilePic:hover{

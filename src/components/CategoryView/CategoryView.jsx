@@ -2,7 +2,7 @@ import React from 'react'
 import background from '../../assets/gamesBackground.jpg'
 import './CategoryView.css'
 import Button from '@mui/material/Button';
-import { useState, useContext } from 'react'
+import { useState, useContext, useEffect } from 'react'
 
 import Container from '@mui/material/Container';
 import Grid from '@mui/material/Grid';
@@ -10,6 +10,9 @@ import TopicRow from './TopicRow/TopicRow';
 import TopicPostModal from './TopicPostModal/TopicPostModal'
 import AppContext from '../../providers/AppContext'
 import { NavLink } from 'react-router-dom';
+
+import { getAllPosts } from '../../services/posts.service';
+import LoginModal from '../JoinCommunityModal/JoinModal';
 
 
 const comments = [
@@ -52,12 +55,27 @@ function CategoryView({topic}) {
   
  const [postModal, setPostModal] = useState(false)
  const {user, userData, setContext} = useContext(AppContext)
+ const [categoryPosts, setCategoryPosts] = useState([])
 
 
   const onClose = () => {
     setPostModal(!postModal)
   }
   
+  useEffect(()=>{
+getAllPosts().then(posts =>{ 
+  const filtered = [];
+  
+  posts.forEach(post => {
+
+    if(post.category === topic){
+      filtered.push(post)
+    }
+  })
+  setCategoryPosts(filtered)})
+    
+  },[categoryPosts])
+
 
   return (<>
   
@@ -74,6 +92,7 @@ function CategoryView({topic}) {
             {user ? <Button onClick={()=>setPostModal(!postModal)} variant="contained" style={{borderRadius: "2em"}}>Create a Post</Button> : null}
             </div>
             <div className="buttonsGroup">
+
                 <Button variant="contained" style={{borderRadius: "2em"}}>Category</Button>
                 <Button variant="contained" style={{borderRadius: "2em"}}>Top</Button>
                 <Button variant="contained" style={{borderRadius: "2em"}}>Latest</Button>
@@ -99,11 +118,20 @@ function CategoryView({topic}) {
       </Grid>
 
 
-      {rows.map((row) => (
+      {categoryPosts.length !== 0 ? categoryPosts.map((row) => (
       <Grid sx={{marginTop: "0.5rem"}} >         
        <TopicRow row={row} />
       </Grid>
-     ))}
+     ))
+     :
+        <div>
+        <h3> There are no posts in this category. Be the first one to post! {user ? <Button onClick={()=>setPostModal(!postModal)} variant="contained" style={{borderRadius: "2em"}}>Create a Post</Button> :  <a className="join-button">
+            <LoginModal />
+          </a>}</h3>
+        
+        
+        </div>
+     }
 
     
     

@@ -54,3 +54,27 @@
   gap: 0.5em;
   overflow: visible;
 }
+
+.join-button {
+  background: #db002f;
+  color: rgb(255, 255, 255);
+  box-shadow: 0 4px 8px 0 rgb(107 119 128 / 12%),
+    2px 0 8px rgb(107 119 128 / 8%);
+
+  border: none;
+  border-radius: 7px;
+
+  text-align: center;
+
+  padding: 6px;
+
+  text-decoration: none;
+
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+
+  cursor: pointer;
+  -webkit-appearance: none;
+  transition: all 0.3s cubic-bezier(0.25, 0.8, 0.25, 1);
+}

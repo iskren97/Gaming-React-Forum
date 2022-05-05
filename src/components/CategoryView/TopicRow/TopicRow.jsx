@@ -3,11 +3,15 @@ import { styled } from '@mui/material/styles';
 import Paper from '@mui/material/Paper';
 import Grid from '@mui/material/Grid';
 import './TopicRow.css'
-import {useState, useEffect, useRef } from 'react'
+import {useState, useEffect, useRef, useContext } from 'react'
 import KeyboardArrowDownIcon from '@mui/icons-material/KeyboardArrowDown';
 import ThumbUpAltIcon from '@mui/icons-material/ThumbUpAlt';
 import ThumbDownAltIcon from '@mui/icons-material/ThumbDownAlt';
 import CommentRow from './CommentRow/CommentRow'
+import Avatar from '@mui/material/Avatar';
+import avatar from '../../../assets/avatar.jpg';
+import AppContext from '../../../providers/AppContext';
+import { getUserData, getUserByHandle } from '../../../services/users.service';
 
 const Item = styled(Paper)(({ theme }) => ({
   backgroundColor: theme.palette.mode === 'dark' ? '#1A2027' : '#fff',
@@ -24,24 +28,47 @@ const TopicRow = ({ row }) => {
   const [height, setHeight] = useState(0);
   const elementRef = useRef(null);
   const headerRef = useRef(null)
+  const {user, userData, setContext} = useContext(AppContext)
+  const [postedBy, setPostedBy] = useState(null)
+
   
   let innerContent = ''
   !open ? row.content.length > 80 ? innerContent = row.content.slice(0,120) + '...' : innerContent = row.content : innerContent = row.content;
 
 
   useEffect(() => {
-    if(elementRef.current.clientHeight){
-      
+    if(elementRef.current.clientHeight){ 
         setHeight(elementRef.current.clientHeight + headerRef.current.clientHeight + 26) 
-    
     }
+    setPostedBy(row.author)
+    getUserByHandle(row.author).then(res => {
+      setPostedBy(res.val())
+    })
    },[open])
+
+
   
 
   const on_show_styles = {height: height, transition: "height 0.15s ease-in", overflow: "hidden", width: '100%'};
   const on_hide_styles = {height: height, transition: "height 0.15s ease-out", overflow: "hidden", width: '100%'};
 
 
+
+
+ const dateFormat = (date) => {
+  let d = new Date(date);
+  let month = '' + (d.getMonth() + 1);
+  let day = '' + d.getDate();
+  let year = d.getFullYear();
+  let hours = d.getHours();
+  let minutes = d.getMinutes();
+  let seconds = d.getSeconds();
+
+  if (month.length < 2) month = '0' + month;
+  if (day.length < 2) day = '0' + day;
+  
+  return [year, month, day].join('-') + " " + [hours, minutes].join(":");
+}
 
   return (
     <>
@@ -71,7 +98,7 @@ const TopicRow = ({ row }) => {
               }}
             >
               <div>Rating</div>
-              <div> <ThumbDownAltIcon/>{row.rating}<ThumbUpAltIcon/></div>
+              <div> <ThumbDownAltIcon/>{row.likes - row.dislikes}<ThumbUpAltIcon/></div>
             </Grid>
             <Grid
               item
@@ -84,7 +111,7 @@ const TopicRow = ({ row }) => {
               }}
             >
               <div>Replies</div>
-              {row.replies}
+              {row.replies || "0"}
             </Grid>
             <Grid
               item
@@ -97,7 +124,22 @@ const TopicRow = ({ row }) => {
               }}
             >
               <div>Author</div>
+              <div className="userRow">
+              {postedBy?.avatarUrl ? (
+                <Avatar sx={{ width: 48, height: 48}}>
+                  <img src={postedBy.avatarUrl} className="profilePic" alt="profile"/>
+                  </Avatar>
+                ) : (
+                  <Avatar sx={{ width: 48, height: 48 }}>
+                  <img
+                    src={avatar}
+                    className="profilePic"
+                    alt="profile"
+                  />
+                  </Avatar>
+                )}
               {row.author}
+              </div>
             </Grid>
             <Grid
               item
@@ -106,11 +148,12 @@ const TopicRow = ({ row }) => {
                 display: "flex",
                 flexDirection: "column",
                 justifyContent: "flex-start",
-                alignItems: "flex-end",
+                alignItems: "center",
               }}
             >
               <div>Date</div>
-              {row.date}
+
+              {dateFormat(row.createdOn)}
             </Grid>
             <Grid
               item

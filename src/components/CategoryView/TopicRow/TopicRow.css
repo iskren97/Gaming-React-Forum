@@ -19,3 +19,20 @@
 .rowHeaderStyle:hover{
   box-shadow: 0 1px 6px rgba(0,0,0,0.2);
 }
+
+.profilePic{
+  width: 3rem;
+  height: 3rem;
+  border-radius: 50%;
+  background-color: white;
+  overflow: visible;
+  object-fit: cover;
+}
+
+
+.userRow{
+  display:flex;
+  flex-direction: row;
+  align-items: center;
+  gap: 0.25em;
+}

@@ -199,7 +199,7 @@ const Header = ({ loading }) => {
               </Avatar> */}
 
               {userData.avatarUrl ? (
-                <Avatar onClick={handleClick} sx={{ width: 48, height: 48 }}>
+                <Avatar onClick={handleClick} sx={{ width: 48, height: 48}}>
                   <img src={userData.avatarUrl} className="profilePic" alt="profile"/>
                   </Avatar>
                 ) : (

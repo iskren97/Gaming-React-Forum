@@ -14,6 +14,8 @@ export const addPost = (title, content, handle, category) => {
       author: handle,
       createdOn: Date.now(),
       category: category,
+      likes: 0,
+      dislikes: 0,
     },
   )
     .then(result => {
@@ -41,6 +43,41 @@ export const getPostById = (id) => {
         post.likedBy = Object.keys(post.likedBy);
       }
 
+      if (!post.dislikedBy) {
+        post.dislikedBy = [];
+      } else {
+        post.dislikedBy = Object.keys(post.dislikedBy);
+      }
+
       return post;
+    });
+};
+
+
+export const fromPostsDocument = snapshot => {
+  const postsDocument = snapshot.val();
+
+  return Object.keys(postsDocument).map(key => {
+    const post = postsDocument[key];
+
+    return {
+      ...post,
+      id: key,
+      createdOn: new Date(post.createdOn),
+      likedBy: post.likedBy ? Object.keys(post.likedBy) : [],
+    };
+  });
+};
+
+
+export const getAllPosts = () => {
+
+  return get(ref(db, 'posts'))
+    .then(snapshot => {
+      if (!snapshot.exists()) {
+        return [];
+      }
+
+      return fromPostsDocument(snapshot);
     });
 };
