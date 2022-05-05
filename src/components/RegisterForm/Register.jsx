@@ -111,7 +111,7 @@ const Register = ({ closeModal }) => {
       <input
         {...register('email', {
           minLength: 3,
-          maxLength: 320,
+          maxLength: 32,
           required: true,
         })}
       />

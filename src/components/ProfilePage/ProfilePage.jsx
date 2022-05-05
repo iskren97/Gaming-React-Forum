@@ -1,4 +1,4 @@
-import React, { useContext, useState } from 'react';
+import React, { useContext, useEffect, useState } from 'react';
 import './ProfilePage.css';
 
 import {
@@ -28,6 +28,8 @@ import DeleteForeverIcon from '@mui/icons-material/DeleteForever';
 import AppContext from '../../providers/AppContext';
 
 import swal from 'sweetalert';
+import { getAllPosts } from '../../services/posts.service';
+import DisplayPost from './DisplayPost';
 
 const style = {
   position: 'absolute',
@@ -96,6 +98,21 @@ const ProfilePage = () => {
   const { user, userData, setContext } = useContext(AppContext);
   const username = userData?.username;
 
+  const [categoryPosts, setCategoryPosts] = useState([]);
+
+  useEffect(() => {
+    getAllPosts().then((posts) => {
+      const filtered = [];
+
+      posts.forEach((post) => {
+        if (post.author === userData.username) {
+          filtered.push(post);
+        }
+      });
+      setCategoryPosts(filtered);
+    });
+  }, [userData]);
+
   const uploadPicture = (e) => {
     e.preventDefault();
 
@@ -142,11 +159,10 @@ const ProfilePage = () => {
           maxLength: 63,
           closeModal: true,
         },
-      
       },
       button: {
-        text:'Submit',
-      }
+        text: 'Submit',
+      },
     }).then((description) => {
       if (!description) {
         return;
@@ -188,36 +204,53 @@ const ProfilePage = () => {
               spacing={1}
               sx={{ textAlign: 'center' }}
             >
-              <Grid item>
-                {userData.avatarUrl ? (
-                  <img
-                    className="avatar"
-                    src={userData.avatarUrl}
-                    alt="profile"
-                  />
-                ) : (
-                  <img
-                    className="avatar"
-                    src={defaultAvatar}
-                    alt="profile"
-                  ></img>
-                )}
-              </Grid>
+              <h1>User Profile</h1>
+              <Divider />
 
-              <Grid>
-                <a
-                  href="#/"
-                  onClick={handleOpen}
-                  style={{
-                    color: 'black',
-                    fontSize: '13.5px',
-                    textTransform: 'none',
-                  }}
-                >
-                  <Tooltip title="Change profile picture" placement="right-end">
-                    <EditIcon sx={{ cursor: 'pointer' }} />
-                  </Tooltip>
-                </a>
+              <Grid item>
+                <Grid container direction="row" sx={{ alignItems: 'center' }}>
+                  <Grid item xs={7} sx={{ textAlign: 'left' }}>
+                    <h2>Personal Information</h2>
+                    <br />
+
+                    <p>First Name: {userData.firstName}</p>
+                    <p>Last Name: {userData.lastName}</p>
+                    <p>Email: {userData.email}</p>
+                  </Grid>
+
+                  <Grid item xs={5} sx={{ textAlign: 'right' }}>
+                    {userData.avatarUrl ? (
+                      <img
+                        className="avatar"
+                        src={userData.avatarUrl}
+                        alt="profile"
+                      />
+                    ) : (
+                      <img
+                        className="avatar"
+                        src={defaultAvatar}
+                        alt="profile"
+                      ></img>
+                    )}
+
+                    <a
+                      href="#/"
+                      onClick={handleOpen}
+                      style={{
+                        color: 'black',
+                        fontSize: '13.5px',
+                        textTransform: 'none',
+                      }}
+                    >
+                      <Tooltip
+                        title="Change profile picture"
+                        placement="right-end"
+                      >
+                        <EditIcon sx={{ cursor: 'pointer' }} />
+                      </Tooltip>
+                    </a>
+                  </Grid>
+                </Grid>
               </Grid>
 
               <Modal
@@ -283,6 +316,7 @@ const ProfilePage = () => {
               </Modal>
 
               <Grid item>
+                <Divider />
                 <h1>{userData.username}</h1>
               </Grid>
 
@@ -301,8 +335,8 @@ const ProfilePage = () => {
             </Grid>
             <h1>My Posts:</h1>
 
-            <div className="profilePosts">
-              {rows.map((row) => (
+            {categoryPosts.length !== 0 ? (
+              categoryPosts.map((post) => (
                 <Grid
                   sx={{
                     marginTop: '0.5rem',
@@ -310,13 +344,34 @@ const ProfilePage = () => {
                     flexDirection: 'row',
                   }}
                 >
-                  <TopicRow row={row} />
+                  <TopicRow key={post.id} row={post} />
                   <div className="topicEditDelete">
                     <EditIcon /> <DeleteForeverIcon />{' '}
                   </div>
                 </Grid>
-              ))}
-            </div>
+              ))
+            ) : (
+              <div>
+                <h3> You have no posts yet.</h3>
+              </div>
+            )}
+
+            {/* {postsArr.length === 0
+                ? 'You have no posts to show'
+                : postsArr.map((row) => (
+                    <Grid
+                      sx={{
+                        marginTop: '0.5rem',
+                        display: 'flex',
+                        flexDirection: 'row',
+                      }}
+                    >
+                      <TopicRow row={row} />
+                      <div className="topicEditDelete">
+                        <EditIcon /> <DeleteForeverIcon />{' '}
+                      </div>
+                    </Grid>
+                  ))} */}
           </Container>
         </div>
       ) : null}
