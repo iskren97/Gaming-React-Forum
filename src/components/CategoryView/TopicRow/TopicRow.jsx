@@ -12,6 +12,7 @@ import Avatar from '@mui/material/Avatar';
 import avatar from '../../../assets/avatar.jpg';
 import AppContext from '../../../providers/AppContext';
 import { getUserData, getUserByHandle } from '../../../services/users.service';
+import { likePost, removeLikePost, dislikePost, removeDislikePost } from '../../../services/posts.service';
 
 const Item = styled(Paper)(({ theme }) => ({
   backgroundColor: theme.palette.mode === 'dark' ? '#1A2027' : '#fff',
@@ -31,7 +32,9 @@ const TopicRow = ({ row }) => {
   const {user, userData, setContext} = useContext(AppContext)
   const [postedBy, setPostedBy] = useState(null)
 
-  
+  const isPostLiked = () => row.likedBy.includes(userData?.username);
+  const isPostDisliked = () => row.dislikedBy.includes(userData?.username);
+
   let innerContent = ''
   !open ? row.content.length > 80 ? innerContent = row.content.slice(0,120) + '...' : innerContent = row.content : innerContent = row.content;
 
@@ -40,12 +43,14 @@ const TopicRow = ({ row }) => {
     if(elementRef.current.clientHeight){ 
         setHeight(elementRef.current.clientHeight + headerRef.current.clientHeight + 26) 
     }
-    setPostedBy(row.author)
+   },[open])
+
+
+   useEffect(()=>{
     getUserByHandle(row.author).then(res => {
       setPostedBy(res.val())
     })
-   },[open])
-
+   },[postedBy])
 
   
 
@@ -55,20 +60,56 @@ const TopicRow = ({ row }) => {
 
 
 
- const dateFormat = (date) => {
+ const dateFormatDate = (date) => {
   let d = new Date(date);
   let month = '' + (d.getMonth() + 1);
   let day = '' + d.getDate();
   let year = d.getFullYear();
-  let hours = d.getHours();
-  let minutes = d.getMinutes();
-  let seconds = d.getSeconds();
-
+ 
   if (month.length < 2) month = '0' + month;
   if (day.length < 2) day = '0' + day;
   
-  return [year, month, day].join('-') + " " + [hours, minutes].join(":");
+  return [year, month, day].join('-');
 }
+const dateFormatHour = (date) => {
+  let d = new Date(date);
+  let hours = d.getHours();
+  let minutes = d.getMinutes();
+
+  if (hours < 10) hours = '0' + hours;
+  if (minutes < 10) minutes = '0' + minutes;
+
+  return [hours, minutes].join(":");
+}
+
+
+  const ratingButtons = () =>{
+
+    const loggedView = <div className='rating-buttons'>
+    <ThumbDownAltIcon className={isPostDisliked() ? "thumbDownIconFilled" : "thumbDownIcon" } onClick={()=>{
+             isPostDisliked() ? 
+             removeDislikePost(userData?.username, row.id) :
+             dislikePost(userData?.username, row.id) 
+
+             removeLikePost(userData?.username, row.id)
+              }} />
+        { (row.likedBy?.length || 0) - (row.dislikedBy?.length || 0)}
+         <ThumbUpAltIcon className={isPostLiked() ? "thumbUpIconFilled" : "thumbUpIcon"} onClick={()=> {
+           isPostLiked() ? 
+           removeLikePost(userData?.username, row.id) :
+           likePost(userData?.username, row.id)
+
+           removeDislikePost(userData?.username, row.id)
+            }} />
+            </div>
+            
+      const defaultView =  (row.likedBy?.length || 0) - (row.dislikedBy?.length || 0)
+
+    return ( user ? loggedView : defaultView
+
+    )
+  }
+
 
   return (
     <>
@@ -98,7 +139,9 @@ const TopicRow = ({ row }) => {
               }}
             >
               <div>Rating</div>
-              <div> <ThumbDownAltIcon/>{row.likes - row.dislikes}<ThumbUpAltIcon/></div>
+              <div>
+              {ratingButtons()}
+              </div>
             </Grid>
             <Grid
               item
@@ -153,7 +196,9 @@ const TopicRow = ({ row }) => {
             >
               <div>Date</div>
 
-              {dateFormat(row.createdOn)}
+              <div>{dateFormatDate(row.createdOn)}</div>
+              <div>{dateFormatHour(row.createdOn)}</div>
+
             </Grid>
             <Grid
               item

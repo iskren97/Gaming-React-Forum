@@ -14,8 +14,6 @@ export const addPost = (title, content, handle, category) => {
       author: handle,
       createdOn: Date.now(),
       category: category,
-      likes: 0,
-      dislikes: 0,
     },
   )
     .then(result => {
@@ -49,6 +47,8 @@ export const getPostById = (id) => {
         post.dislikedBy = Object.keys(post.dislikedBy);
       }
 
+      
+
       return post;
     });
 };
@@ -65,6 +65,7 @@ export const fromPostsDocument = snapshot => {
       id: key,
       createdOn: new Date(post.createdOn),
       likedBy: post.likedBy ? Object.keys(post.likedBy) : [],
+      dislikedBy: post.dislikedBy ? Object.keys(post.dislikedBy) : [],
     };
   });
 };
@@ -80,4 +81,38 @@ export const getAllPosts = () => {
 
       return fromPostsDocument(snapshot);
     });
+};
+
+
+
+export const likePost = (handle, postId) => {
+  const updateLikes = {};
+  updateLikes[`/posts/${postId}/likedBy/${handle}`] = true;
+  updateLikes[`/users/${handle}/likedPosts/${postId}`] = true;
+
+  return update(ref(db), updateLikes);
+};
+
+export const removeLikePost = (handle, postId) => {
+  const updateLikes = {};
+  updateLikes[`/posts/${postId}/likedBy/${handle}`] = null;
+  updateLikes[`/users/${handle}/likedPosts/${postId}`] = null;
+
+  return update(ref(db), updateLikes);
+};
+
+export const dislikePost = (handle, postId) => {
+  const updateLikes = {};
+  updateLikes[`/posts/${postId}/dislikedBy/${handle}`] = true;
+  updateLikes[`/users/${handle}/dislikedPosts/${postId}`] = true;
+
+  return update(ref(db), updateLikes);
+};
+
+export const removeDislikePost = (handle, postId) => {
+  const updateLikes = {};
+  updateLikes[`/posts/${postId}/dislikedBy/${handle}`] = null;
+  updateLikes[`/users/${handle}/dislikedPosts/${postId}`] = null;
+
+  return update(ref(db), updateLikes);
 };
