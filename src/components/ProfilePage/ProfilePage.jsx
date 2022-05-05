@@ -137,10 +137,16 @@ const ProfilePage = () => {
       content: {
         element: 'input',
         attributes: {
-          placeholder: 'Type your description',
+          placeholder: 'Shortly describe yourself',
           type: 'text',
+          maxLength: 63,
+          closeModal: true,
         },
+      
       },
+      button: {
+        text:'Submit',
+      }
     }).then((description) => {
       if (!description) {
         return;
