@@ -201,7 +201,6 @@ const ProfilePage = () => {
               <Grid>
                 <a
                   href="#/"
-                  arrow
                   onClick={handleOpen}
                   style={{
                     color: 'black',
@@ -271,7 +270,7 @@ const ProfilePage = () => {
                     <input id="file-upload" type="file" accept="image/*" />
 
                     <button className="upload-pic-btn" type="submit">
-                      Submit
+                      Click to upload
                     </button>
                   </form>
                 </Box>

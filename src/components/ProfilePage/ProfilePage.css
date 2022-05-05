@@ -69,7 +69,6 @@ input[type='file'] {
   border: none;
   cursor: pointer;
   background-color: #47db00;
-  letter-spacing: 3px;
 }
 
 .custom-file-upload:hover {
