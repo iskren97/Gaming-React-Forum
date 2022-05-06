@@ -116,3 +116,25 @@ export const removeDislikePost = (handle, postId) => {
 
   return update(ref(db), updateLikes);
 };
+
+
+export const deletePost = async (id) => {
+  const tweet = await getPostById(id);
+  const updateLikes = {};
+  const updateDislikes = {}
+
+  tweet.likedBy.forEach(handle => {
+    updateLikes[`/users/${handle}/likedPosts/${id}`] = null;
+  });
+
+  tweet.dislikedBy.forEach(handle => {
+    updateLikes[`/users/${handle}/dislikedPosts/${id}`] = null;
+  });
+
+  await update(ref(db), updateLikes);
+  await update(ref(db), updateDislikes);
+
+  return update(ref(db), {
+    [`/posts/${id}`]: null,
+  });
+};

@@ -12,7 +12,14 @@ import Avatar from '@mui/material/Avatar';
 import avatar from '../../../assets/avatar.jpg';
 import AppContext from '../../../providers/AppContext';
 import { getUserData, getUserByHandle } from '../../../services/users.service';
-import { likePost, removeLikePost, dislikePost, removeDislikePost } from '../../../services/posts.service';
+import { likePost, removeLikePost, dislikePost, removeDislikePost, deletePost } from '../../../services/posts.service';
+
+import Tooltip from '@mui/material/Tooltip';
+
+import ReplyIcon from '@mui/icons-material/Reply';
+import DeleteForeverIcon from '@mui/icons-material/DeleteForever';
+import EditIcon from '@mui/icons-material/Edit';
+import swal from 'sweetalert';
 
 const Item = styled(Paper)(({ theme }) => ({
   backgroundColor: theme.palette.mode === 'dark' ? '#1A2027' : '#fff',
@@ -105,14 +112,70 @@ const dateFormatHour = (date) => {
             
       const defaultView =  (row.likedBy?.length || 0) - (row.dislikedBy?.length || 0)
 
-    return ( user ? loggedView : defaultView
+    return ( (!user || userData?.username === row.author) ? defaultView : loggedView
 
     )
   }
 
 
+  const handleDeletePost = () =>{
+    swal({
+      title: "Are you sure?",
+      text: "You won't be able to revert this!",
+      icon: "warning",
+      buttons: true,
+      dangerMode: true,
+    })
+    .then((willDelete) => {
+      if (willDelete) {
+        deletePost(row.id)
+        swal("Post deleted!", {
+          icon: "success",
+        });
+      } else {
+        swal("Your post is safe!", {
+          icon: "success",
+        });
+      }
+    });
+  
+  
+
+  
+    //deletePost(row.id)
+  }
+
+
+
+  const iconsField = () =>{
+    if(!user){
+      return (null)
+    }else if(userData.username === row.author){
+      return (<div className="iconsContainer">
+       <Tooltip title="Reply to this post" placement="right-end">
+      <ReplyIcon className="replyIcon"/>
+      </Tooltip>
+      <Tooltip title="Edit this post" placement="right-end">
+      <EditIcon className="editIcon"/>
+      </Tooltip>
+      <Tooltip title="Edit this post" placement="right-end">
+      <DeleteForeverIcon onClick={()=>handleDeletePost()} className="deleteIcon"/>
+      </Tooltip>
+      </div>)
+    } else {
+      return (<div className="iconsContainer">
+      <Tooltip title="Reply to this post" placement="right-end">
+      <ReplyIcon className="replyIcon"/>
+      </Tooltip>
+      </div>)
+    }
+  }
+
+
+ 
   return (
     <>
+    <div className="topicRowContainer">
       <Item style={open ? on_show_styles : on_hide_styles}>
         <Grid container direction="column">
           <Grid
@@ -216,6 +279,10 @@ const dateFormatHour = (date) => {
         </Grid>
       </Item>
 
+     
+      {iconsField()}
+
+
       {open ? (
         row.comments ? (
           <Grid
@@ -231,6 +298,7 @@ const dateFormatHour = (date) => {
           </Grid>
         ) : null
       ) : null}
+      </div>
     </>
   );
 };

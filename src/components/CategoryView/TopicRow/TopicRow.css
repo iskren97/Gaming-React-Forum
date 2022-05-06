@@ -64,3 +64,57 @@
   color: green;
   transition: all 0.25s ease;
 }
+
+.topicRowContainer{
+  display: flex;
+  flex-direction:row;
+  align-items: center;
+}
+
+.replyIcon{
+  transition: all 0.25s ease;
+  cursor: pointer;
+}
+
+.replyIcon:hover{
+  color: blue;
+  transition: all 0.25s ease;
+}
+
+.deleteIcon{
+  transition: all 0.25s ease;
+  cursor: pointer;
+}
+
+.deleteIcon:hover{
+  color: red;
+  transition: all 0.25s ease;
+}
+
+.editIcon{
+  transition: all 0.25s ease;
+  cursor: pointer;
+}
+
+.editIcon:hover{
+  color: orange;
+  transition: all 0.25s ease;
+}
+
+.iconsContainer{
+  display: flex;
+  flex-direction: column;
+  gap: 0.5em;
+  margin: 0.5em;
+}
+
+
+.swal-button--cancel {
+  color: #efefef;
+  background-color: #e64942 !important;
+}
+
+.swal-button--cancel:hover {
+  color: #efefef;
+  background-color: #e64942 !important;
+}
