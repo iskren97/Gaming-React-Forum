@@ -53,16 +53,13 @@ const ProfilePage = () => {
   const [categoryPosts, setCategoryPosts] = useState([]);
 
   useEffect(() => {
-    getAllPosts().then((posts) => {
-      const filtered = [];
-
-      posts.forEach((post) => {
-        if (post.author === userData.username) {
-          filtered.push(post);
-        }
+    const getPostsByUser = () => {
+      return getAllPosts().then((posts) => {
+        return posts.filter((post) => post.author === userData.username);
       });
-      setCategoryPosts(filtered);
-    });
+    };
+
+    getPostsByUser().then((data) => setCategoryPosts(data));
   }, [userData]);
 
   const uploadPicture = (e) => {
@@ -285,6 +282,7 @@ const ProfilePage = () => {
 
               <Divider />
             </Grid>
+
             <h1>My Posts:</h1>
 
             {categoryPosts.length !== 0 ? (
@@ -307,23 +305,6 @@ const ProfilePage = () => {
                 <h3> You have no posts yet.</h3>
               </div>
             )}
-
-            {/* {postsArr.length === 0
-                ? 'You have no posts to show'
-                : postsArr.map((row) => (
-                    <Grid
-                      sx={{
-                        marginTop: '0.5rem',
-                        display: 'flex',
-                        flexDirection: 'row',
-                      }}
-                    >
-                      <TopicRow row={row} />
-                      <div className="topicEditDelete">
-                        <EditIcon /> <DeleteForeverIcon />{' '}
-                      </div>
-                    </Grid>
-                  ))} */}
           </Container>
         </div>
       ) : null}
