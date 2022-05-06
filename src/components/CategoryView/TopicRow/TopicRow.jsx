@@ -31,8 +31,6 @@ import EditIcon from '@mui/icons-material/Edit';
 import swal from 'sweetalert';
 import { NavLink } from 'react-router-dom';
 import { useNavigate } from 'react-router-dom';
-import User from '../../../views/User/User';
-import Profile from '../../../views/Profile/Profile';
 
 const Item = styled(Paper)(({ theme }) => ({
   backgroundColor: theme.palette.mode === 'dark' ? '#1A2027' : '#fff',
@@ -167,28 +165,6 @@ const TopicRow = ({ row }) => {
 
     //deletePost(row.id)
   };
-
-  const iconsField = () => {
-    if (!user) {
-      return null;
-    } else if (userData.username === row.author) {
-      return (
-        <div className="iconsContainer">
-          <Tooltip title="Reply to this post" placement="right-end">
-            <ReplyIcon className="replyIcon" />
-          </Tooltip>
-          <Tooltip title="Edit this post" placement="right-end">
-            <EditIcon className="editIcon" />
-          </Tooltip>
-          <Tooltip title="Edit this post" placement="right-end">
-            <DeleteForeverIcon
-              onClick={() => handleDeletePost()}
-              className="deleteIcon"
-            />
-          </Tooltip>
-        </div>
-      );
-    }
 
     const handleEditPost = () => {
       //editPost(row.id, row.title, row.content)
@@ -446,5 +422,4 @@ const TopicRow = ({ row }) => {
       </>
     );
   };
-};
 export default TopicRow;
