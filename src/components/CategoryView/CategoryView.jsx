@@ -85,7 +85,7 @@ getAllPosts().then(posts =>{
          <img src={background} alt="background" ></img>
          </div>
     
-      {postModal  ? <TopicPostModal onClose={onClose} category={topic}/> : null}
+      {postModal  ? <TopicPostModal onClose={onClose} category={topic} postModal={postModal} setPostModal={setPostModal} /> : null}
 
          <div className="categoryRow">
             <div className="buttonsGroup">

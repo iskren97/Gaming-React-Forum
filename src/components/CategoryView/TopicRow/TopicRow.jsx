@@ -32,8 +32,8 @@ const TopicRow = ({ row }) => {
   const {user, userData, setContext} = useContext(AppContext)
   const [postedBy, setPostedBy] = useState(null)
 
-  const isPostLiked = () => row.likedBy.includes(userData?.username);
-  const isPostDisliked = () => row.dislikedBy.includes(userData?.username);
+  const isPostLiked = () => row?.likedBy?.includes(userData?.username);
+  const isPostDisliked = () => row?.dislikedBy?.includes(userData?.username);
 
   let innerContent = ''
   !open ? row.content.length > 80 ? innerContent = row.content.slice(0,120) + '...' : innerContent = row.content : innerContent = row.content;

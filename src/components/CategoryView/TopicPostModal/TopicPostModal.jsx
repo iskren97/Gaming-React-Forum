@@ -32,10 +32,12 @@ const style = {
   p: 4,
 };
 
-function TopicPostModal({ onClose, category }) {
-  // const [open, setOpen] = useState(false);
-  // const handleOpen = () => setOpen(true);
-  // const handleClose = () => setOpen(false);
+function TopicPostModal({ onClose, category, postModal, setPostModal}) {
+  const [isOpen, setIsOpen] = useState(postModal);
+
+  const handleClose = () => {
+    setIsOpen(false);
+    setPostModal(false)}
 
   const { setContext } = useContext(AppContext);
   const [content, setContent] = useState('');
@@ -75,86 +77,85 @@ function TopicPostModal({ onClose, category }) {
   };
 
   return (
-    // <Modal
-    // open={open}
-    // onClose={handleClose}
-    // aria-labelledby="modal-modal-title"
-    // aria-describedby="modal-modal-description"
-    // <div className="postModalContainer">
-    // >
+    <Modal
+     open={isOpen}
+     onClose={handleClose}
+    aria-labelledby="modal-modal-title"
+    aria-describedby="modal-modal-description"
+    >
 
-    // <Box sx={style}>
+    <Box sx={style}>
+        <Button onClick={()=>handleClose()}>X</Button>
+      <form className="post-form">
+      <h3>Title</h3>
 
-    //   <form className="post-form">
-    //   <h3>Title</h3>
+      <input
+        maxLength="64"
+        type="text"
+        onChange={(e) => setTitle(e.target.value)}
+      />
 
-    //   <input
-    //     maxLength="64"
-    //     type="text"
-    //     onChange={(e) => setTitle(e.target.value)}
-    //   />
+      <h3>Content</h3>
+      <textarea
+        maxLength="8192"
+        name="content"
+        rows="5"
+        style={{ resize: 'none' }}
+        onChange={(e) => setContent(e.target.value)}
+      ></textarea>
 
-    //   <h3>Content</h3>
-    //   <textarea
-    //     maxLength="8192"
-    //     name="content"
-    //     rows="5"
-    //     style={{ resize: 'none' }}
-    //     onChange={(e) => setContent(e.target.value)}
-    //   ></textarea>
-
-    //   <Button
-    //     onClick={() => createPost()}
-    //     variant="contained"
-    //     style={{ background: '#47DB00' }}
-    //   >
-    //     Post
-    //   </Button>
-    // </form>
-
-    // </Box>
-    // </Modal>
-
-    <div className="postModalContainer">
-      <div
-        style={{
-          display: 'flex',
-          marginLeft: '1em',
-          marginRight: '1em',
-          width: '100%',
-          top: '-50px',
-          justifyContent: 'space-between',
-          alignItems: 'center',
-        }}
+      <Button
+        onClick={() => createPost()}
+        variant="contained"
+        style={{ background: '#47DB00' }}
       >
-        <form className="post-form">
-          <h3>Title</h3>
+        Post
+      </Button>
+    </form>
 
-          <input
-            maxLength="64"
-            type="text"
-            onChange={(e) => setTitle(e.target.value)}
-          />
+    </Box>
+    </Modal>
 
-          <h3>Content</h3>
-          <textarea
-            maxLength="8192"
-            name="content"
-            rows="5"
-            style={{ resize: 'none' }}
-            onChange={(e) => setContent(e.target.value)}
-          ></textarea>
+    // <div className="postModalContainer">
+    //   <div
+    //     style={{
+    //       display: 'flex',
+    //       marginLeft: '1em',
+    //       marginRight: '1em',
+    //       width: '100%',
+    //       top: '-50px',
+    //       justifyContent: 'space-between',
+    //       alignItems: 'center',
+    //     }}
+    //   >
+    //     <form className="post-form">
+    //       <h3>Title</h3>
 
-          <Button
-            onClick={() => createPost()}
-            variant="contained"
-            style={{ background: '#47DB00' }}
-          >
-            Post
-          </Button>
-        </form>
-      </div>
-    </div>
+    //       <input
+    //         maxLength="64"
+    //         type="text"
+    //         onChange={(e) => setTitle(e.target.value)}
+    //       />
+
+    //       <h3>Content</h3>
+    //       <textarea
+    //         maxLength="8192"
+    //         name="content"
+    //         rows="5"
+    //         style={{ resize: 'none' }}
+    //         onChange={(e) => setContent(e.target.value)}
+    //       ></textarea>
+
+    //       <Button
+    //         onClick={() => createPost()}
+    //         variant="contained"
+    //         style={{ background: '#47DB00' }}
+    //       >
+    //         Post
+    //       </Button>
+    //     </form>
+    //   </div>
+    // </div>
   );
 }
 
