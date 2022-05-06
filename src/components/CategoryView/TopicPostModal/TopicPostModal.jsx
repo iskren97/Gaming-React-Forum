@@ -33,10 +33,8 @@ const style = {
 };
 
 function TopicPostModal({ onClose, category, postModal, setPostModal}) {
-  const [isOpen, setIsOpen] = useState(postModal);
 
   const handleClose = () => {
-    setIsOpen(false);
     setPostModal(false)}
 
   const { setContext } = useContext(AppContext);
@@ -78,7 +76,7 @@ function TopicPostModal({ onClose, category, postModal, setPostModal}) {
 
   return (
     <Modal
-     open={isOpen}
+     open={postModal}
      onClose={handleClose}
     aria-labelledby="modal-modal-title"
     aria-describedby="modal-modal-description"
