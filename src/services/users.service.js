@@ -22,6 +22,7 @@ export const createUserHandle = (firstName, lastName, email, username, uid) => {
     uid,
     createdOn: new Date(),
     likedPosts: {},
+    role: 'user',
   });
 };
 
