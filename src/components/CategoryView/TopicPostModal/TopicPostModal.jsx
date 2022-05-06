@@ -20,22 +20,10 @@ import swal from 'sweetalert';
 import { Modal } from '@mui/material';
 import { Box } from '@mui/system';
 
-const style = {
-  position: 'absolute',
-  top: '50%',
-  left: '50%',
-  transform: 'translate(-50%, -50%)',
-  width: 400,
-  bgcolor: 'background.paper',
-  border: '2px solid #000',
-  boxShadow: 24,
-  p: 4,
-};
-
-function TopicPostModal({ onClose, category, postModal, setPostModal}) {
-
+function TopicPostModal({ onClose, category, postModal, setPostModal }) {
   const handleClose = () => {
-    setPostModal(false)}
+    setPostModal(false);
+  };
 
   const { setContext } = useContext(AppContext);
   const [content, setContent] = useState('');
@@ -76,84 +64,56 @@ function TopicPostModal({ onClose, category, postModal, setPostModal}) {
 
   return (
     <Modal
-     open={postModal}
-     onClose={handleClose}
-    aria-labelledby="modal-modal-title"
-    aria-describedby="modal-modal-description"
+      open={postModal}
+      onClose={handleClose}
+      aria-labelledby="modal-modal-title"
+      aria-describedby="modal-modal-description"
     >
+      <Box className="post-modal">
+        <form className="post-form">
+          <div style={{ display: 'flex', justifyContent: 'space-between' }}>
+            <h3>Title</h3>
 
-    <Box sx={style}>
-        <Button onClick={()=>handleClose()}>X</Button>
-      <form className="post-form">
-      <h3>Title</h3>
+            <button
+              style={{
+                background: 'none',
+                border: 'none',
+                fontSize: '27px',
+                fontWeight: 'bold',
+                cursor: 'pointer',
+                float: 'right',
+              }}
+              onClick={() => handleClose()}
+            >
+              X
+            </button>
+          </div>
 
-      <input
-        maxLength="64"
-        type="text"
-        onChange={(e) => setTitle(e.target.value)}
-      />
+          <input
+            maxLength="55"
+            type="text"
+            onChange={(e) => setTitle(e.target.value)}
+          />
 
-      <h3>Content</h3>
-      <textarea
-        maxLength="8192"
-        name="content"
-        rows="5"
-        style={{ resize: 'none' }}
-        onChange={(e) => setContent(e.target.value)}
-      ></textarea>
+          <h3>Content</h3>
+          <textarea
+            maxLength="8192"
+            name="content"
+            rows="5"
+            style={{ resize: 'none' }}
+            onChange={(e) => setContent(e.target.value)}
+          ></textarea>
 
-      <Button
-        onClick={() => createPost()}
-        variant="contained"
-        style={{ background: '#47DB00' }}
-      >
-        Post
-      </Button>
-    </form>
-
-    </Box>
+          <Button
+            onClick={() => createPost()}
+            variant="contained"
+            style={{ background: '#47DB00' }}
+          >
+            Post
+          </Button>
+        </form>
+      </Box>
     </Modal>
-
-    // <div className="postModalContainer">
-    //   <div
-    //     style={{
-    //       display: 'flex',
-    //       marginLeft: '1em',
-    //       marginRight: '1em',
-    //       width: '100%',
-    //       top: '-50px',
-    //       justifyContent: 'space-between',
-    //       alignItems: 'center',
-    //     }}
-    //   >
-    //     <form className="post-form">
-    //       <h3>Title</h3>
-
-    //       <input
-    //         maxLength="64"
-    //         type="text"
-    //         onChange={(e) => setTitle(e.target.value)}
-    //       />
-
-    //       <h3>Content</h3>
-    //       <textarea
-    //         maxLength="8192"
-    //         name="content"
-    //         rows="5"
-    //         style={{ resize: 'none' }}
-    //         onChange={(e) => setContent(e.target.value)}
-    //       ></textarea>
-
-    //       <Button
-    //         onClick={() => createPost()}
-    //         variant="contained"
-    //         style={{ background: '#47DB00' }}
-    //       >
-    //         Post
-    //       </Button>
-    //     </form>
-    //   </div>
-    // </div>
   );
 }
 

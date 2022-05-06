@@ -9,6 +9,7 @@ import { createUserHandle } from '../../services/users.service';
 
 import AppContext from '../../providers/AppContext';
 import { getUserData } from '../../services/users.service';
+import swal from 'sweetalert';
 
 const Register = ({ closeModal }) => {
   const { setContext } = useContext(AppContext);
@@ -29,7 +30,11 @@ const Register = ({ closeModal }) => {
         const getUser = await getUserByHandle(data.username);
 
         if (getUser.exists()) {
-          return alert(`User with username ${data.username} already exists!`);
+          return swal(
+            `User with username ${data.username} already exists!`,
+            'Please use another username',
+            'error'
+          );
         }
 
         const credential = await registerUser(data.email, data.password);
@@ -51,9 +56,10 @@ const Register = ({ closeModal }) => {
         }
 
         closeOnSubmit();
+        swal('Success', 'Your account was created!', 'success');
       } catch (err) {
         if (err.message.includes('auth/email-already-in-use')) {
-          alert('Email already used!');
+          swal('Email already used!', 'Please use another email', 'error');
         }
       }
     })();
