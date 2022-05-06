@@ -1,14 +1,12 @@
-
-.arrowTriggered{
+.arrowTriggered {
   transform: rotate(180deg);
 }
 
-.arrowTrigger{
+.arrowTrigger {
   transform: rotate(0deg);
 }
 
-
-.rowHeaderStyle{
+.rowHeaderStyle {
   cursor: pointer;
   display: flex;
   flex-direction: row;
@@ -16,11 +14,11 @@
   width: 100%;
 }
 
-.rowHeaderStyle:hover{
-  box-shadow: 0 1px 6px rgba(0,0,0,0.2);
+.rowHeaderStyle:hover {
+  box-shadow: 0 1px 6px rgba(0, 0, 0, 0.2);
 }
 
-.profilePic{
+.profilePic {
   width: 3rem;
   height: 3rem;
   border-radius: 50%;
@@ -29,85 +27,84 @@
   object-fit: cover;
 }
 
-
-.userRow{
-  display:flex;
+.userRow {
+  display: flex;
   flex-direction: row;
   align-items: center;
   gap: 0.25em;
+  cursor: pointer;
 }
 
-.thumbDownIcon{
+.thumbDownIcon {
   transition: all 0.25s ease;
   cursor: pointer;
 }
-.thumbDownIconFilled{
+.thumbDownIconFilled {
   color: red;
   cursor: pointer;
 }
 
-.thumbDownIcon:hover{
+.thumbDownIcon:hover {
   color: red;
   transition: all 0.25s ease;
 }
 
-.thumbUpIcon{
+.thumbUpIcon {
   transition: all 0.25s ease;
   cursor: pointer;
 }
-.thumbUpIconFilled{
+.thumbUpIconFilled {
   color: green;
   cursor: pointer;
 }
 
-.thumbUpIcon:hover{
+.thumbUpIcon:hover {
   color: green;
   transition: all 0.25s ease;
 }
 
-.topicRowContainer{
+.topicRowContainer {
   display: flex;
-  flex-direction:row;
+  flex-direction: row;
   align-items: center;
 }
 
-.replyIcon{
+.replyIcon {
   transition: all 0.25s ease;
   cursor: pointer;
 }
 
-.replyIcon:hover{
+.replyIcon:hover {
   color: blue;
   transition: all 0.25s ease;
 }
 
-.deleteIcon{
+.deleteIcon {
   transition: all 0.25s ease;
   cursor: pointer;
 }
 
-.deleteIcon:hover{
+.deleteIcon:hover {
   color: red;
   transition: all 0.25s ease;
 }
 
-.editIcon{
+.editIcon {
   transition: all 0.25s ease;
   cursor: pointer;
 }
 
-.editIcon:hover{
+.editIcon:hover {
   color: orange;
   transition: all 0.25s ease;
 }
 
-.iconsContainer{
+.iconsContainer {
   display: flex;
   flex-direction: column;
   gap: 0.5em;
   margin: 0.5em;
 }
-
 
 .swal-button--cancel {
   color: #efefef;
@@ -117,4 +114,13 @@
 .swal-button--cancel:hover {
   color: #efefef;
   background-color: #e64942 !important;
+}
+
+.swal-icon img {
+  margin-top: 10px;
+  object-fit: cover;
+
+  width: auto;
+  max-height: 400px;
+  background-color: white;
 }
