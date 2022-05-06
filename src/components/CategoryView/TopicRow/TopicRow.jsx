@@ -11,17 +11,16 @@ import CommentRow from './CommentRow/CommentRow';
 import Avatar from '@mui/material/Avatar';
 import avatar from '../../../assets/avatar.jpg';
 import AppContext from '../../../providers/AppContext';
-import {
-  getUserData,
-  getUserByHandle,
-  getUserByAvatar,
-} from '../../../services/users.service';
+import { getUserData, getUserByHandle } from '../../../services/users.service';
 import {
   likePost,
   removeLikePost,
   dislikePost,
   removeDislikePost,
   deletePost,
+  editPost,
+  editPostTitle,
+  editPostContent,
 } from '../../../services/posts.service';
 
 import Tooltip from '@mui/material/Tooltip';
@@ -189,156 +188,263 @@ const TopicRow = ({ row }) => {
           </Tooltip>
         </div>
       );
-    } else {
-      return (
-        <div className="iconsContainer">
-          <Tooltip title="Reply to this post" placement="right-end">
-            <ReplyIcon className="replyIcon" />
-          </Tooltip>
-        </div>
-      );
     }
-  };
 
-  return (
-    <>
-      <div className="topicRowContainer">
-        <Item style={open ? on_show_styles : on_hide_styles}>
-          <Grid container direction="column">
-            <Grid
-              container
-              direction="row"
-              onClick={() => setOpen(!open)}
-              className="rowHeaderStyle"
-            >
-              <h2 ref={headerRef}> {row.title} </h2>
-              <KeyboardArrowDownIcon
-                className={open ? 'arrowTriggered' : 'arrowTrigger'}
-                sx={{ transition: '0.25s ease-in-out' }}
+    const handleEditPost = () => {
+      //editPost(row.id, row.title, row.content)
+
+      swal({
+        title: 'Edit title',
+        text: "Edit your post's title",
+        content: {
+          element: 'input',
+          attributes: {
+            placeholder: 'Title',
+            type: 'text',
+            value: row.title,
+          },
+        },
+        buttons: true,
+        dangerMode: true,
+      }).then((title) => {
+        if (title) {
+          if (title === '' || title.length < 16 || title.length > 64) {
+            swal(
+              'Something went wrong...',
+              'Post title must be between 16 and 64 characters long!',
+              'error'
+            );
+            return false;
+          } else {
+            editPostTitle(row.id, title);
+            swal('Post title edited!', {
+              icon: 'success',
+            });
+
+            swal({
+              title: 'Edit content',
+              text: "Edit your post's content",
+              content: {
+                element: 'input',
+                attributes: {
+                  placeholder: 'Content',
+                  type: 'text',
+                  value: row.content,
+                },
+              },
+              buttons: true,
+              dangerMode: true,
+            }).then((content) => {
+              if (content) {
+                if (
+                  content === '' ||
+                  content.length < 32 ||
+                  content.length > 8192
+                ) {
+                  swal(
+                    'Something went wrong...',
+                    'Post content must be between 32 and 8192 characters long!',
+                    'error'
+                  );
+                  return false;
+                }
+                editPostContent(row.id, content);
+                swal('Post content edited!', {
+                  icon: 'success',
+                });
+              } else {
+                swal('No changes were made to your post!', {
+                  icon: 'success',
+                });
+              }
+            });
+          }
+        } else {
+          swal('No changes were made to your post!', {
+            icon: 'success',
+          });
+        }
+      });
+    };
+
+    const iconsField = () => {
+      if (!user) {
+        return null;
+      } else if (userData.username === row.author) {
+        return (
+          <div className="iconsContainer">
+            <Tooltip title="Reply to this post" placement="right-end">
+              <ReplyIcon className="replyIcon" />
+            </Tooltip>
+            <Tooltip title="Edit this post" placement="right-end">
+              <EditIcon onClick={() => handleEditPost()} className="editIcon" />
+            </Tooltip>
+            <Tooltip title="Edit this post" placement="right-end">
+              <DeleteForeverIcon
+                onClick={() => handleDeletePost()}
+                className="deleteIcon"
               />
-            </Grid>
-            <Grid container direction="row-reverse" sx={{ marginTop: '10px' }}>
+            </Tooltip>
+          </div>
+        );
+      } else {
+        return (
+          <div className="iconsContainer">
+            <Tooltip title="Reply to this post" placement="right-end">
+              <ReplyIcon className="replyIcon" />
+            </Tooltip>
+          </div>
+        );
+      }
+    };
+
+    return (
+      <>
+        <div className="topicRowContainer">
+          <Item style={open ? on_show_styles : on_hide_styles}>
+            <Grid container direction="column">
               <Grid
-                item
-                xs={1}
-                style={{
-                  display: 'flex',
-                  flexDirection: 'column',
-                  justifyContent: 'flex-start',
-                  alignItems: 'flex-end',
-                }}
+                container
+                direction="row"
+                onClick={() => setOpen(!open)}
+                className="rowHeaderStyle"
               >
-                <div>Rating</div>
-                <div>{ratingButtons()}</div>
+                <h2 ref={headerRef}> {row.title} </h2>
+                <KeyboardArrowDownIcon
+                  className={open ? 'arrowTriggered' : 'arrowTrigger'}
+                  sx={{ transition: '0.25s ease-in-out' }}
+                />
               </Grid>
               <Grid
-                item
-                xs={1}
-                style={{
-                  display: 'flex',
-                  flexDirection: 'column',
-                  justifyContent: 'flex-start',
-                  alignItems: 'flex-end',
-                }}
+                container
+                direction="row-reverse"
+                sx={{ marginTop: '10px' }}
               >
-                <div>Replies</div>
-                {row.replies || '0'}
-              </Grid>
-              <Grid
-                item
-                xs={2}
-                style={{
-                  display: 'flex',
-                  flexDirection: 'column',
-                  justifyContent: 'flex-start',
-                  alignItems: 'flex-end',
-                }}
-              >
-                <div>Author</div>
-                <div
-                  className="userRow"
-                  onClick={() => {
-                    getUserByHandle(row.author).then((resp) => {
-                      return swal({
-                        title: `${resp.val().username}`,
-                        text: `${resp.val().firstName} ${resp.val().lastName}
-                           Role: ${resp.val().role}`,
-                        icon: `${resp.val().avatarUrl ?? avatar}`,
-                        closeOnEsc: true,
-                        button: 'View details',
-                      }).then(() => {
-                        navigate('/home');
-                      });
-                    });
+                <Grid
+                  item
+                  xs={1}
+                  style={{
+                    display: 'flex',
+                    flexDirection: 'column',
+                    justifyContent: 'flex-start',
+                    alignItems: 'flex-end',
                   }}
                 >
-                  {postedBy?.avatarUrl ? (
-                    <Avatar sx={{ width: 48, height: 48 }}>
-                      <img
-                        src={postedBy.avatarUrl}
-                        className="profilePic"
-                        alt="profile"
-                      />
-                    </Avatar>
-                  ) : (
-                    <Avatar sx={{ width: 48, height: 48 }}>
-                      <img src={avatar} className="profilePic" alt="profile" />
-                    </Avatar>
-                  )}
-                  {row.author}
-                </div>
-              </Grid>
-              <Grid
-                item
-                xs={1}
-                style={{
-                  display: 'flex',
-                  flexDirection: 'column',
-                  justifyContent: 'flex-start',
-                  alignItems: 'center',
-                }}
-              >
-                <div>Date</div>
+                  <div>Rating</div>
+                  <div>{ratingButtons()}</div>
+                </Grid>
+                <Grid
+                  item
+                  xs={1}
+                  style={{
+                    display: 'flex',
+                    flexDirection: 'column',
+                    justifyContent: 'flex-start',
+                    alignItems: 'flex-end',
+                  }}
+                >
+                  <div>Replies</div>
+                  {row.replies || '0'}
+                </Grid>
+                <Grid
+                  item
+                  xs={2}
+                  style={{
+                    display: 'flex',
+                    flexDirection: 'column',
+                    justifyContent: 'flex-start',
+                    alignItems: 'flex-end',
+                  }}
+                >
+                  <div>Author</div>
+                  <div
+                    className="userRow"
+                    onClick={() => {
+                      getUserByHandle(row.author).then((resp) => {
+                        return swal({
+                          title: `${resp.val().username}`,
+                          text: `${resp.val().firstName} ${resp.val().lastName}
+                           Role: ${resp.val().role}`,
+                          icon: `${resp.val().avatarUrl ?? avatar}`,
+                          closeOnEsc: true,
+                          button: 'View details',
+                        }).then(() => {
+                          navigate('/home');
+                        });
+                      });
+                    }}
+                  >
+                    {postedBy?.avatarUrl ? (
+                      <Avatar sx={{ width: 48, height: 48 }}>
+                        <img
+                          src={postedBy.avatarUrl}
+                          className="profilePic"
+                          alt="profile"
+                        />
+                      </Avatar>
+                    ) : (
+                      <Avatar sx={{ width: 48, height: 48 }}>
+                        <img
+                          src={avatar}
+                          className="profilePic"
+                          alt="profile"
+                        />
+                      </Avatar>
+                    )}
+                    {row.author}
+                  </div>
+                </Grid>
+                <Grid
+                  item
+                  xs={1}
+                  style={{
+                    display: 'flex',
+                    flexDirection: 'column',
+                    justifyContent: 'flex-start',
+                    alignItems: 'center',
+                  }}
+                >
+                  <div>Date</div>
 
-                <div>{dateFormatDate(row.createdOn)}</div>
-                <div>{dateFormatHour(row.createdOn)}</div>
-              </Grid>
-              <Grid
-                item
-                xs={7}
-                style={{
-                  display: 'flex',
-                  justifyContent: 'flex-start',
-                  alignItems: 'flex-start',
-                }}
-                ref={elementRef}
-              >
-                {innerContent}
+                  <div>{dateFormatDate(row.createdOn)}</div>
+                  <div>{dateFormatHour(row.createdOn)}</div>
+                </Grid>
+                <Grid
+                  item
+                  xs={7}
+                  style={{
+                    display: 'flex',
+                    justifyContent: 'flex-start',
+                    alignItems: 'flex-start',
+                  }}
+                  ref={elementRef}
+                >
+                  {innerContent}
+                </Grid>
               </Grid>
             </Grid>
-          </Grid>
-        </Item>
+          </Item>
 
-        {iconsField()}
+          {iconsField()}
 
-        {open ? (
-          row.comments ? (
-            <Grid
-              container
-              direction="column"
-              justifyContent="flex-start"
-              alignItems="flex-end"
-              alignContent="flex-end"
-            >
-              {row.comments.map((comment, index) => {
-                return <CommentRow key={index} comment={comment} />;
-              })}
-            </Grid>
-          ) : null
-        ) : null}
-      </div>
-    </>
-  );
+          {open ? (
+            row.comments ? (
+              <Grid
+                container
+                direction="column"
+                justifyContent="flex-start"
+                alignItems="flex-end"
+                alignContent="flex-end"
+              >
+                {row.comments.map((comment, index) => {
+                  return <CommentRow key={index} comment={comment} />;
+                })}
+              </Grid>
+            ) : null
+          ) : null}
+        </div>
+      </>
+    );
+  };
 };
-
 export default TopicRow;

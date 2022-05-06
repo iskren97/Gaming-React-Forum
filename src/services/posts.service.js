@@ -119,15 +119,15 @@ export const removeDislikePost = (handle, postId) => {
 
 
 export const deletePost = async (id) => {
-  const tweet = await getPostById(id);
+  const post = await getPostById(id);
   const updateLikes = {};
   const updateDislikes = {}
 
-  tweet.likedBy.forEach(handle => {
+  post.likedBy.forEach(handle => {
     updateLikes[`/users/${handle}/likedPosts/${id}`] = null;
   });
 
-  tweet.dislikedBy.forEach(handle => {
+  post.dislikedBy.forEach(handle => {
     updateLikes[`/users/${handle}/dislikedPosts/${id}`] = null;
   });
 
@@ -138,3 +138,24 @@ export const deletePost = async (id) => {
     [`/posts/${id}`]: null,
   });
 };
+
+
+export const editPost = (id, postTitle, postContent) =>{
+  return update(ref(db, `posts/${id}`), {
+    title: postTitle,
+    content: postContent,
+  });
+}
+
+export const editPostTitle = (id, postTitle) =>{
+  return update(ref(db, `posts/${id}`), {
+    title: postTitle,
+  });
+}
+
+export const editPostContent = (id, postContent) =>
+{
+  return update(ref(db, `posts/${id}`), {
+    content: postContent,
+  });
+}
