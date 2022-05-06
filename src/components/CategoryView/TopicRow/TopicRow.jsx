@@ -12,7 +12,7 @@ import Avatar from '@mui/material/Avatar';
 import avatar from '../../../assets/avatar.jpg';
 import AppContext from '../../../providers/AppContext';
 import { getUserData, getUserByHandle } from '../../../services/users.service';
-import { likePost, removeLikePost, dislikePost, removeDislikePost, deletePost } from '../../../services/posts.service';
+import { likePost, removeLikePost, dislikePost, removeDislikePost, deletePost, editPost, editPostTitle, editPostContent } from '../../../services/posts.service';
 
 import Tooltip from '@mui/material/Tooltip';
 
@@ -138,14 +138,93 @@ const dateFormatHour = (date) => {
         });
       }
     });
-  
-  
-
-  
-    //deletePost(row.id)
   }
 
+  const handleEditPost = () =>{
+   
+    //editPost(row.id, row.title, row.content)
 
+    swal({
+      title: "Edit title",
+      text: "Edit your post's title",
+      content: {
+        element: "input",
+        attributes: {
+          placeholder: "Title",
+          type: "text",
+          value: row.title
+        }
+      },
+      buttons: true,
+      dangerMode: true,
+    })
+    .then((title) => {
+      if (title) {
+        if (title === '' || title.length < 16 || title.length > 64) {
+          swal(
+            'Something went wrong...',
+            'Post title must be between 16 and 64 characters long!',
+            'error'
+          );
+          return false;
+        }else{
+          editPostTitle(row.id, title)
+          swal("Post title edited!", {
+            icon: "success",
+          });
+
+          swal({
+            title: "Edit content",
+            text: "Edit your post's content",
+            content: {
+              element: "input",
+              attributes: {
+                placeholder: "Content",
+                type: "text",
+                value: row.content
+              }
+            },
+            buttons: true,
+            dangerMode: true,
+          })
+          .then((content) => {
+            if (content) {
+              if (content === '' || content.length < 32 || content.length > 8192) {
+                swal(
+                  'Something went wrong...',
+                  'Post content must be between 32 and 8192 characters long!',
+                  'error'
+                );
+                return false;
+              }
+              editPostContent(row.id, content)
+              swal("Post content edited!", {
+                icon: "success",
+              });
+            } else {
+              swal("No changes were made to your post!", {
+                icon: "success",
+              });
+            }
+          }
+          )
+        }
+       
+      } else {
+        swal("No changes were made to your post!", {
+          icon: "success",
+        });
+      }
+     
+
+    }
+    )
+
+    
+
+
+    
+  }
 
   const iconsField = () =>{
     if(!user){
@@ -156,7 +235,7 @@ const dateFormatHour = (date) => {
       <ReplyIcon className="replyIcon"/>
       </Tooltip>
       <Tooltip title="Edit this post" placement="right-end">
-      <EditIcon className="editIcon"/>
+      <EditIcon onClick={()=>handleEditPost()} className="editIcon"/>
       </Tooltip>
       <Tooltip title="Edit this post" placement="right-end">
       <DeleteForeverIcon onClick={()=>handleDeletePost()} className="deleteIcon"/>
@@ -170,6 +249,8 @@ const dateFormatHour = (date) => {
       </div>)
     }
   }
+
+ 
 
 
  
