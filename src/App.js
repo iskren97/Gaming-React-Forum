@@ -1,7 +1,6 @@
 import './App.css';
 import Header from './components/Header/Header';
 import Main from './components/MainContent/Main';
-import Footer from './components/Footer/Footer';
 import CategoryView from './components/CategoryView/CategoryView';
 import ProfilePage from './components/ProfilePage/ProfilePage';
 
@@ -17,6 +16,7 @@ import { useAuthState } from 'react-firebase-hooks/auth';
 import { auth } from './config/firebase-config';
 import { getUserData } from './services/users.service';
 import ScrollToTop from './components/Scroll/ScrollToTop';
+import UsersView from './views/UsersView/Users';
 
 const App = () => {
   const [appState, setAppState] = useState({
@@ -54,6 +54,7 @@ const App = () => {
           <Route path="/home" element={<Main />} />
           <Route path="/about" element={<AboutPage />} />
           <Route path="*" element={<ErrorPage />} />
+          <Route path="/users" element={<UsersView />} />
           <Route
             path="/general_discussion"
             element={<CategoryView topic={'General Discussion'} />}
@@ -91,14 +92,6 @@ const App = () => {
         </Routes>
       </AppContext.Provider>
     </BrowserRouter>
-
-    // <div>
-    //   <Header />
-    //   <Main />
-    //   {/* <ErrorPage /> */}
-    //   {/* <ProfilePage /> */}
-    //   {/* <CategoryView /> */}
-    // </div>
   );
 };
 

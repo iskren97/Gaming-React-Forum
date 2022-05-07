@@ -338,8 +338,9 @@ const TopicRow = ({ row }) => {
                         icon: `${resp.val().avatarUrl ?? avatar}`,
                         closeOnEsc: true,
                         button: 'View details',
+                        closeOnClickOutside: false,
                       }).then(() => {
-                        navigate('/home');
+                        // navigate('/home');
                       });
                     });
                   }}

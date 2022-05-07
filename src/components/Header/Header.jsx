@@ -47,8 +47,7 @@ const Header = ({ loading }) => {
     setAnchorEl(null);
   };
 
-  const {user, userData, setContext} = useContext(AppContext)
-
+  const { user, userData, setContext } = useContext(AppContext);
 
   const [form, setForm] = useState({
     email: '',
@@ -137,11 +136,13 @@ const Header = ({ loading }) => {
             />
           </NavLink>
 
-          <PeopleIcon
-            style={{ color: '#ffffff', transition: '0.25s ease' }}
-            fontSize="large"
-            className="navBarElement"
-          />
+          <NavLink to="/users">
+            <PeopleIcon
+              style={{ color: '#ffffff', transition: '0.25s ease' }}
+              fontSize="large"
+              className="navBarElement"
+            />
+          </NavLink>
 
           <LibraryAddIcon
             style={{ color: '#ffffff', transition: '0.25s ease' }}
@@ -199,18 +200,18 @@ const Header = ({ loading }) => {
               </Avatar> */}
 
               {userData.avatarUrl ? (
-                <Avatar onClick={handleClick} sx={{ width: 48, height: 48}}>
-                  <img src={userData.avatarUrl} className="profilePic" alt="profile"/>
-                  </Avatar>
-                ) : (
-                  <Avatar onClick={handleClick} sx={{ width: 48, height: 48 }}>
+                <Avatar onClick={handleClick} sx={{ width: 48, height: 48 }}>
                   <img
-                    src={avatar}
+                    src={userData.avatarUrl}
                     className="profilePic"
                     alt="profile"
                   />
-                  </Avatar>
-                )}
+                </Avatar>
+              ) : (
+                <Avatar onClick={handleClick} sx={{ width: 48, height: 48 }}>
+                  <img src={avatar} className="profilePic" alt="profile" />
+                </Avatar>
+              )}
             </Box>
             <Menu
               anchorEl={anchorEl}

@@ -19,7 +19,6 @@ import { Box, Divider, Modal, Tooltip } from '@mui/material';
 
 import background from '../../assets/lR2zdL.jpg';
 import defaultAvatar from '../../assets/avatar.jpg';
-import FileUploadIcon from '@mui/icons-material/FileUpload';
 
 import EditIcon from '@mui/icons-material/Edit';
 import TopicRow from '../CategoryView/TopicRow/TopicRow';
@@ -98,7 +97,7 @@ const ProfilePage = () => {
       .catch(console.error);
   };
 
-  const test = () => {
+  const setUserDescription = () => {
     swal({
       content: {
         element: 'input',
@@ -266,7 +265,7 @@ const ProfilePage = () => {
               <Grid item>
                 <p style={{ marginBottom: '24px' }}>
                   {userData.userDescription}{' '}
-                  <a href="#/" onClick={test}>
+                  <a href="#/" onClick={setUserDescription}>
                     <Tooltip title="Change description" placement="right-end">
                       <EditIcon sx={{ cursor: 'pointer' }} />
                     </Tooltip>
