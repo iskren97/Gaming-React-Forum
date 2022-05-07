@@ -1,0 +1,21 @@
+.profile-container {
+  display: flex;
+  flex-direction: column;
+  justify-content: flex-start;
+  align-content: space-between;
+  align-items: center;
+  width: 100vw;
+  max-width: 100%;
+
+  height: auto;
+  overflow-x: hidden;
+}
+
+.profile-background {
+  display: block;
+  position: relative;
+  width: 100vw;
+  height: 500px;
+  overflow: hidden;
+  margin-top: -150px;
+}

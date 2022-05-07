@@ -30,6 +30,7 @@ import Alert from '@mui/material/Alert';
 import ClickAwayListener from '@mui/base/ClickAwayListener';
 import { NavLink } from 'react-router-dom';
 import { useNavigate } from 'react-router';
+import { Tooltip } from '@mui/material';
 
 const Header = ({ loading }) => {
   //DropDownProfile logic
@@ -47,8 +48,7 @@ const Header = ({ loading }) => {
     setAnchorEl(null);
   };
 
-  const {user, userData, setContext} = useContext(AppContext)
-
+  const { user, userData, setContext } = useContext(AppContext);
 
   const [form, setForm] = useState({
     email: '',
@@ -129,19 +129,25 @@ const Header = ({ loading }) => {
 
       <div className="container">
         <div className="buttonsContainer">
-          <NavLink to="/">
-            <HomeIcon
-              style={{ color: '#ffffff', transition: '0.25s ease' }}
-              fontSize="large"
-              className="navBarElement"
-            />
-          </NavLink>
+          <Tooltip title="Home page">
+            <NavLink to="/">
+              <HomeIcon
+                style={{ color: '#ffffff', transition: '0.25s ease' }}
+                fontSize="large"
+                className="navBarElement"
+              />
+            </NavLink>
+          </Tooltip>
 
-          <PeopleIcon
-            style={{ color: '#ffffff', transition: '0.25s ease' }}
-            fontSize="large"
-            className="navBarElement"
-          />
+          <NavLink to="/users">
+            <Tooltip title="See all users">
+              <PeopleIcon
+                style={{ color: '#ffffff', transition: '0.25s ease' }}
+                fontSize="large"
+                className="navBarElement"
+              />
+            </Tooltip>
+          </NavLink>
 
           <LibraryAddIcon
             style={{ color: '#ffffff', transition: '0.25s ease' }}
@@ -187,31 +193,34 @@ const Header = ({ loading }) => {
           <div className="elementsContainer">
             <h3 className="userNameStyle">{userData?.username}</h3>
 
-            <Box
-              sx={{
-                display: 'flex',
-                alignItems: 'center',
-                textAlign: 'center',
-              }}
-            >
-              {/* <Avatar onClick={handleClick} sx={{ width: 48, height: 48 }}>
+            <Tooltip title="Profile">
+              <Box
+                sx={{
+                  display: 'flex',
+                  alignItems: 'center',
+                  textAlign: 'center',
+                }}
+              >
+                {/* <Avatar onClick={handleClick} sx={{ width: 48, height: 48 }}>
                 <img src={avatar} alt="pfp" className="profilePic"></img>
               </Avatar> */}
 
-              {userData.avatarUrl ? (
-                <Avatar onClick={handleClick} sx={{ width: 48, height: 48}}>
-                  <img src={userData.avatarUrl} className="profilePic" alt="profile"/>
+                {userData.avatarUrl ? (
+                  <Avatar onClick={handleClick} sx={{ width: 48, height: 48 }}>
+                    <img
+                      src={userData.avatarUrl}
+                      className="profilePic"
+                      alt="profile"
+                    />
                   </Avatar>
                 ) : (
                   <Avatar onClick={handleClick} sx={{ width: 48, height: 48 }}>
-                  <img
-                    src={avatar}
-                    className="profilePic"
-                    alt="profile"
-                  />
+                    <img src={avatar} className="profilePic" alt="profile" />
                   </Avatar>
                 )}
-            </Box>
+              </Box>
+            </Tooltip>
+
             <Menu
               anchorEl={anchorEl}
               id="account-menu"

@@ -402,7 +402,7 @@ const TopicRow = ({ row }) => {
                         icon: `${resp.val().avatarUrl ?? avatar}`,
                         closeOnEsc: true,
                         button: 'View details',
-                        closeOnClickOutside: true
+                        closeOnClickOutside: false
                       }).then((res) => {
                         if(res){
 

@@ -9,10 +9,6 @@ import {
 } from 'firebase/database';
 import { db } from '../config/firebase-config';
 
-export const getUserByHandle = (username) => {
-  return get(ref(db, `users/${username}`));
-};
-
 export const createUserHandle = (firstName, lastName, email, username, uid) => {
   return set(ref(db, `users/${username}`), {
     firstName,
@@ -26,8 +22,16 @@ export const createUserHandle = (firstName, lastName, email, username, uid) => {
   });
 };
 
+export const getAllUsers = () => {
+  return get(ref(db, 'users'));
+};
+
 export const getUserData = (uid) => {
   return get(query(ref(db, 'users'), orderByChild('uid'), equalTo(uid)));
+};
+
+export const getUserByHandle = (username) => {
+  return get(ref(db, `users/${username}`));
 };
 
 export const updateUserProfilePicture = (username, url) => {
