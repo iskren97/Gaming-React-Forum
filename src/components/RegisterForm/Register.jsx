@@ -67,8 +67,8 @@ const Register = ({ closeModal }) => {
 
   return (
     <form onSubmit={handleSubmit(onSubmit)} className="register-form">
-      <label>First Name</label>
       <input
+        placeholder="First name"
         {...register('firstName', {
           required: true,
           minLength: 4,
@@ -91,8 +91,8 @@ const Register = ({ closeModal }) => {
         <p>Alphabetical characters only</p>
       )}
 
-      <label>Last Name</label>
       <input
+        placeholder="Last name"
         {...register('lastName', {
           required: true,
           minLength: 4,
@@ -113,8 +113,8 @@ const Register = ({ closeModal }) => {
         <p>Alphabetical characters only</p>
       )}
 
-      <label>Email</label>
       <input
+        placeholder="Email"
         {...register('email', {
           minLength: 3,
           maxLength: 32,
@@ -130,12 +130,12 @@ const Register = ({ closeModal }) => {
         <p>Email cannot exceed 320 characters</p>
       )}
 
-      <label>Username</label>
       <input
+        placeholder="Username"
         {...register('username', {
           required: true,
           minLength: 3,
-          maxLength: 30,
+          maxLength: 18,
         })}
       />
       {errors?.username?.type === 'required' && <p>⚠ This field is required</p>}
@@ -147,13 +147,13 @@ const Register = ({ closeModal }) => {
         <p>Username cannot exceed 30 characters</p>
       )}
 
-      <label>Password</label>
       <input
+        placeholder="Password"
         type="password"
         {...register('password', {
           required: true,
           minLength: 6,
-          maxLength: 20,
+          maxLength: 18,
         })}
       />
       {errors?.password?.type === 'required' && <p>⚠ This field is required</p>}

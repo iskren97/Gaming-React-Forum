@@ -70,6 +70,8 @@ const JoinModal = () => {
 
           <Divider sx={{ bgcolor: '#47DB00' }} />
 
+          <br />
+
           <Register closeModal={handleClose} />
         </Box>
       </Modal>
