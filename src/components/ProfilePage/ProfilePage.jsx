@@ -217,7 +217,7 @@ const ProfilePage = () => {
                       alignItems: 'center',
                     }}
                   >
-                    <h4>Upload a picture</h4>
+                    <h3>Upload a picture</h3>
 
                     <button
                       style={{
@@ -234,32 +234,26 @@ const ProfilePage = () => {
                   </div>
 
                   <form onSubmit={uploadPicture}>
-                    <label
-                      htmlFor="file-upload"
-                      className="custom-file-upload"
-                      or
+                    <Grid
+                      container
+                      direction="column"
+                      spacing={0}
+                      sx={{ textAlign: 'center', alignItems: 'center' }}
                     >
-                      <Grid
-                        container
-                        direction="row"
-                        spacing={1}
-                        sx={{ textAlign: 'center', alignItems: 'center' }}
-                      >
-                        <Grid item xs={2}>
-                          <FileUploadIcon />
-                        </Grid>
-
-                        <Grid item xs={10}>
-                          Choose file
-                        </Grid>
+                      <Grid>
+                        <input
+                          type="file"
+                          accept="image/*"
+                          className="custom-file-upload"
+                        />
                       </Grid>
-                    </label>
 
-                    <input id="file-upload" type="file" accept="image/*" />
-
-                    <button className="upload-pic-btn" type="submit">
-                      Click to upload
-                    </button>
+                      <Grid>
+                        <button className="upload-pic-btn" type="submit">
+                          Click to upload
+                        </button>
+                      </Grid>
+                    </Grid>
                   </form>
                 </Box>
               </Modal>
