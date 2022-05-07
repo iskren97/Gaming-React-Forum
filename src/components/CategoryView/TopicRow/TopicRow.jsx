@@ -4,6 +4,7 @@ import Paper from '@mui/material/Paper';
 import Grid from '@mui/material/Grid';
 import './TopicRow.css';
 import { useState, useEffect, useRef, useContext } from 'react';
+
 import KeyboardArrowDownIcon from '@mui/icons-material/KeyboardArrowDown';
 import ThumbUpAltIcon from '@mui/icons-material/ThumbUpAlt';
 import ThumbDownAltIcon from '@mui/icons-material/ThumbDownAlt';
@@ -49,12 +50,20 @@ const TopicRow = ({ row }) => {
   const [postedBy, setPostedBy] = useState(null);
   const navigate = useNavigate();
 
-  const isPostLiked = () => row?.likedBy?.includes(userData?.username);
+
+  const [isLiked, setIsLiked] = useState("");
+  const [isDisliked, setIsDisliked] = useState("");
+  let [userRating, setUserRating] = useState ("")
+
+
+
+  const isPostLiked = () => row?.likedBy?.includes(userData?.username)
+
   const isPostDisliked = () => row?.dislikedBy?.includes(userData?.username);
 
   let innerContent = '';
   !open
-    ? row.content.length > 80
+    ? row.content?.length > 80
       ? (innerContent = row.content.slice(0, 120) + '...')
       : (innerContent = row.content)
     : (innerContent = row.content);
@@ -66,12 +75,79 @@ const TopicRow = ({ row }) => {
       );
     }
   }, [open]);
-
+  
   useEffect(() => {
+    
     getUserByHandle(row.author).then((res) => {
       setPostedBy(res.val());
     });
-  }, [postedBy]);
+
+    
+  }, [row.author, row.likedBy, row.dislikedBy]);
+  
+  
+  
+  useEffect(() => {
+    setIsLiked(row?.likedBy?.includes(userData?.username))
+    setIsDisliked(row?.dislikedBy?.includes(userData?.username))
+    setUserRating((row.likedBy?.length || 0) - (row.dislikedBy?.length || 0))
+    
+  },[row.likedBy, row.dislikedBy, userData.username])
+  
+
+  const handleLike = () => {
+    if(isLiked){
+      removeLikePost(userData?.username, row.id).then(() => {
+        setIsLiked(false)
+        setUserRating(userRating -1)
+      })
+    }else{
+      if(isDisliked){
+        likePost(userData?.username, row.id).then(() => {
+          setIsLiked(true)
+          setUserRating(userRating+2)
+        })
+      }else{
+        likePost(userData?.username, row.id).then(() => {
+          setIsLiked(true)
+          setUserRating(userRating+1)
+        })
+      }
+      
+    }
+    
+    removeDislikePost(userData?.username, row.id);
+     setIsDisliked(false);
+  }
+
+  const handleDislike = () =>{
+    
+    if(isDisliked){
+      removeDislikePost(userData?.username, row.id).then(() => {
+        setIsDisliked(false)
+        setUserRating(userRating +1)
+      })
+
+    }else{
+      if(isLiked){
+        dislikePost(userData?.username, row.id).then(() => {
+          setIsDisliked(true)
+          setUserRating(userRating -2)
+          })
+      }else{
+      dislikePost(userData?.username, row.id).then(() => {
+        setIsDisliked(true)
+        setUserRating(userRating -1)
+        })
+      }
+    }
+    removeLikePost(userData?.username, row.id);
+    setIsLiked(false);
+  }
+
+
+
+
 
   const on_show_styles = {
     height: height,
@@ -112,25 +188,13 @@ const TopicRow = ({ row }) => {
     const loggedView = (
       <div className="rating-buttons">
         <ThumbDownAltIcon
-          className={isPostDisliked() ? 'thumbDownIconFilled' : 'thumbDownIcon'}
-          onClick={() => {
-            isPostDisliked()
-              ? removeDislikePost(userData?.username, row.id)
-              : dislikePost(userData?.username, row.id);
-
-            removeLikePost(userData?.username, row.id);
-          }}
+          className={isDisliked ? 'thumbDownIconFilled' : 'thumbDownIcon'}
+          onClick={() => handleDislike()}
         />
-        {(row.likedBy?.length || 0) - (row.dislikedBy?.length || 0)}
+        {userRating}
         <ThumbUpAltIcon
-          className={isPostLiked() ? 'thumbUpIconFilled' : 'thumbUpIcon'}
-          onClick={() => {
-            isPostLiked()
-              ? removeLikePost(userData?.username, row.id)
-              : likePost(userData?.username, row.id);
-
-            removeDislikePost(userData?.username, row.id);
-          }}
+          className={isLiked ? 'thumbUpIconFilled' : 'thumbUpIcon'}
+          onClick={() => handleLike()}
         />
       </div>
     );
@@ -255,7 +319,7 @@ const TopicRow = ({ row }) => {
           <Tooltip title="Edit this post" placement="right-end">
             <EditIcon onClick={() => handleEditPost()} className="editIcon" />
           </Tooltip>
-          <Tooltip title="Edit this post" placement="right-end">
+          <Tooltip title="Delete this post" placement="right-end">
             <DeleteForeverIcon
               onClick={() => handleDeletePost()}
               className="deleteIcon"
@@ -338,8 +402,12 @@ const TopicRow = ({ row }) => {
                         icon: `${resp.val().avatarUrl ?? avatar}`,
                         closeOnEsc: true,
                         button: 'View details',
-                      }).then(() => {
-                        navigate('/home');
+                        closeOnClickOutside: true
+                      }).then((res) => {
+                        if(res){
+
+                        navigate(`/profile/${postedBy.username}`);
+                        }
                       });
                     });
                   }}

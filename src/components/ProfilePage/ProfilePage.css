@@ -109,7 +109,25 @@
 .swal-content__input:focus {
   border-color: #47db00;
 }
+.swal-button:not([disabled]):hover {
+  background-color: #47db00;
+}
 
-.swal-button:hover {
-  background-color: #47db00 !important ;
+.swal-button--cancel {
+  color: #efefef;
+  background-color: grey !important;
+}
+
+.swal-button--cancel:hover {
+  color: #efefef;
+  background-color: grey !important;
+}
+
+
+.swal-button--danger {
+  background-color: #e64942;
+}
+
+.swal-button--danger:not([disabled]):hover {
+  background-color: #e64942;
 }

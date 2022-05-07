@@ -106,15 +106,7 @@
   margin: 0.5em;
 }
 
-.swal-button--cancel {
-  color: #efefef;
-  background-color: #e64942 !important;
-}
 
-.swal-button--cancel:hover {
-  color: #efefef;
-  background-color: #e64942 !important;
-}
 
 .swal-icon img {
   margin-top: 10px;
@@ -123,4 +115,8 @@
   width: auto;
   max-height: 400px;
   background-color: white;
+}
+
+.swal-button:active {
+  background-color: #47db00
 }

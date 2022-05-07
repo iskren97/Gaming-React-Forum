@@ -29,6 +29,9 @@ import AppContext from '../../providers/AppContext';
 
 import swal from 'sweetalert';
 import { getAllPosts } from '../../services/posts.service';
+import { getUserData, getUserByHandle } from '../../services/users.service';
+import { useParams } from 'react-router-dom';
+
 
 const style = {
   position: 'absolute',
@@ -48,19 +51,53 @@ const ProfilePage = () => {
   const handleClose = () => setOpen(false);
 
   const { user, userData, setContext } = useContext(AppContext);
-  const username = userData?.username;
+
 
   const [categoryPosts, setCategoryPosts] = useState([]);
+  const [isProfileOwner, setIsProfileOwner] = useState(false)
+  const [userProfile, setUserProfile] = useState("")
+  
+  const { username } = useParams();
+
+  useEffect(() => {
+    if(username){
+      getUserByHandle(username).then((res) => {
+        setUserProfile(res.val());
+      });
+    }else{
+      getUserData(userData?.uid).then(user => {
+        if(userProfile === ""){
+          setUserProfile(user.val()[Object.keys(user.val())[0]])
+        }
+      })
+    }
+
+    if(userData?.username == userProfile.username){
+      setIsProfileOwner(true)
+    }
+      
+    },[userData?.uid, username, categoryPosts]);
+    
+
+    // console.log(isProfileOwner)
+
 
   useEffect(() => {
     const getPostsByUser = () => {
       return getAllPosts().then((posts) => {
-        return posts.filter((post) => post.author === userData.username);
+        return posts.filter((post) => post.author === userProfile.username);
       });
     };
 
     getPostsByUser().then((data) => setCategoryPosts(data));
-  }, [userData]);
+
+  }, [userProfile, username]);
+
+
+
+
+
+
 
   const uploadPicture = (e) => {
     e.preventDefault();
@@ -76,12 +113,12 @@ const ProfilePage = () => {
         'error'
       );
 
-    const picture = storageRef(storage, `images/${username}/avatar`);
+    const picture = storageRef(storage, `images/${userProfile.username}/avatar`);
 
     uploadBytes(picture, file)
       .then((snapshot) => {
         return getDownloadURL(snapshot.ref).then((url) => {
-          return updateUserProfilePicture(username, url).then(() => {
+          return updateUserProfilePicture(userProfile.username, url).then(() => {
             setContext({
               user,
               userData: {
@@ -117,7 +154,7 @@ const ProfilePage = () => {
         return;
       }
 
-      updateDescription(username, description).then(() => {
+      updateDescription(userProfile.username, description).then(() => {
         setContext({
           user,
           userData: {
@@ -162,16 +199,16 @@ const ProfilePage = () => {
                     <h2>Personal Information</h2>
                     <br />
 
-                    <p>First Name: {userData.firstName}</p>
-                    <p>Last Name: {userData.lastName}</p>
-                    <p>Email: {userData.email}</p>
+                    <p>First Name: {userProfile.firstName}</p>
+                    <p>Last Name: {userProfile.lastName}</p>
+                    <p>Email: {userProfile.email}</p>
                   </Grid>
 
                   <Grid item xs={5} sx={{ textAlign: 'right' }}>
-                    {userData.avatarUrl ? (
+                    {userProfile.avatarUrl ? (
                       <img
                         className="avatar"
-                        src={userData.avatarUrl}
+                        src={userProfile.avatarUrl}
                         alt="profile"
                       />
                     ) : (
@@ -182,6 +219,7 @@ const ProfilePage = () => {
                       ></img>
                     )}
 
+                    {isProfileOwner ?
                     <a
                       href="#/"
                       onClick={handleOpen}
@@ -197,7 +235,8 @@ const ProfilePage = () => {
                       >
                         <EditIcon sx={{ cursor: 'pointer' }} />
                       </Tooltip>
-                    </a>
+                    </a> : null}
+                    
                   </Grid>
                 </Grid>
               </Grid>
@@ -260,45 +299,48 @@ const ProfilePage = () => {
 
               <Grid item>
                 <Divider />
-                <h1>{userData.username}</h1>
+                <h1>{userProfile.username}</h1>
               </Grid>
 
               <Grid item>
                 <p style={{ marginBottom: '24px' }}>
-                  {userData.userDescription}{' '}
-                  <a href="#/" onClick={test}>
+                  {userProfile.userDescription || "My description"}{' '}
+                  {isProfileOwner ? <a href="#/" onClick={test}>
                     <Tooltip title="Change description" placement="right-end">
                       <EditIcon sx={{ cursor: 'pointer' }} />
                     </Tooltip>
-                  </a>
+                  </a> : null}
+                  
                 </p>
               </Grid>
 
               <Divider />
             </Grid>
-
-            <h1>My Posts:</h1>
+            <Grid container
+                maxWidth="xl"
+                sx={{display: "flex", justifyContent: 'center', flexDirection: "column"}} >
+            <h1>{isProfileOwner ? "My Posts:" : "Posts"}</h1>
 
             {categoryPosts.length !== 0 ? (
-              categoryPosts.map((post) => (
                 <Grid
                   sx={{
                     marginTop: '0.5rem',
                     display: 'flex',
-                    flexDirection: 'row',
+                    flexDirection: 'column',
+                    width: "100%",
+                    alignItems: "stretch"
                   }}
                 >
+              {categoryPosts.map((post) => (
                   <TopicRow key={post.id} row={post} />
-                  <div className="topicEditDelete">
-                    <EditIcon /> <DeleteForeverIcon />{' '}
-                  </div>
+              ))}
                 </Grid>
-              ))
             ) : (
               <div>
                 <h3> You have no posts yet.</h3>
               </div>
             )}
+            </Grid>
           </Container>
         </div>
       ) : null}
