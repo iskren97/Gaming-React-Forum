@@ -1,7 +1,8 @@
 import React from 'react';
 import '../../components/ProfilePage/ProfilePage.css';
+import { useNavigate } from 'react-router';
 
-import { Container } from '@mui/material';
+import { Container, Tooltip } from '@mui/material';
 import Grid from '@mui/material/Grid';
 import { Divider } from '@mui/material';
 
@@ -10,6 +11,8 @@ import SportsEsportsIcon from '@mui/icons-material/SportsEsports';
 import ForumIcon from '@mui/icons-material/Forum';
 
 const DisplayUser = ({ avatar, username, firstName, lastName }) => {
+  const navigate = useNavigate();
+
   return (
     <Container
       className="profile-container"
@@ -39,7 +42,14 @@ const DisplayUser = ({ avatar, username, firstName, lastName }) => {
         </Grid>
 
         <Grid item sx={{ textAlign: 'center' }}>
-          <h3>{username}</h3>
+          <Tooltip title="Click to see profile" placement="top">
+            <button
+              style={{ all: 'unset' }}
+              onClick={() => navigate(`/profile/${username}`)}
+            >
+              <h3 style={{ cursor: 'pointer' }}>{username}</h3>
+            </button>
+          </Tooltip>
           <p style={{ fontStyle: 'italic' }}>
             <i>
               <VerifiedUserIcon sx={{ color: '#47DB00', fontSize: 'medium' }} />{' '}

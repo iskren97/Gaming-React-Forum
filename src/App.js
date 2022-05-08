@@ -41,7 +41,6 @@ const App = () => {
         });
       })
       .catch((e) => alert(e.message));
-
   }, [user]);
 
   return (
@@ -94,7 +93,10 @@ const App = () => {
             path="/entertainment"
             element={<CategoryView topic={'Entertainment'} />}
           />
-          <Route path="/profile/:username" element={<ProfilePage key={window.location.pathname}/>} />
+          <Route
+            path="/profile/:username"
+            element={<ProfilePage key={window.location.pathname} />}
+          />
         </Routes>
       </AppContext.Provider>
     </BrowserRouter>
