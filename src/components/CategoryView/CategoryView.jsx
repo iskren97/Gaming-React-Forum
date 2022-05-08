@@ -64,10 +64,9 @@ getAllPosts().then(posts =>{
   })
   setCategoryPosts(filtered)})
     
-  },[topic])
+  },[topic, categoryPosts])
 
 
-console.log("test")
 
   return (<>
   

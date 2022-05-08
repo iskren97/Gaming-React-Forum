@@ -75,10 +75,10 @@ const ProfilePage = () => {
       setIsProfileOwner(true)
     }
       
-    },[userData?.uid, username, categoryPosts]);
+    },[userData?.uid, username, userData, userProfile]);
     
 
-    // console.log(isProfileOwner)
+
 
 
   useEffect(() => {

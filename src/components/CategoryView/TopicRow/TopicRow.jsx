@@ -51,9 +51,7 @@ const TopicRow = ({ row }) => {
   const navigate = useNavigate();
 
 
-  const [isLiked, setIsLiked] = useState("");
-  const [isDisliked, setIsDisliked] = useState("");
-  let [userRating, setUserRating] = useState ("")
+  const [userRating, setUserRating] = useState ("")
 
 
 
@@ -83,66 +81,27 @@ const TopicRow = ({ row }) => {
     });
 
     
-  }, [row.author, row.likedBy, row.dislikedBy]);
+  }, [row.author, row.likedBy, row.dislikedBy, userData]);
   
   
-  
-  useEffect(() => {
-    setIsLiked(row?.likedBy?.includes(userData?.username))
-    setIsDisliked(row?.dislikedBy?.includes(userData?.username))
-    setUserRating((row.likedBy?.length || 0) - (row.dislikedBy?.length || 0))
-    
-  },[row.likedBy, row.dislikedBy, userData.username])
   
 
   const handleLike = () => {
-    if(isLiked){
-      removeLikePost(userData?.username, row.id).then(() => {
-        setIsLiked(false)
-        setUserRating(userRating -1)
-      })
+    if(isPostLiked()){
+      removeLikePost(userData?.username, row.id)
     }else{
-      if(isDisliked){
-        likePost(userData?.username, row.id).then(() => {
-          setIsLiked(true)
-          setUserRating(userRating+2)
-        })
-      }else{
-        likePost(userData?.username, row.id).then(() => {
-          setIsLiked(true)
-          setUserRating(userRating+1)
-        })
-      }
-      
-    }
-    
-    removeDislikePost(userData?.username, row.id);
-     setIsDisliked(false);
+      likePost(userData?.username, row.id)
+      removeDislikePost(userData?.username, row.id);
+    } 
   }
 
   const handleDislike = () =>{
-    
-    if(isDisliked){
-      removeDislikePost(userData?.username, row.id).then(() => {
-        setIsDisliked(false)
-        setUserRating(userRating +1)
-      })
-
+    if(isPostDisliked()){
+      removeDislikePost(userData?.username, row.id)
     }else{
-      if(isLiked){
-        dislikePost(userData?.username, row.id).then(() => {
-          setIsDisliked(true)
-          setUserRating(userRating -2)
-          })
-      }else{
-      dislikePost(userData?.username, row.id).then(() => {
-        setIsDisliked(true)
-        setUserRating(userRating -1)
-        })
-      }
+      dislikePost(userData?.username, row.id)
+      removeLikePost(userData?.username, row.id);
     }
-    removeLikePost(userData?.username, row.id);
-    setIsLiked(false);
   }
 
 
@@ -188,12 +147,12 @@ const TopicRow = ({ row }) => {
     const loggedView = (
       <div className="rating-buttons">
         <ThumbDownAltIcon
-          className={isDisliked ? 'thumbDownIconFilled' : 'thumbDownIcon'}
+          className={isPostDisliked() ? 'thumbDownIconFilled' : 'thumbDownIcon'}
           onClick={() => handleDislike()}
         />
-        {userRating}
+        {(row.likedBy?.length || 0) - (row.dislikedBy?.length || 0)}
         <ThumbUpAltIcon
-          className={isLiked ? 'thumbUpIconFilled' : 'thumbUpIcon'}
+          className={isPostLiked() ? 'thumbUpIconFilled' : 'thumbUpIcon'}
           onClick={() => handleLike()}
         />
       </div>
