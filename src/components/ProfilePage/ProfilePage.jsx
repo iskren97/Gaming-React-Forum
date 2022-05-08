@@ -31,7 +31,6 @@ import { getAllPosts } from '../../services/posts.service';
 import { getUserData, getUserByHandle } from '../../services/users.service';
 import { useParams } from 'react-router-dom';
 
-
 const style = {
   position: 'absolute',
   top: '50%',
@@ -51,35 +50,29 @@ const ProfilePage = () => {
 
   const { user, userData, setContext } = useContext(AppContext);
 
-
   const [categoryPosts, setCategoryPosts] = useState([]);
-  const [isProfileOwner, setIsProfileOwner] = useState(false)
-  const [userProfile, setUserProfile] = useState("")
-  
+  const [isProfileOwner, setIsProfileOwner] = useState(false);
+  const [userProfile, setUserProfile] = useState('');
+
   const { username } = useParams();
 
   useEffect(() => {
-    if(username){
+    if (username) {
       getUserByHandle(username).then((res) => {
         setUserProfile(res.val());
       });
-    }else{
-      getUserData(userData?.uid).then(user => {
-        if(userProfile === ""){
-          setUserProfile(user.val()[Object.keys(user.val())[0]])
+    } else {
+      getUserData(userData?.uid).then((user) => {
+        if (userProfile === '') {
+          setUserProfile(user.val()[Object.keys(user.val())[0]]);
         }
-      })
+      });
     }
 
-    if(userData?.username == userProfile.username){
-      setIsProfileOwner(true)
+    if (userData?.username == userProfile.username) {
+      setIsProfileOwner(true);
     }
-      
-    },[userData?.uid, username, userData, userProfile]);
-    
-
-
-
+  }, [userData?.uid, username, userData, userProfile]);
 
   useEffect(() => {
     const getPostsByUser = () => {
@@ -89,14 +82,7 @@ const ProfilePage = () => {
     };
 
     getPostsByUser().then((data) => setCategoryPosts(data));
-
   }, [userProfile, username]);
-
-
-
-
-
-
 
   const uploadPicture = (e) => {
     e.preventDefault();
@@ -112,23 +98,28 @@ const ProfilePage = () => {
         'error'
       );
 
-    const picture = storageRef(storage, `images/${userProfile.username}/avatar`);
+    const picture = storageRef(
+      storage,
+      `images/${userProfile.username}/avatar`
+    );
 
     uploadBytes(picture, file)
       .then((snapshot) => {
         return getDownloadURL(snapshot.ref).then((url) => {
-          return updateUserProfilePicture(userProfile.username, url).then(() => {
-            setContext({
-              user,
-              userData: {
-                ...userData,
-                avatarUrl: url,
-              },
-            });
+          return updateUserProfilePicture(userProfile.username, url).then(
+            () => {
+              setContext({
+                user,
+                userData: {
+                  ...userData,
+                  avatarUrl: url,
+                },
+              });
 
-            swal('Good job!', 'Image uploaded successfully!', 'success');
-            handleClose();
-          });
+              swal('Good job!', 'Image uploaded successfully!', 'success');
+              handleClose();
+            }
+          );
         });
       })
       .catch(console.error);
@@ -218,24 +209,24 @@ const ProfilePage = () => {
                       ></img>
                     )}
 
-                    {isProfileOwner ?
-                    <a
-                      href="#/"
-                      onClick={handleOpen}
-                      style={{
-                        color: 'black',
-                        fontSize: '13.5px',
-                        textTransform: 'none',
-                      }}
-                    >
-                      <Tooltip
-                        title="Change profile picture"
-                        placement="right-end"
+                    {isProfileOwner ? (
+                      <a
+                        href="#/"
+                        onClick={handleOpen}
+                        style={{
+                          color: 'black',
+                          fontSize: '13.5px',
+                          textTransform: 'none',
+                        }}
                       >
-                        <EditIcon sx={{ cursor: 'pointer' }} />
-                      </Tooltip>
-                    </a> : null}
-                    
+                        <Tooltip
+                          title="Change profile picture"
+                          placement="right-end"
+                        >
+                          <EditIcon sx={{ cursor: 'pointer' }} />
+                        </Tooltip>
+                      </a>
+                    ) : null}
                   </Grid>
                 </Grid>
               </Grid>
@@ -303,44 +294,49 @@ const ProfilePage = () => {
 
               <Grid item>
                 <p style={{ marginBottom: '24px' }}>
-                  {userProfile.userDescription || "My description"}{' '}
-                  {isProfileOwner ? <a href="#/" onClick={setUserDescription}>
-                  
-                    <Tooltip title="Change description" placement="right-end">
-                      <EditIcon sx={{ cursor: 'pointer' }} />
-                    </Tooltip>
-                  </a> : null}
-                  
+                  {userProfile.userDescription || 'My description'}{' '}
+                  {isProfileOwner ? (
+                    <a href="#/" onClick={setUserDescription}>
+                      <Tooltip title="Change description" placement="right-end">
+                        <EditIcon sx={{ cursor: 'pointer' }} />
+                      </Tooltip>
+                    </a>
+                  ) : null}
                 </p>
               </Grid>
 
               <Divider />
             </Grid>
-            <Grid container
-                maxWidth="xl"
-                sx={{display: "flex", justifyContent: 'center', flexDirection: "column"}} >
-            <h1>{isProfileOwner ? "My Posts:" : "Posts"}</h1>
+            <Grid
+              container
+              maxWidth="xl"
+              sx={{
+                display: 'flex',
+                justifyContent: 'center',
+                flexDirection: 'column',
+              }}
+            >
+              <h1>{isProfileOwner ? 'My Posts:' : 'Posts'}</h1>
 
-            {categoryPosts.length !== 0 ? (
+              {categoryPosts.length !== 0 ? (
                 <Grid
-                  key={post.id}
                   sx={{
                     marginTop: '0.5rem',
                     display: 'flex',
                     flexDirection: 'column',
-                    width: "100%",
-                    alignItems: "stretch"
+                    width: '100%',
+                    alignItems: 'stretch',
                   }}
                 >
-              {categoryPosts.map((post) => (
-                  <TopicRow key={post.id} row={post} />
-              ))}
+                  {categoryPosts.map((post) => (
+                    <TopicRow key={post.id} row={post} />
+                  ))}
                 </Grid>
-            ) : (
-              <div>
-                <h3> You have no posts yet.</h3>
-              </div>
-            )}
+              ) : (
+                <div>
+                  <h3> You have no posts yet.</h3>
+                </div>
+              )}
             </Grid>
           </Container>
         </div>
