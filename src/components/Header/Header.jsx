@@ -263,14 +263,14 @@ const Header = ({ loading }) => {
               transformOrigin={{ horizontal: 'right', vertical: 'top' }}
               anchorOrigin={{ horizontal: 'right', vertical: 'bottom' }}
             >
-              <NavLink to="/profile">
-                <MenuItem sx={{ bgcolor: 'white' }}>
+              {/* <NavLink to="/MyProfile"> */}
+                <MenuItem onClick={()=>navigate(`/profile/${userData.username}`)} sx={{ bgcolor: 'white' }}>
                   <ListItemIcon>
                     <AccountCircleIcon fontSize="medium" />
                   </ListItemIcon>
                   My Profile
                 </MenuItem>
-              </NavLink>
+              {/* </NavLink> */}
               <Divider />
               <MenuItem onClick={logout}>
                 <ListItemIcon>
