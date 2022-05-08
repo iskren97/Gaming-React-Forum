@@ -9,7 +9,7 @@ const Welcome = () => {
       <div className="inner-welcome-section">
         <div className="media">
           <h1>Welcome to the forum!</h1>
-          <a className="join-button">
+          <a href="#/" className="join-button">
             <LoginModal />
           </a>
         </div>

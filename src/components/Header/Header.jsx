@@ -31,15 +31,16 @@ import ClickAwayListener from '@mui/base/ClickAwayListener';
 import { NavLink } from 'react-router-dom';
 import { useNavigate } from 'react-router';
 import { Tooltip } from '@mui/material';
+import DropDown from '../NewTopicModal/DropDown';
 
 const Header = ({ loading }) => {
-  //DropDownProfile logic
-
   const navigate = useNavigate();
 
   const [anchorEl, setAnchorEl] = useState(null);
   const [invalidLogin, setInvalidLogin] = useState(false);
   const open = Boolean(anchorEl);
+
+  const [isTopicVisible, setTopicVisibility] = useState(false);
 
   const handleClick = (event) => {
     setAnchorEl(event.currentTarget);
@@ -149,11 +150,16 @@ const Header = ({ loading }) => {
             </Tooltip>
           </NavLink>
 
-          <LibraryAddIcon
-            style={{ color: '#ffffff', transition: '0.25s ease' }}
-            fontSize="large"
-            className="navBarElement"
-          />
+          <button
+            style={{ background: 'none', border: 'none' }}
+            onClick={() => setTopicVisibility(true)}
+          >
+            <LibraryAddIcon
+              style={{ color: '#ffffff', transition: '0.25s ease' }}
+              fontSize="large"
+              className="navBarElement"
+            />
+          </button>
 
           <ExploreIcon
             style={{ color: '#ffffff', transition: '0.25s ease' }}
@@ -239,6 +245,7 @@ const Header = ({ loading }) => {
                     ml: -0.5,
                     mr: 1,
                   },
+
                   '&:before': {
                     content: '""',
                     display: 'block',
@@ -284,7 +291,9 @@ const Header = ({ loading }) => {
               value={form.email}
               onChange={updateForm('email')}
             ></input>
+
             <br />
+
             <input
               onKeyDown={handleKeyEnter}
               className="inputField"
@@ -294,8 +303,10 @@ const Header = ({ loading }) => {
               value={form.password}
               onChange={updateForm('password')}
             ></input>
+
             <br />
             <br />
+
             <Button
               onClick={login}
               variant="contained"
@@ -305,8 +316,10 @@ const Header = ({ loading }) => {
             </Button>
           </div>
         )}
-        {}
       </div>
+      {isTopicVisible ? (
+        <DropDown test={isTopicVisible} set={setTopicVisibility} />
+      ) : null}
     </>
   );
 };

@@ -53,7 +53,7 @@ const UsersView = () => {
           >
             {users.map((user) => {
               return (
-                <Grid item>
+                <Grid key={user.uid} item>
                   <DisplayUser
                     key={user.uid}
                     avatar={user.avatarUrl ?? defaultPic}

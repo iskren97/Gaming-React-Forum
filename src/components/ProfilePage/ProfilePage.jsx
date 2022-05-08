@@ -281,6 +281,7 @@ const ProfilePage = () => {
             {categoryPosts.length !== 0 ? (
               categoryPosts.map((post) => (
                 <Grid
+                  key={post.id}
                   sx={{
                     marginTop: '0.5rem',
                     display: 'flex',

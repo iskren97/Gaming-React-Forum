@@ -6,6 +6,7 @@ import Items from './Items';
 import generalLogo from '../../icons/general.png';
 import shooterLogo from '../../icons/sniper.png';
 import mmoLogo from '../../icons/mmo.png';
+import rtsLogo from '../../icons/rts.png';
 import adventureLogo from '../../icons/adventure.png';
 
 import desktopLogo from '../../icons/desktop.png';
@@ -48,6 +49,12 @@ const Categories = () => {
         <Grid item xs={6}>
           <NavLink to="/mmorpg">
             <Items name="MMORPG" topic="MMORPGs" logo={mmoLogo} />
+          </NavLink>
+        </Grid>
+
+        <Grid item xs={6}>
+          <NavLink to="/rts">
+            <Items name="RTS" topic="real time strategy games" logo={rtsLogo} />
           </NavLink>
         </Grid>
 

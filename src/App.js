@@ -65,6 +65,11 @@ const App = () => {
           />
           <Route path="/mmorpg" element={<CategoryView topic={'MMORPG'} />} />
           <Route
+            path="/rts"
+            element={<CategoryView topic={'Real Time Strategy'} />}
+          />
+
+          <Route
             path="/adventure"
             element={<CategoryView topic={'Adventure'} />}
           />
