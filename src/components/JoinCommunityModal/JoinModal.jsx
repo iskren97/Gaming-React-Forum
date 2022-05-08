@@ -3,7 +3,7 @@ import Box from '@mui/material/Box';
 import Button from '@mui/material/Button';
 import Modal from '@mui/material/Modal';
 import Register from '../RegisterForm/Register';
-import { Divider, Tooltip } from '@mui/material';
+import { Divider } from '@mui/material';
 
 const style = {
   position: 'absolute',
@@ -24,19 +24,17 @@ const JoinModal = () => {
 
   return (
     <div>
-      <Tooltip title="Register">
-        <Button
-          onClick={handleOpen}
-          style={{
-            color: 'white',
-            fontSize: '13.5px',
-            textTransform: 'none',
-            fontFamily: 'Courier New',
-          }}
-        >
-          Join the community
-        </Button>
-      </Tooltip>
+      <Button
+        onClick={handleOpen}
+        style={{
+          color: 'white',
+          fontSize: '13.5px',
+          textTransform: 'none',
+          fontFamily: 'Courier New',
+        }}
+      >
+        Join the community
+      </Button>
       <Modal
         open={open}
         onClose={handleClose}

@@ -154,11 +154,13 @@ const Header = ({ loading }) => {
             style={{ background: 'none', border: 'none' }}
             onClick={() => setTopicVisibility(true)}
           >
-            <LibraryAddIcon
-              style={{ color: '#ffffff', transition: '0.25s ease' }}
-              fontSize="large"
-              className="navBarElement"
-            />
+            <Tooltip title="New topic">
+              <LibraryAddIcon
+                style={{ color: '#ffffff', transition: '0.25s ease' }}
+                fontSize="large"
+                className="navBarElement"
+              />
+            </Tooltip>
           </button>
 
           <ExploreIcon
@@ -264,12 +266,15 @@ const Header = ({ loading }) => {
               anchorOrigin={{ horizontal: 'right', vertical: 'bottom' }}
             >
               {/* <NavLink to="/MyProfile"> */}
-                <MenuItem onClick={()=>navigate(`/profile/${userData.username}`)} sx={{ bgcolor: 'white' }}>
-                  <ListItemIcon>
-                    <AccountCircleIcon fontSize="medium" />
-                  </ListItemIcon>
-                  My Profile
-                </MenuItem>
+              <MenuItem
+                onClick={() => navigate(`/profile/${userData.username}`)}
+                sx={{ bgcolor: 'white' }}
+              >
+                <ListItemIcon>
+                  <AccountCircleIcon fontSize="medium" />
+                </ListItemIcon>
+                My Profile
+              </MenuItem>
               {/* </NavLink> */}
               <Divider />
               <MenuItem onClick={logout}>
