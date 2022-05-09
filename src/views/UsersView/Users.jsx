@@ -3,24 +3,24 @@ import React, { useEffect, useState } from 'react';
 import { getAllUsers } from '../../services/users.service';
 import './Users.css';
 
+import Footer from '../../components/Footer/Footer';
+import DisplayUser from './DisplayUser';
+
 import usersPic from '../../assets/users.jpg';
 import defaultPic from '../../assets/avatar.jpg';
-import DisplayUser from './DisplayUser';
-import Footer from '../../components/Footer/Footer';
+
+import SearchIcon from '@mui/icons-material/Search';
 
 const UsersView = () => {
   const [users, setUsers] = useState([]);
+  const [search, setSearch] = useState('');
 
   useEffect(() => {
     getAllUsers().then((resp) => setUsers(Object.values(resp.val())));
   }, []);
 
   return (
-    <div
-      style={{
-        backgroundColor: 'rgb(248, 248, 248)',
-      }}
-    >
+    <div className="wrapper">
       <div className="profile-container">
         <div className="profile-background">
           <img src={usersPic} alt="background"></img>
@@ -28,7 +28,6 @@ const UsersView = () => {
         <Container
           maxWidth="xl"
           sx={{
-            height: 'auto',
             backgroundColor: 'white',
             boxShadow: '0 1px 6px rgba(0,0,0,0.2)',
             marginTop: '50px',
@@ -36,7 +35,38 @@ const UsersView = () => {
             paddingBottom: '55px',
           }}
         >
-          <h1 style={{ textAlign: 'center' }}>Forum Users</h1>
+          <Grid
+            container
+            direction="row"
+            spacing={50}
+            style={{ alignItems: 'center', textAlign: 'center' }}
+          >
+            <Grid item xs={6}>
+              <h1 style={{ textAlign: 'center' }}>Forum Users</h1>
+            </Grid>
+
+            <Grid item xs={6}>
+              <div style={{ display: 'flex', alignItems: 'center' }}>
+                <div>
+                  <input
+                    type="text"
+                    placeholder="search username"
+                    className="searchBox"
+                    minLength="3"
+                    maxLength="32"
+                    onChange={(e) => {
+                      e.preventDefault();
+                      setSearch(e.target.value);
+                    }}
+                  />
+                </div>
+
+                <div>
+                  <SearchIcon fontSize="large" />
+                </div>
+              </div>
+            </Grid>
+          </Grid>
 
           <Divider />
 
@@ -52,6 +82,20 @@ const UsersView = () => {
             }}
           >
             {users.map((user) => {
+              if (search) {
+                return user.username.includes(search) ? (
+                  <Grid key={user.uid} item>
+                    <DisplayUser
+                      key={user.uid}
+                      avatar={user.avatarUrl ?? defaultPic}
+                      username={user.username}
+                      firstName={user.firstName}
+                      lastName={user.lastName}
+                    />
+                  </Grid>
+                ) : null;
+              }
+
               return (
                 <Grid key={user.uid} item>
                   <DisplayUser
@@ -67,7 +111,9 @@ const UsersView = () => {
           </Grid>
         </Container>
       </div>
-      <Footer />
+      <div className="sticky-footer">
+        <Footer />
+      </div>
     </div>
   );
 };
