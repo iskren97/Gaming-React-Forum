@@ -14,7 +14,7 @@ import ThumbDownAltIcon from '@mui/icons-material/ThumbDownAlt';
 import Avatar from '@mui/material/Avatar';
 import avatar from '../../../../assets/avatar.jpg';
 
-
+import { useNavigate } from 'react-router-dom';
 
 import {
   getCommentById,
@@ -23,7 +23,8 @@ import {
   dislikeComment,
   removeDislikeComment,
   deleteComment,
-  editCommentContent
+  editCommentContent,
+  
 } from '../../../../services/posts.service';
 
 import DeleteForeverIcon from '@mui/icons-material/DeleteForever';
@@ -50,6 +51,7 @@ function CommentRow({postId, commentId}) {
   const { user, userData, setContext } = useContext(AppContext);
   const [userRating, setUserRating] = useState(0)
   const [commentContent, setCommentContent] = useState("")
+  const navigate = useNavigate();
 
   useEffect(()=>{
     getCommentById(postId, commentId).then(comment => {
@@ -57,7 +59,7 @@ function CommentRow({postId, commentId}) {
     }
     )
     
-  }, [commentId, postId, userRating])
+  }, [commentId, postId])
 
   useEffect(()=>{
     getUserByHandle(commentInfo.author).then(res=>{
@@ -68,7 +70,6 @@ function CommentRow({postId, commentId}) {
   )
 
   }, [commentInfo.author, commentInfo.content])
-
 
 
 
@@ -296,8 +297,26 @@ function CommentRow({postId, commentId}) {
                 }}
               >
               <div> Author</div>
-          <div className="usernameAndPicContainer">
-          {userInfo?.avatarUrl ? (
+              <div
+                  className="userRow"
+                  onClick={() => {
+                    getUserByHandle(commentInfo.author).then((resp) => {
+                      return swal({
+                        title: `${resp.val().username}`,
+                        icon: `${resp.val().avatarUrl ?? avatar}`,
+                        closeOnEsc: true,
+                        button: 'View details',
+                        closeOnClickOutside: true
+                      }).then((res) => {
+                        if(res){
+
+                        navigate(`/profile/${userInfo.username}`);
+                        }
+                      });
+                    });
+                  }}
+                >
+                  {userInfo?.avatarUrl ? (
                     <Avatar sx={{ width: 48, height: 48 }}>
                       <img
                         src={userInfo.avatarUrl}
@@ -310,8 +329,8 @@ function CommentRow({postId, commentId}) {
                       <img src={avatar} className="profilePic" alt="profile" />
                     </Avatar>
                   )}
-          {commentInfo.author}
-          </div>
+                  {commentInfo.author}
+                </div>
           </Grid>
           <Grid
                 item

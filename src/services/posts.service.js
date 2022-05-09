@@ -276,3 +276,7 @@ export const editCommentContent = async(postId, commentId, commentContent) =>
     content: commentContent,
   });
 }
+
+export const getCommentsFromUser = (handle) =>{
+  return get(ref(db, `users/${handle}/commentsonposts`))
+}

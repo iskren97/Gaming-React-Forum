@@ -22,12 +22,13 @@ import defaultAvatar from '../../assets/avatar.jpg';
 
 import EditIcon from '@mui/icons-material/Edit';
 import TopicRow from '../CategoryView/TopicRow/TopicRow';
+import CommentRow from '../CategoryView/TopicRow/CommentRow/CommentRow';
 import DeleteForeverIcon from '@mui/icons-material/DeleteForever';
 
 import AppContext from '../../providers/AppContext';
 
 import swal from 'sweetalert';
-import { getAllPosts } from '../../services/posts.service';
+import { getAllPosts, getCommentsFromUser, getPostById, getCommentById } from '../../services/posts.service';
 import { getUserData, getUserByHandle } from '../../services/users.service';
 import { useParams } from 'react-router-dom';
 
@@ -50,7 +51,9 @@ const ProfilePage = () => {
 
   const { user, userData, setContext } = useContext(AppContext);
 
-  const [categoryPosts, setCategoryPosts] = useState([]);
+  const [userPosts, setUserPosts] = useState([]);
+  const [likedPosts, setLikedPosts] = useState([])
+  const [commentsOnPosts, setCommentsOnPosts] = useState([])
   const [isProfileOwner, setIsProfileOwner] = useState(false);
   const [userProfile, setUserProfile] = useState('');
 
@@ -69,14 +72,15 @@ const ProfilePage = () => {
       });
     }
 
-    if(userData?.username == userProfile.username){
-      if(!userData){
+    if(!userData){
+      setIsProfileOwner(false)
+    }else if(userData?.username == username){
+      setIsProfileOwner(true)
+    }else{
         setIsProfileOwner(false)
-      }else{
-        setIsProfileOwner(true)
       }
-    }
-  }, [userData?.uid, username, userData, userProfile]);
+    
+  }, [userData?.uid, username, userData, userProfile, isProfileOwner]);
 
   useEffect(() => {
     const getPostsByUser = () => {
@@ -85,8 +89,56 @@ const ProfilePage = () => {
       });
     };
 
-    getPostsByUser().then((data) => setCategoryPosts(data));
+    const getLikedByUser = () =>{
+      return getAllPosts().then((posts) => {
+        return posts.filter((post) => post.likedBy.includes(userProfile.username));
+      })
+    }
+
+  
+    
+    getLikedByUser().then((data)=> setLikedPosts(data))
+
+    getPostsByUser().then((data) => setUserPosts(data));
   }, [userProfile, username]);
+
+
+
+
+
+
+
+  useEffect(() => {
+    const getUsersComments = () =>{
+      return getCommentsFromUser(userProfile.username).then((data) =>{
+        return data.val()
+      })
+    }
+    getUsersComments().then((data) => {
+      const filtered = [];
+  
+      for(let post in data){
+        getPostById(post).then((data)=>{
+  
+          data.comments.forEach((comment)=>{
+            getCommentById(data.id ,comment).then(response => {
+              if(response.author == userProfile.username){
+                filtered.push({post: data.id,comment: comment})
+              }
+            })
+          })
+  
+        })
+      }
+      
+     setCommentsOnPosts(filtered)
+    })
+  },[userProfile.username])
+
+ 
+
+  
+
 
   const uploadPicture = (e) => {
     e.preventDefault();
@@ -128,6 +180,15 @@ const ProfilePage = () => {
       })
       .catch(console.error);
   };
+
+
+
+ 
+
+
+
+
+
 
   const setUserDescription = () => {
     swal({
@@ -322,7 +383,7 @@ const ProfilePage = () => {
             >
               <h1>{isProfileOwner ? 'My Posts:' : 'Posts'}</h1>
 
-              {categoryPosts.length !== 0 ? (
+              {userPosts.length !== 0 ? (
                 <Grid
                   sx={{
                     marginTop: '0.5rem',
@@ -332,13 +393,58 @@ const ProfilePage = () => {
                     alignItems: 'stretch',
                   }}
                 >
-                  {categoryPosts.map((post) => (
+                  {userPosts.map((post) => (
                     <TopicRow key={post.id} row={post} />
                   ))}
                 </Grid>
               ) : (
                 <div>
                   <h3> You have no posts yet.</h3>
+                </div>
+              )}
+
+              <h1>{isProfileOwner ? 'My Likes:' : 'Likes'}</h1>
+              {likedPosts.length !== 0 ? (
+                <Grid
+                  sx={{
+                    marginTop: '0.5rem',
+                    display: 'flex',
+                    flexDirection: 'column',
+                    width: '100%',
+                    alignItems: 'stretch',
+                  }}
+                >
+                  {likedPosts.map((post) => (
+                    <TopicRow key={post.id} row={post} />
+                  ))}
+                </Grid>
+              ) : (
+                <div>
+                  <h3> You have no likes yet.</h3>
+                </div>
+              )}
+
+
+              <h1>{isProfileOwner ? 'My Comments:' : 'Comments'}</h1>
+              {commentsOnPosts?.length !== 0 ? (
+                <Grid
+                  sx={{
+                    marginTop: '0.5rem',
+                    display: 'flex',
+                    flexDirection: 'column',
+                    width: '100%',
+                    alignItems: 'stretch',
+                  }}
+                >
+                  {commentsOnPosts?.map((post) => (
+                        <CommentRow postId={post.post} commentId={post.comment} />  
+                    ))
+                  }
+              
+                </Grid>
+              ) : (
+                <div>
+                  <h3> You have no comments yet.</h3>
                 </div>
               )}
             </Grid>
