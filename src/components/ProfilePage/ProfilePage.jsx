@@ -72,7 +72,11 @@ const ProfilePage = () => {
     }
 
     if(userData?.username == userProfile.username){
-      setIsProfileOwner(true)
+      if(!userData){
+        setIsProfileOwner(false)
+      }else{
+        setIsProfileOwner(true)
+      }
     }
       
     },[userData?.uid, username, userData, userProfile]);
@@ -167,7 +171,7 @@ const ProfilePage = () => {
 
   return (
     <>
-      {user ? (
+      
         <div className="profileContainer">
           <div className="profileBackground">
             <img src={background} alt="background"></img>
@@ -343,7 +347,7 @@ const ProfilePage = () => {
             </Grid>
           </Container>
         </div>
-      ) : null}
+      
     </>
   );
 };

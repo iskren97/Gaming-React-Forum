@@ -66,7 +66,8 @@
 .topicRowContainer {
   display: flex;
   flex-direction: row;
-  align-items: center;
+  align-items: stretch;
+  width: initial;
 }
 
 .replyIcon {
@@ -104,6 +105,7 @@
   flex-direction: column;
   gap: 0.5em;
   margin: 0.5em;
+  min-widtH: 1.5em;
 }
 
 
@@ -117,6 +119,16 @@
   background-color: white;
 }
 
+
+.swal-red .swal-button:active {
+  background-color: #e64942;
+}
+
+.swal-green .swal-button:active {
+  background-color: #47db00;
+}
+
 .swal-button:active {
   background-color: #47db00
 }
+

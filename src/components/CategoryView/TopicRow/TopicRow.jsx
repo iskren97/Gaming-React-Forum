@@ -19,9 +19,9 @@ import {
   dislikePost,
   removeDislikePost,
   deletePost,
-  editPost,
   editPostTitle,
   editPostContent,
+  commentPost,
 } from '../../../services/posts.service';
 
 import Tooltip from '@mui/material/Tooltip';
@@ -30,8 +30,11 @@ import ReplyIcon from '@mui/icons-material/Reply';
 import DeleteForeverIcon from '@mui/icons-material/DeleteForever';
 import EditIcon from '@mui/icons-material/Edit';
 import swal from 'sweetalert';
-import { NavLink } from 'react-router-dom';
+
 import { useNavigate } from 'react-router-dom';
+
+
+
 
 const Item = styled(Paper)(({ theme }) => ({
   backgroundColor: theme.palette.mode === 'dark' ? '#1A2027' : '#fff',
@@ -50,8 +53,7 @@ const TopicRow = ({ row }) => {
   const [postedBy, setPostedBy] = useState(null);
   const navigate = useNavigate();
 
-
-  const [userRating, setUserRating] = useState ("")
+  
 
 
 
@@ -75,13 +77,12 @@ const TopicRow = ({ row }) => {
   }, [open]);
   
   useEffect(() => {
-    
     getUserByHandle(row.author).then((res) => {
       setPostedBy(res.val());
     });
-
     
-  }, [row.author, row.likedBy, row.dislikedBy, userData]);
+
+  }, [row.author, row.likedBy, row.dislikedBy]);
   
   
   
@@ -112,13 +113,13 @@ const TopicRow = ({ row }) => {
     height: height,
     transition: 'height 0.15s ease-in',
     overflow: 'hidden',
-    width: '100%',
+    width: "100%",
   };
   const on_hide_styles = {
     height: height,
     transition: 'height 0.15s ease-out',
     overflow: 'hidden',
-    width: '100%',
+    width: "100%",
   };
 
   const dateFormatDate = (date) => {
@@ -168,6 +169,7 @@ const TopicRow = ({ row }) => {
 
   const handleDeletePost = () => {
     swal({
+      className: "swal-red",
       title: 'Are you sure?',
       text: "You won't be able to revert this!",
       icon: 'warning',
@@ -177,24 +179,23 @@ const TopicRow = ({ row }) => {
       if (willDelete) {
         deletePost(row.id);
         swal('Post deleted!', {
+          className: "swal-green",
           icon: 'success',
         });
       } else {
         swal('Your post is safe!', {
+          className: "swal-green",
           icon: 'success',
         });
       }
     });
 
-    //deletePost(row.id)
   };
 
-  const handleEditPost = () => {
-    //editPost(row.id, row.title, row.content)
-
+  const handleEditTitle = () =>{
     swal({
       title: 'Edit title',
-      text: "Edit your post's title",
+      Text: 'Edit this posts title',
       content: {
         element: 'input',
         attributes: {
@@ -203,8 +204,6 @@ const TopicRow = ({ row }) => {
           value: row.title,
         },
       },
-      buttons: true,
-      dangerMode: true,
     }).then((title) => {
       if (title) {
         if (title === '' || title.length < 16 || title.length > 64) {
@@ -219,52 +218,91 @@ const TopicRow = ({ row }) => {
           swal('Post title edited!', {
             icon: 'success',
           });
-
-          swal({
-            title: 'Edit content',
-            text: "Edit your post's content",
-            content: {
-              element: 'input',
-              attributes: {
-                placeholder: 'Content',
-                type: 'text',
-                value: row.content,
-              },
-            },
-            buttons: true,
-            dangerMode: true,
-          }).then((content) => {
-            if (content) {
-              if (
-                content === '' ||
-                content.length < 32 ||
-                content.length > 8192
-              ) {
-                swal(
-                  'Something went wrong...',
-                  'Post content must be between 32 and 8192 characters long!',
-                  'error'
-                );
-                return false;
-              }
-              editPostContent(row.id, content);
-              swal('Post content edited!', {
-                icon: 'success',
-              });
-            } else {
-              swal('No changes were made to your post!', {
-                icon: 'success',
-              });
-            }
-          });
         }
+
+         
       } else {
         swal('No changes were made to your post!', {
-          icon: 'success',
+          icon: 'warning',
         });
       }
     });
-  };
+  }
+
+
+  const handleEditContent = () =>{
+    swal({
+      title: 'Edit Content',
+      Text: 'Edit this posts content',
+    
+ 
+      content: {
+        element: 'input',
+        attributes: {
+          placeholder: 'content',
+          type: 'text',
+          value: row.content,
+        },
+      },
+    }).then((content) => {
+      if (content) {
+        if (content === '' || content.length < 32 || content.length > 8192) {
+          swal(
+            'Something went wrong...',
+            'Post content must be between 32 and 8192 characters long!',
+            'error'
+          );
+          return false;
+        } else {
+          editPostContent(row.id, content);
+          swal('Post content edited!', {
+            icon: 'success',
+          });
+        }
+
+         
+      } else {
+        swal('No changes were made to your post!', {
+          icon: 'warning',
+        });
+      }
+    });
+  }
+
+
+ const handleComment = () =>{
+
+    swal({
+      title: 'Comment',
+      text: 'Comment on this post',
+      content: {
+        element: 'input',
+        attributes: {
+          placeholder: 'Type a comment to this post',
+          type: 'text',
+        },
+      },
+    }).then((comment) => {
+      if (comment) {
+        if (comment === '' || comment.length < 32 || comment.length > 8192) {
+          swal(
+            'Something went wrong...',
+            'Post content must be between 32 and 8192 characters long!',
+            'error'
+          );
+          return false;
+        } else {
+        commentPost(row.id, comment, userData.username);
+          swal('Comment posted!', {
+            icon: 'success',
+          });
+        }
+        
+ }})
+ }
+
+
+
 
   const iconsField = () => {
     if (!user) {
@@ -272,12 +310,17 @@ const TopicRow = ({ row }) => {
     } else if (userData.username === row.author) {
       return (
         <div className="iconsContainer">
+          <Tooltip title="Edit this post's title" placement="right-end">
+            <EditIcon onClick={() => handleEditTitle()} className="editIcon" />
+          </Tooltip>
+
+          <Tooltip title="Edit this post's content" placement="right-end">
+            <EditIcon onClick={() => handleEditContent()} className="editIcon" />
+          </Tooltip>
           <Tooltip title="Reply to this post" placement="right-end">
-            <ReplyIcon className="replyIcon" />
+            <ReplyIcon onClick = {()=> handleComment()} className="replyIcon" />
           </Tooltip>
-          <Tooltip title="Edit this post" placement="right-end">
-            <EditIcon onClick={() => handleEditPost()} className="editIcon" />
-          </Tooltip>
+          
           <Tooltip title="Delete this post" placement="right-end">
             <DeleteForeverIcon
               onClick={() => handleDeletePost()}
@@ -290,13 +333,15 @@ const TopicRow = ({ row }) => {
       return (
         <div className="iconsContainer">
           <Tooltip title="Reply to this post" placement="right-end">
-            <ReplyIcon className="replyIcon" />
+          <ReplyIcon onClick = {()=> handleComment()} className="replyIcon" />
           </Tooltip>
         </div>
       );
     }
   };
 
+
+  //console.log(row.comments)
   return (
     <>
       <div className="topicRowContainer">
@@ -314,6 +359,7 @@ const TopicRow = ({ row }) => {
                 sx={{ transition: '0.25s ease-in-out' }}
               />
             </Grid>
+            
             <Grid container direction="row-reverse" sx={{ marginTop: '10px' }}>
               <Grid
                 item
@@ -339,7 +385,7 @@ const TopicRow = ({ row }) => {
                 }}
               >
                 <div>Replies</div>
-                {row.replies || '0'}
+                {row.comments.length || '0'}
               </Grid>
               <Grid
                 item
@@ -348,7 +394,7 @@ const TopicRow = ({ row }) => {
                   display: 'flex',
                   flexDirection: 'column',
                   justifyContent: 'flex-start',
-                  alignItems: 'flex-end',
+                  alignItems: 'center',
                 }}
               >
                 <div>Author</div>
@@ -361,7 +407,7 @@ const TopicRow = ({ row }) => {
                         icon: `${resp.val().avatarUrl ?? avatar}`,
                         closeOnEsc: true,
                         button: 'View details',
-                        closeOnClickOutside: false
+                        closeOnClickOutside: true
                       }).then((res) => {
                         if(res){
 
@@ -420,6 +466,7 @@ const TopicRow = ({ row }) => {
 
         {iconsField()}
 
+      </div>
         {open ? (
           row.comments ? (
             <Grid
@@ -430,12 +477,11 @@ const TopicRow = ({ row }) => {
               alignContent="flex-end"
             >
               {row.comments.map((comment, index) => {
-                return <CommentRow key={index} comment={comment} />;
+                return <CommentRow key={index} postId={row.id} commentId={comment} />;
               })}
             </Grid>
           ) : null
         ) : null}
-      </div>
     </>
   );
 };

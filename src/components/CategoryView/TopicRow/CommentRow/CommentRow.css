@@ -1,0 +1,48 @@
+.usernameAndPicContainer{
+  display:flex;
+  flex-direction: row;
+  align-items: center;
+}
+
+
+.thumbDownIcon {
+  transition: all 0.25s ease;
+  cursor: pointer;
+}
+.thumbDownIconFilled {
+  color: red;
+  cursor: pointer;
+}
+
+.thumbDownIcon:hover {
+  color: red;
+  transition: all 0.25s ease;
+}
+
+.thumbUpIcon {
+  transition: all 0.25s ease;
+  cursor: pointer;
+}
+.thumbUpIconFilled {
+  color: green;
+  cursor: pointer;
+}
+
+.thumbUpIcon:hover {
+  color: green;
+  transition: all 0.25s ease;
+}
+
+
+.rating-button{
+  display:flex;
+  flex-direction: row;
+}
+
+
+.commentRowContainer{
+  display: flex;
+  align-items: flex-start;
+  flex-direction: row;
+}
+
