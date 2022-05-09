@@ -19,3 +19,11 @@
   overflow: hidden;
   margin-top: -150px;
 }
+.wrapper {
+  min-height: 100vh;
+}
+
+.sticky-footer {
+  position: sticky;
+  top: 100%;
+}
