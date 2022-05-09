@@ -163,11 +163,15 @@ const Header = ({ loading }) => {
             </Tooltip>
           </button>
 
-          <ExploreIcon
-            style={{ color: '#ffffff', transition: '0.25s ease' }}
-            fontSize="large"
-            className="navBarElement"
-          />
+          <NavLink to="/all_posts">
+            <Tooltip title="See all posts">
+              <ExploreIcon
+                style={{ color: '#ffffff', transition: '0.25s ease' }}
+                fontSize="large"
+                className="navBarElement"
+              />
+            </Tooltip>
+          </NavLink>
 
           <StarIcon
             style={{ color: '#ffffff', transition: '0.25s ease' }}

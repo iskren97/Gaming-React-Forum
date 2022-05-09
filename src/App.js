@@ -17,6 +17,7 @@ import { auth } from './config/firebase-config';
 import { getUserData } from './services/users.service';
 import ScrollToTop from './components/Scroll/ScrollToTop';
 import UsersView from './views/UsersView/Users';
+import Posts from './views/AllPosts/Posts';
 
 const App = () => {
   const [appState, setAppState] = useState({
@@ -55,6 +56,7 @@ const App = () => {
           <Route path="/about" element={<AboutPage />} />
           <Route path="*" element={<ErrorPage />} />
           <Route path="/users" element={<UsersView />} />
+          <Route path="/all_posts" element={<Posts />} />
           <Route
             path="/general_discussion"
             element={<CategoryView topic={'General Discussion'} />}
