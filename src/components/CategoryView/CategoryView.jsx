@@ -1,5 +1,4 @@
 import React from 'react';
-import background from '../../assets/gamesBackground.jpg';
 import './CategoryView.css';
 import Button from '@mui/material/Button';
 import { useState, useContext, useEffect } from 'react';
@@ -45,11 +44,6 @@ const CategoryView = ({ topic, img }) => {
       <div className="viewContainer">
         <div className="hero-image">
           <img src={img} alt="background"></img>
-          {/* <img
-            src="https://images5.alphacoders.com/337/thumb-1920-337943.jpg"
-            alt=""
-            srcset="" */}
-          />
         </div>
 
         {postModal ? (

@@ -24,6 +24,11 @@ import general from './assets/gamesBackground.jpg';
 import mmo from './assets/mmorpg.jpg';
 import rts from './assets/strategy.jpg';
 import adv from './assets/adventure.jpg';
+import pc from './assets/pc.jpg';
+import accs from './assets/accs.jpg';
+import vs from './assets/vs.jpg';
+import stream from './assets/stream.jpg';
+import ent from './assets/ent.jpg';
 
 const App = () => {
   const [appState, setAppState] = useState({
@@ -31,7 +36,7 @@ const App = () => {
     userData: null,
   });
 
-  let [user, loading, error] = useAuthState(auth);
+  let [user, loading] = useAuthState(auth);
 
   useEffect(() => {
     if (user === null) return;
@@ -62,6 +67,10 @@ const App = () => {
           <Route path="/about" element={<AboutPage />} />
           <Route path="*" element={<ErrorPage />} />
           <Route path="/users" element={<UsersView />} />
+          <Route
+            path="/profile/:username"
+            element={<ProfilePage key={window.location.pathname} />}
+          />
           <Route path="/all_posts" element={<Posts />} />
 
           <Route
@@ -89,27 +98,23 @@ const App = () => {
           />
           <Route
             path="/gaming_pc"
-            element={<CategoryView topic={'Gaming Laptops and PCs'} />}
+            element={<CategoryView topic={'Gaming Laptops and PCs'} img={pc} />}
           />
           <Route
             path="/gaming_accessories"
-            element={<CategoryView topic={'Gaming Accessories'} />}
+            element={<CategoryView topic={'Gaming Accessories'} img={accs} />}
           />
           <Route
             path="/tournaments"
-            element={<CategoryView topic={'Tournaments'} />}
+            element={<CategoryView topic={'Tournaments'} img={vs} />}
           />
           <Route
             path="/streaming"
-            element={<CategoryView topic={'Streaming'} />}
+            element={<CategoryView topic={'Streaming'} img={stream} />}
           />
           <Route
             path="/entertainment"
-            element={<CategoryView topic={'Entertainment'} />}
-          />
-          <Route
-            path="/profile/:username"
-            element={<ProfilePage key={window.location.pathname} />}
+            element={<CategoryView topic={'Entertainment'} img={ent} />}
           />
         </Routes>
       </AppContext.Provider>
