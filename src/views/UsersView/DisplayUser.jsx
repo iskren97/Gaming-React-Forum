@@ -95,7 +95,7 @@ const DisplayUser = ({ avatar, role, username, firstName, lastName }) => {
           </p>
         </Grid>
         <Grid item sx={{ textAlign: 'center' }}>
-          {userData.role === 'admin' ?  <Tooltip title={ isUserBlocked ? "Unblock this user" : "Block this user"} placement="bottom">
+          {userData?.role === 'admin' ?  <Tooltip title={ isUserBlocked ? "Unblock this user" : "Block this user"} placement="bottom">
           <BlockIcon className={isUserBlocked ? "blockedUserButton" : "blockButton"} onClick={()=> handleBlockUser()} />
           </Tooltip> : null}	
          
