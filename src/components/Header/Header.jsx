@@ -33,6 +33,8 @@ import { useNavigate } from 'react-router';
 import { Tooltip } from '@mui/material';
 import DropDown from '../NewTopicModal/DropDown';
 
+import swal from 'sweetalert';
+
 const Header = ({ loading }) => {
   const navigate = useNavigate();
 

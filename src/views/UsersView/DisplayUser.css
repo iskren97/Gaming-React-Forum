@@ -1,0 +1,11 @@
+.blockButton{
+  cursor: pointer;
+}
+
+.blockedUserButton{
+  cursor: pointer;
+  color: red;
+}
+.blockButton:hover{
+  color: red;
+}

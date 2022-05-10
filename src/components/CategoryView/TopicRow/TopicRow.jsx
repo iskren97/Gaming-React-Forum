@@ -54,8 +54,6 @@ const TopicRow = ({ row }) => {
   const navigate = useNavigate();
 
 
-
-
   const isPostLiked = () => row?.likedBy?.includes(userData?.username)
 
   const isPostDisliked = () => row?.dislikedBy?.includes(userData?.username);
@@ -307,35 +305,78 @@ const TopicRow = ({ row }) => {
     if (!user) {
       return null;
     } else if (userData.username === row.author) {
-      return (
-        <div className="iconsContainer">
-          <Tooltip title="Edit this post's title" placement="right-end">
-            <EditIcon onClick={() => handleEditTitle()} className="editIcon" />
-          </Tooltip>
-
-          <Tooltip title="Edit this post's content" placement="right-end">
-            <EditIcon onClick={() => handleEditContent()} className="editIcon" />
-          </Tooltip>
-          <Tooltip title="Reply to this post" placement="right-end">
-            <ReplyIcon onClick = {()=> handleComment()} className="replyIcon" />
-          </Tooltip>
-          
-          <Tooltip title="Delete this post" placement="right-end">
-            <DeleteForeverIcon
-              onClick={() => handleDeletePost()}
-              className="deleteIcon"
-            />
-          </Tooltip>
-        </div>
-      );
+      if(userData.role === 'blocked'){
+        return (
+          <div className="iconsContainer">
+            <Tooltip title="Edit this post's title" placement="right-end">
+              <EditIcon onClick={() => handleEditTitle()} className="editIcon" />
+            </Tooltip>
+  
+            <Tooltip title="Edit this post's content" placement="right-end">
+              <EditIcon onClick={() => handleEditContent()} className="editIcon" />
+            </Tooltip>
+           
+            <Tooltip title="Delete this post" placement="right-end">
+              <DeleteForeverIcon
+                onClick={() => handleDeletePost()}
+                className="deleteIcon"
+              />
+            </Tooltip>
+          </div>
+        );
+      }else {
+        return (
+          <div className="iconsContainer">
+            <Tooltip title="Edit this post's title" placement="right-end">
+              <EditIcon onClick={() => handleEditTitle()} className="editIcon" />
+            </Tooltip>
+  
+            <Tooltip title="Edit this post's content" placement="right-end">
+              <EditIcon onClick={() => handleEditContent()} className="editIcon" />
+            </Tooltip>
+            <Tooltip title="Reply to this post" placement="right-end">
+              <ReplyIcon onClick = {()=> handleComment()} className="replyIcon" />
+            </Tooltip>
+            
+            <Tooltip title="Delete this post" placement="right-end">
+              <DeleteForeverIcon
+                onClick={() => handleDeletePost()}
+                className="deleteIcon"
+              />
+            </Tooltip>
+          </div>
+        );
+      }
+    
+    } else if(userData.role === "admin"){	
+      return(
+      <div className="iconsContainer">
+      
+      <Tooltip title="Reply to this post" placement="right-end">
+        <ReplyIcon onClick = {()=> handleComment()} className="replyIcon" />
+      </Tooltip>
+      
+      <Tooltip title="Delete this post" placement="right-end">
+        <DeleteForeverIcon
+          onClick={() => handleDeletePost()}
+          className="deleteIcon"
+        />
+      </Tooltip>
+      </div>
+      )
     } else {
-      return (
-        <div className="iconsContainer">
-          <Tooltip title="Reply to this post" placement="right-end">
-          <ReplyIcon onClick = {()=> handleComment()} className="replyIcon" />
-          </Tooltip>
-        </div>
-      );
+      if(userData.role === 'blocked'){
+        return null;
+      }else{
+        return (
+          <div className="iconsContainer">
+            <Tooltip title="Reply to this post" placement="right-end">
+            <ReplyIcon onClick = {()=> handleComment()} className="replyIcon" />
+            </Tooltip>
+          </div>
+        );
+      }
+      
     }
   };
 

@@ -1,17 +1,44 @@
 import React from 'react';
 import '../../components/ProfilePage/ProfilePage.css';
-import { useNavigate } from 'react-router';
+import { useNavigate, } from 'react-router';
 
 import { Container, Tooltip } from '@mui/material';
 import Grid from '@mui/material/Grid';
 import { Divider } from '@mui/material';
 
+import {useState, useEffect, useContext} from 'react'
+
 import VerifiedUserIcon from '@mui/icons-material/VerifiedUser';
 import SportsEsportsIcon from '@mui/icons-material/SportsEsports';
 import ForumIcon from '@mui/icons-material/Forum';
+import BlockIcon from '@mui/icons-material/Block';
+import { updateUserRole } from '../../services/users.service';
+import AppContext from '../../providers/AppContext';
+import './DisplayUser.css';
 
-const DisplayUser = ({ avatar, username, firstName, lastName }) => {
+const DisplayUser = ({ avatar, role, username, firstName, lastName }) => {
   const navigate = useNavigate();
+
+  const { user, userData, setContext } = useContext(AppContext);
+
+    const [isUserBlocked, setIsUserBlocked] = useState(role == "blocked");
+
+
+    const handleBlockUser = () => {
+      if (isUserBlocked) {
+        updateUserRole(username, "user").then(() => {
+          setIsUserBlocked(false);
+        }
+        );
+      } else {
+        updateUserRole(username, "blocked").then(() => {
+          setIsUserBlocked(true);
+        }
+        );
+      }
+    }
+
+    console.log(isUserBlocked)
 
   return (
     <Container
@@ -68,10 +95,13 @@ const DisplayUser = ({ avatar, username, firstName, lastName }) => {
           </p>
         </Grid>
         <Grid item sx={{ textAlign: 'center' }}>
-          <i>
-            <SportsEsportsIcon />
-            <ForumIcon />
-          </i>
+          {userData.role === 'admin' ?  <Tooltip title={ isUserBlocked ? "Unblock this user" : "Block this user"} placement="bottom">
+          <BlockIcon className={isUserBlocked ? "blockedUserButton" : "blockButton"} onClick={()=> handleBlockUser()} />
+          </Tooltip> : null}	
+         
+            {/* <SportsEsportsIcon />
+            <ForumIcon /> */}
+     
         </Grid>
       </Grid>
     </Container>

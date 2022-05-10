@@ -19,6 +19,8 @@ const UsersView = () => {
     getAllUsers().then((resp) => setUsers(Object.values(resp.val())));
   }, []);
 
+
+
   return (
     <div className="wrapper">
       <div className="profile-container">
@@ -89,6 +91,7 @@ const UsersView = () => {
                       <DisplayUser
                         key={user.uid}
                         avatar={user.avatarUrl ?? defaultPic}
+                        role={user.role}
                         username={user.username}
                         firstName={user.firstName}
                         lastName={user.lastName}
@@ -102,6 +105,7 @@ const UsersView = () => {
                     <DisplayUser
                       key={user.uid}
                       avatar={user.avatarUrl ?? defaultPic}
+                      role={user.role}
                       username={user.username}
                       firstName={user.firstName}
                       lastName={user.lastName}

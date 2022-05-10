@@ -93,7 +93,7 @@ const DropDown = ({ test, set }) => {
 
   return (
     <>
-      {user ? (
+      {user ? userData.role !== 'blocked' ? (
         <Modal
           open={test}
           onClose={handleClose}
@@ -187,7 +187,49 @@ const DropDown = ({ test, set }) => {
             </form>
           </Box>
         </Modal>
-      ) : (
+      ) :   
+      (
+        <Modal
+          open={test}
+          onClose={handleClose}
+          aria-labelledby="modal-modal-title"
+          aria-describedby="modal-modal-description"
+        >
+          <Box sx={style}>
+            <div
+              style={{
+                display: 'flex',
+                justifyContent: 'space-between',
+                fontSize: '20px',
+              }}
+            >
+              <h3>New Topic</h3>
+
+              <button
+                style={{
+                  background: 'none',
+                  border: 'none',
+                  fontSize: '27px',
+                  fontWeight: 'bold',
+                  cursor: 'pointer',
+                  float: 'right',
+                }}
+                onClick={() => handleClose()}
+              >
+                X
+              </button>
+            </div>
+
+            <Divider />
+            <br />
+
+            <h3 style={{ textAlign: 'center' }}>You are blocked from writing posts!</h3>
+          </Box>
+        </Modal>
+      )
+      
+      
+      : (
         <Modal
           open={test}
           onClose={handleClose}

@@ -19,7 +19,7 @@ import { Divider } from '@mui/material';
 
 const CategoryView = ({ topic }) => {
   const [postModal, setPostModal] = useState(false);
-  const { user } = useContext(AppContext);
+  const { user, userData } = useContext(AppContext);
   const [categoryPosts, setCategoryPosts] = useState([]);
   const [search, setSearch] = useState('');
 
@@ -58,7 +58,7 @@ const CategoryView = ({ topic }) => {
 
         <div className="categoryRow">
           <div className="buttonsGroup">
-            {user ? (
+            {user && userData.role !== 'blocked' ? (
               <Button
                 onClick={() => setPostModal(!postModal)}
                 variant="contained"

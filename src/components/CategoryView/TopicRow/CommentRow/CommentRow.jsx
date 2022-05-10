@@ -192,7 +192,19 @@ function CommentRow({postId, commentId}) {
           </Tooltip>
         </div>
       );
-    } else {
+    } else if (userData.role === 'admin') {
+      return (
+        <div className="iconsContainer">
+          <Tooltip title="Delete this post" placement="right-end">
+            <DeleteForeverIcon
+              onClick={() => handleDeleteComment()}
+              className="deleteIcon"
+            />
+          </Tooltip>
+        </div>
+      );
+
+    }else {
       return <div className="iconsContainer"></div>
     }
   };
