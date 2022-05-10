@@ -56,7 +56,7 @@ const UsersView = () => {
                     maxLength="32"
                     onChange={(e) => {
                       e.preventDefault();
-                      setSearch(e.target.value);
+                      setSearch(e.target.value.toLowerCase());
                     }}
                   />
                 </div>
