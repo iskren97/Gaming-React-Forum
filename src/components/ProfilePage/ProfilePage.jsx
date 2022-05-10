@@ -116,26 +116,37 @@ const ProfilePage = () => {
     }
     getUsersComments().then((data) => {
       const filtered = [];
+      const userComments = []
   
       for(let post in data){
         getPostById(post).then((data)=>{
+
+          const currentPost = data
   
           data.comments.forEach((comment)=>{
             getCommentById(data.id ,comment).then(response => {
-              if(response.author == userProfile.username){
-                filtered.push({post: data.id,comment: comment})
+              
+              if(response.author === userProfile.username){
+                userComments.push(comment)
               }
             })
           })
+          currentPost.comments = userComments
+          filtered.push(currentPost)
   
         })
       }
+
       
+      // console.log(filtered)
      setCommentsOnPosts(filtered)
+      
+
     })
   },[userProfile.username])
 
  
+  // console.log(commentsOnPosts)
 
   
 
@@ -437,7 +448,7 @@ const ProfilePage = () => {
                   }}
                 >
                   {commentsOnPosts?.map((post) => (
-                        <CommentRow postId={post.post} commentId={post.comment} />  
+                        <TopicRow row={post} />  
                     ))
                   }
               

@@ -73,7 +73,7 @@ const TopicRow = ({ row }) => {
     getUserByHandle(row.author).then((res) => {
       setPostedBy(res.val());
     });
-  }, [row.author, row.likedBy, row.dislikedBy]);
+  }, [row.author, row.likedBy, row.dislikedBy, row]);
 
   const handleLike = () => {
     if (isPostLiked()) {
@@ -446,15 +446,15 @@ const TopicRow = ({ row }) => {
 
         {iconsField()}
       </div>
-
       {open ? (
         row.comments ? (
           <Grid
             container
             direction="column"
-            justifyContent="flex-start"
+            justifyContent="stretch"
             alignItems="flex-end"
             alignContent="flex-end"
+            sx={{ marginBottom: '10px' }}
           >
             {row.comments.map((comment, index) => {
               return (
