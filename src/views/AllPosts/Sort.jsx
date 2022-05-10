@@ -101,7 +101,7 @@ const Sort = (props) => {
               (post.likedBy?.length || 0) - (post.dislikedBy?.length || 0);
 
             if (search) {
-              return post.title.includes(search) ? (
+              return post.title.toLowerCase().includes(search) ? (
                 <Grid key={post.id} item>
                   <TopicRow key={post.id} row={post} />
                 </Grid>

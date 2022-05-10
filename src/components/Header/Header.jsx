@@ -174,31 +174,14 @@ const Header = ({ loading }) => {
               />
             </Tooltip>
           </NavLink>
-
-          <StarIcon
-            style={{ color: '#ffffff', transition: '0.25s ease' }}
-            fontSize="large"
-            className="navBarElement"
-          />
         </div>
 
         <div
           style={{
-            display: 'flex',
-            flexDirection: 'row',
-            alignItems: 'center',
+            color: 'white',
           }}
         >
-          <SearchIcon
-            style={{ position: 'relative', left: '10%', color: '#ffffff' }}
-            fontSize="large"
-          />
-
-          <input
-            type="text"
-            placeholder="Search anything..."
-            className="searchBox"
-          />
+          <h1>Forum Name</h1>
         </div>
 
         {loading ? (
@@ -215,10 +198,6 @@ const Header = ({ loading }) => {
                   textAlign: 'center',
                 }}
               >
-                {/* <Avatar onClick={handleClick} sx={{ width: 48, height: 48 }}>
-                <img src={avatar} alt="pfp" className="profilePic"></img>
-              </Avatar> */}
-
                 {userData.avatarUrl ? (
                   <Avatar onClick={handleClick} sx={{ width: 48, height: 48 }}>
                     <img

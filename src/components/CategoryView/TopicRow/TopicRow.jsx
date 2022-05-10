@@ -12,7 +12,7 @@ import CommentRow from './CommentRow/CommentRow';
 import Avatar from '@mui/material/Avatar';
 import avatar from '../../../assets/avatar.jpg';
 import AppContext from '../../../providers/AppContext';
-import { getUserData, getUserByHandle } from '../../../services/users.service';
+import { getUserByHandle } from '../../../services/users.service';
 import {
   likePost,
   removeLikePost,
@@ -33,9 +33,6 @@ import swal from 'sweetalert';
 
 import { useNavigate } from 'react-router-dom';
 
-
-
-
 const Item = styled(Paper)(({ theme }) => ({
   backgroundColor: theme.palette.mode === 'dark' ? '#1A2027' : '#fff',
   ...theme.typography.body2,
@@ -49,7 +46,7 @@ const TopicRow = ({ row }) => {
   const [height, setHeight] = useState(0);
   const elementRef = useRef(null);
   const headerRef = useRef(null);
-  const { user, userData, setContext } = useContext(AppContext);
+  const { user, userData } = useContext(AppContext);
   const [postedBy, setPostedBy] = useState(null);
   const navigate = useNavigate();
 
@@ -72,51 +69,42 @@ const TopicRow = ({ row }) => {
       );
     }
   }, [open]);
-  
+
   useEffect(() => {
     getUserByHandle(row.author).then((res) => {
       setPostedBy(res.val());
     });
-    
-
   }, [row.author, row.likedBy, row.dislikedBy, row]);
-  
-  
-  
 
   const handleLike = () => {
-    if(isPostLiked()){
-      removeLikePost(userData?.username, row.id)
-    }else{
-      likePost(userData?.username, row.id)
+    if (isPostLiked()) {
+      removeLikePost(userData?.username, row.id);
+    } else {
+      likePost(userData?.username, row.id);
       removeDislikePost(userData?.username, row.id);
-    } 
-  }
+    }
+  };
 
-  const handleDislike = () =>{
-    if(isPostDisliked()){
-      removeDislikePost(userData?.username, row.id)
-    }else{
-      dislikePost(userData?.username, row.id)
+  const handleDislike = () => {
+    if (isPostDisliked()) {
+      removeDislikePost(userData?.username, row.id);
+    } else {
+      dislikePost(userData?.username, row.id);
       removeLikePost(userData?.username, row.id);
     }
-  }
-
-
-
-
+  };
 
   const on_show_styles = {
     height: height,
     transition: 'height 0.15s ease-in',
     overflow: 'hidden',
-    width: "100%",
+    width: '100%',
   };
   const on_hide_styles = {
     height: height,
     transition: 'height 0.15s ease-out',
     overflow: 'hidden',
-    width: "100%",
+    width: '100%',
   };
 
   const dateFormatDate = (date) => {
@@ -166,7 +154,7 @@ const TopicRow = ({ row }) => {
 
   const handleDeletePost = () => {
     swal({
-      className: "swal-red",
+      className: 'swal-red',
       title: 'Are you sure?',
       text: "You won't be able to revert this!",
       icon: 'warning',
@@ -176,20 +164,19 @@ const TopicRow = ({ row }) => {
       if (willDelete) {
         deletePost(row.id);
         swal('Post deleted!', {
-          className: "swal-green",
+          className: 'swal-green',
           icon: 'success',
         });
       } else {
         swal('Your post is safe!', {
-          className: "swal-green",
+          className: 'swal-green',
           icon: 'success',
         });
       }
     });
-
   };
 
-  const handleEditTitle = () =>{
+  const handleEditTitle = () => {
     swal({
       title: 'Edit title',
       Text: 'Edit this posts title',
@@ -216,23 +203,19 @@ const TopicRow = ({ row }) => {
             icon: 'success',
           });
         }
-
-         
       } else {
         swal('No changes were made to your post!', {
           icon: 'warning',
         });
       }
     });
-  }
+  };
 
-
-  const handleEditContent = () =>{
+  const handleEditContent = () => {
     swal({
       title: 'Edit Content',
       Text: 'Edit this posts content',
-    
- 
+
       content: {
         element: 'input',
         attributes: {
@@ -256,19 +239,15 @@ const TopicRow = ({ row }) => {
             icon: 'success',
           });
         }
-
-         
       } else {
         swal('No changes were made to your post!', {
           icon: 'warning',
         });
       }
     });
-  }
+  };
 
-
- const handleComment = () =>{
-
+  const handleComment = () => {
     swal({
       title: 'Comment',
       text: 'Comment on this post',
@@ -289,17 +268,14 @@ const TopicRow = ({ row }) => {
           );
           return false;
         } else {
-        commentPost(row.id, comment, userData.username);
+          commentPost(row.id, comment, userData.username);
           swal('Comment posted!', {
             icon: 'success',
           });
         }
-        
- }})
- }
-
-
-
+      }
+    });
+  };
 
   const iconsField = () => {
     if (!user) {
@@ -380,8 +356,6 @@ const TopicRow = ({ row }) => {
     }
   };
 
-
-  //console.log(row.comments)
   return (
     <>
       <div className="topicRowContainer">
@@ -399,7 +373,7 @@ const TopicRow = ({ row }) => {
                 sx={{ transition: '0.25s ease-in-out' }}
               />
             </Grid>
-            
+
             <Grid container direction="row-reverse" sx={{ marginTop: '10px' }}>
               <Grid
                 item
@@ -411,9 +385,11 @@ const TopicRow = ({ row }) => {
                   alignItems: 'flex-end',
                 }}
               >
-                <div>Rating</div>
+                <h2>Rating</h2>
+
                 <div>{ratingButtons()}</div>
               </Grid>
+
               <Grid
                 item
                 xs={1}
@@ -424,9 +400,11 @@ const TopicRow = ({ row }) => {
                   alignItems: 'flex-end',
                 }}
               >
-                <div>Replies</div>
+                <h2>Replies</h2>
+
                 {row.comments.length || '0'}
               </Grid>
+
               <Grid
                 item
                 xs={2}
@@ -437,7 +415,8 @@ const TopicRow = ({ row }) => {
                   alignItems: 'center',
                 }}
               >
-                <div>Author</div>
+                <h2>Author</h2>
+
                 <div
                   className="userRow"
                   onClick={() => {
@@ -447,11 +426,10 @@ const TopicRow = ({ row }) => {
                         icon: `${resp.val().avatarUrl ?? avatar}`,
                         closeOnEsc: true,
                         button: 'View details',
-                        closeOnClickOutside: true
+                        closeOnClickOutside: true,
                       }).then((res) => {
-                        if(res){
-
-                        navigate(`/profile/${postedBy.username}`);
+                        if (res) {
+                          navigate(`/profile/${postedBy.username}`);
                         }
                       });
                     });
@@ -473,6 +451,7 @@ const TopicRow = ({ row }) => {
                   {row.author}
                 </div>
               </Grid>
+
               <Grid
                 item
                 xs={1}
@@ -483,11 +462,12 @@ const TopicRow = ({ row }) => {
                   alignItems: 'center',
                 }}
               >
-                <div>Date</div>
+                <h2>Date</h2>
 
                 <div>{dateFormatDate(row.createdOn)}</div>
                 <div>{dateFormatHour(row.createdOn)}</div>
               </Grid>
+
               <Grid
                 item
                 xs={7}
@@ -495,6 +475,7 @@ const TopicRow = ({ row }) => {
                   display: 'flex',
                   justifyContent: 'flex-start',
                   alignItems: 'flex-start',
+                  fontSize: '16px',
                 }}
                 ref={elementRef}
               >
@@ -505,24 +486,25 @@ const TopicRow = ({ row }) => {
         </Item>
 
         {iconsField()}
-
       </div>
-        {open ? (
-          row.comments ? (
-            <Grid
-              container
-              direction="column"
-              justifyContent="stretch"
-              alignItems="flex-end"
-              alignContent="flex-end"
-              sx={{marginBottom: "10px"}}
-            >
-              {row.comments.map((comment, index) => {
-                return <CommentRow key={index} postId={row.id} commentId={comment} />;
-              })}
-            </Grid>
-          ) : null
-        ) : null}
+      {open ? (
+        row.comments ? (
+          <Grid
+            container
+            direction="column"
+            justifyContent="stretch"
+            alignItems="flex-end"
+            alignContent="flex-end"
+            sx={{ marginBottom: '10px' }}
+          >
+            {row.comments.map((comment, index) => {
+              return (
+                <CommentRow key={index} postId={row.id} commentId={comment} />
+              );
+            })}
+          </Grid>
+        ) : null
+      ) : null}
     </>
   );
 };

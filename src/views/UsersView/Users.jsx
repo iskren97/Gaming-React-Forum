@@ -58,7 +58,7 @@ const UsersView = () => {
                     maxLength="32"
                     onChange={(e) => {
                       e.preventDefault();
-                      setSearch(e.target.value);
+                      setSearch(e.target.value.toLowerCase());
                     }}
                   />
                 </div>
@@ -86,7 +86,7 @@ const UsersView = () => {
             {users.length !== 0 ? (
               users.map((user) => {
                 if (search) {
-                  return user.username.includes(search) ? (
+                  return user.username.toLowerCase().includes(search) ? (
                     <Grid key={user.uid} item>
                       <DisplayUser
                         key={user.uid}
