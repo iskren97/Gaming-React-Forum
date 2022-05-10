@@ -56,7 +56,7 @@ const Posts = () => {
                     maxLength="32"
                     onChange={(e) => {
                       e.preventDefault();
-                      setSearch(e.target.value.toUpperCase());
+                      setSearch(e.target.value.toLowerCase());
                     }}
                   />
                 </div>

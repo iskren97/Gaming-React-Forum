@@ -5,7 +5,6 @@ import Scroll from '../Scroll/Scroll';
 import Footer from '../Footer/Footer';
 
 import './Categories/Categories.css';
-import DropDown from '../NewTopicModal/DropDown';
 
 const Main = () => {
   return (

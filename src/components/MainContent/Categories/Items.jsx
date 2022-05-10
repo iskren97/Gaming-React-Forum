@@ -18,7 +18,7 @@ const Items = ({ name, topic, logo }) => {
         </div>
         <div className="category-info">
           <h2>{name}</h2>
-          <p>Discuss everything about {topic}</p>
+          <p style={{ fontSize: '15.5px' }}>Discuss everything about {topic}</p>
         </div>
       </div>
     </Item>
