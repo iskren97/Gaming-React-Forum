@@ -57,7 +57,7 @@ const Sort = (props) => {
     <table>
       <thead>
         <tr>
-          <th>
+          <tr>
             <th>
               <button
                 type="button"
@@ -79,13 +79,27 @@ const Sort = (props) => {
                 Date
               </button>
             </th>
-          </th>
+
+            <th>
+              <button
+                type="button"
+                onClick={() => requestSort('rating')}
+                className={getClassNamesFor('rating')}
+                style={{ backgroundColor: '#0fc0fc' }}
+              >
+                Rating
+              </button>
+            </th>
+          </tr>
         </tr>
       </thead>
 
       <tbody>
         <Grid container direction="column" spacing={2}>
           {items.map((post) => {
+            post.rating =
+              (post.likedBy?.length || 0) - (post.dislikedBy?.length || 0);
+
             if (search) {
               return post.title.includes(search) ? (
                 <Grid key={post.id} item>

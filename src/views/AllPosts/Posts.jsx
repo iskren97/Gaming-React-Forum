@@ -71,10 +71,16 @@ const Posts = () => {
           <Divider />
 
           <br />
-          <h2>Sort by:</h2>
+          {posts.length !== 0 ? (
+            <h2 style={{ fontStyle: 'italic' }}>Sort by:</h2>
+          ) : null}
           <br />
 
-          <Sort posts={posts} search={search} />
+          {posts.length !== 0 ? (
+            <Sort posts={posts} search={search} />
+          ) : (
+            <h3>There are no posts yet.</h3>
+          )}
         </Container>
       </div>
 
