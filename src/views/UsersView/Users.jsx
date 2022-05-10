@@ -81,9 +81,23 @@ const UsersView = () => {
               justifyContent: 'center',
             }}
           >
-            {users.map((user) => {
-              if (search) {
-                return user.username.includes(search) ? (
+            {users.length !== 0 ? (
+              users.map((user) => {
+                if (search) {
+                  return user.username.includes(search) ? (
+                    <Grid key={user.uid} item>
+                      <DisplayUser
+                        key={user.uid}
+                        avatar={user.avatarUrl ?? defaultPic}
+                        username={user.username}
+                        firstName={user.firstName}
+                        lastName={user.lastName}
+                      />
+                    </Grid>
+                  ) : null;
+                }
+
+                return (
                   <Grid key={user.uid} item>
                     <DisplayUser
                       key={user.uid}
@@ -93,21 +107,11 @@ const UsersView = () => {
                       lastName={user.lastName}
                     />
                   </Grid>
-                ) : null;
-              }
-
-              return (
-                <Grid key={user.uid} item>
-                  <DisplayUser
-                    key={user.uid}
-                    avatar={user.avatarUrl ?? defaultPic}
-                    username={user.username}
-                    firstName={user.firstName}
-                    lastName={user.lastName}
-                  />
-                </Grid>
-              );
-            })}
+                );
+              })
+            ) : (
+              <h3>There are no users yet.</h3>
+            )}
           </Grid>
         </Container>
       </div>

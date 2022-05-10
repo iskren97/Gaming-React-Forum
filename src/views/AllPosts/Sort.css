@@ -19,6 +19,8 @@ thead button {
   margin-bottom: 5px;
 
   color: white;
+
+  cursor: pointer;
 }
 
 thead button.ascending::after {
