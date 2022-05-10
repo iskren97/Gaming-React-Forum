@@ -57,7 +57,7 @@ const Sort = (props) => {
     <table>
       <thead>
         <tr>
-          <div>
+          <th>
             <th>
               <button
                 type="button"
@@ -79,7 +79,7 @@ const Sort = (props) => {
                 Date
               </button>
             </th>
-          </div>
+          </th>
         </tr>
       </thead>
 

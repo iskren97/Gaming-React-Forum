@@ -13,7 +13,7 @@ const Posts = () => {
 
   useEffect(() => {
     getAllPosts().then((resp) => setPosts(resp));
-  }, []);
+  }, [posts]);
 
   return (
     <div className="wrapper">
