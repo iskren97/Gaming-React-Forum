@@ -17,7 +17,7 @@ import SearchIcon from '@mui/icons-material/Search';
 import Sort from '../../views/AllPosts/Sort';
 import { Divider } from '@mui/material';
 
-const CategoryView = ({ topic }) => {
+const CategoryView = ({ topic, img }) => {
   const [postModal, setPostModal] = useState(false);
   const { user, userData } = useContext(AppContext);
   const [categoryPosts, setCategoryPosts] = useState([]);
@@ -44,7 +44,12 @@ const CategoryView = ({ topic }) => {
     <>
       <div className="viewContainer">
         <div className="hero-image">
-          <img src={background} alt="background"></img>
+          <img src={img} alt="background"></img>
+          {/* <img
+            src="https://images5.alphacoders.com/337/thumb-1920-337943.jpg"
+            alt=""
+            srcset="" */}
+          />
         </div>
 
         {postModal ? (

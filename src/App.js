@@ -19,6 +19,12 @@ import ScrollToTop from './components/Scroll/ScrollToTop';
 import UsersView from './views/UsersView/Users';
 import Posts from './views/AllPosts/Posts';
 
+import shooters from './assets/shooters.jpg';
+import general from './assets/gamesBackground.jpg';
+import mmo from './assets/mmorpg.jpg';
+import rts from './assets/strategy.jpg';
+import adv from './assets/adventure.jpg';
+
 const App = () => {
   const [appState, setAppState] = useState({
     user: null,
@@ -57,23 +63,29 @@ const App = () => {
           <Route path="*" element={<ErrorPage />} />
           <Route path="/users" element={<UsersView />} />
           <Route path="/all_posts" element={<Posts />} />
+
           <Route
             path="/general_discussion"
-            element={<CategoryView topic={'General Discussion'} />}
+            element={
+              <CategoryView topic={'General Discussion'} img={general} />
+            }
           />
           <Route
             path="/shooters"
-            element={<CategoryView topic={'Shooters'} />}
+            element={<CategoryView topic={'Shooters'} img={shooters} />}
           />
-          <Route path="/mmorpg" element={<CategoryView topic={'MMORPG'} />} />
+          <Route
+            path="/mmorpg"
+            element={<CategoryView topic={'MMORPG'} img={mmo} />}
+          />
           <Route
             path="/rts"
-            element={<CategoryView topic={'Real Time Strategy'} />}
+            element={<CategoryView topic={'Real Time Strategy'} img={rts} />}
           />
 
           <Route
             path="/adventure"
-            element={<CategoryView topic={'Adventure'} />}
+            element={<CategoryView topic={'Adventure'} img={adv} />}
           />
           <Route
             path="/gaming_pc"
