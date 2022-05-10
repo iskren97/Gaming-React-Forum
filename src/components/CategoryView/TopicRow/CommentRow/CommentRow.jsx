@@ -49,7 +49,6 @@ function CommentRow({postId, commentId}) {
   const [userInfo, setUserInfo] = useState("")
 
   const { user, userData, setContext } = useContext(AppContext);
-  const [userRating, setUserRating] = useState(0)
   const [commentContent, setCommentContent] = useState("")
   const navigate = useNavigate();
 
@@ -59,17 +58,16 @@ function CommentRow({postId, commentId}) {
     }
     )
     
-  }, [commentId, postId])
+  }, [commentId, postId, user, userData, userInfo])
 
   useEffect(()=>{
     getUserByHandle(commentInfo.author).then(res=>{
       setUserInfo(res.val())
-      setUserRating((commentInfo.likedBy?.length || 0) - (commentInfo.dislikedBy?.length || 0))
       setCommentContent(commentInfo.content)
     }
   )
 
-  }, [commentInfo.author, commentInfo.content])
+  }, [commentInfo.author, commentInfo.content, userInfo])
 
 
 
@@ -82,15 +80,12 @@ function CommentRow({postId, commentId}) {
   const handleLike = () => {
     if(isCommentLiked()){
       removeLikeComment(userData?.username, postId, commentId)
-        setUserRating(userRating -1)
     }else{
       if(isCommentDisliked()){
         removeDislikeComment(userData?.username, postId, commentId);
         likeComment(userData?.username, postId, commentId);      
-        setUserRating(userRating +2)
       }else{
         likeComment(userData?.username, postId, commentId);      
-        setUserRating(userRating +1)
 
       }
     } 
@@ -99,15 +94,12 @@ function CommentRow({postId, commentId}) {
   const handleDislike = () =>{
     if(isCommentDisliked()){
       removeDislikeComment(userData?.username, postId, commentId);
-      setUserRating(userRating +1)
     }else{
       if(isCommentLiked()){
         removeLikeComment(userData?.username, postId, commentId);
         dislikeComment(userData?.username, postId, commentId);
-        setUserRating(userRating -2)
       }else{
         dislikeComment(userData?.username, postId, commentId);
-        setUserRating(userRating -1)
       }
     }
   }
@@ -214,7 +206,7 @@ function CommentRow({postId, commentId}) {
           className={isCommentDisliked() ? 'thumbDownIconFilled' : 'thumbDownIcon'}
           onClick={() => handleDislike()}
         />
-        {userRating}
+        {(commentInfo.likedBy?.length || 0) - (commentInfo.dislikedBy?.length || 0)}
         <ThumbUpAltIcon
           className={isCommentLiked() ? 'thumbUpIconFilled' : 'thumbUpIcon'}
           onClick={() => handleLike()}
@@ -261,7 +253,7 @@ function CommentRow({postId, commentId}) {
 
     <Item>
 
-    <Grid container direction="row" sx={{marginTop: "10px", gap: '1.5rem', flexWrap: 'nowrap', justifyContent: 'flex-end'}} >
+    <Grid container direction="row" sx={{marginTop: "5px", gap: '1.5rem', flexWrap: 'nowrap', justifyContent: 'flex-end', minWidth: "65rem"}} >
     <Grid item xs={9}  style={{
                   display: 'flex',
                   justifyContent: 'flex-start',
@@ -293,7 +285,7 @@ function CommentRow({postId, commentId}) {
                   display: 'flex',
                   flexDirection: 'column',
                   justifyContent: 'flex-start',
-                  alignItems: 'center',
+                  alignItems: 'flex-end',
                 }}
               >
               <div> Author</div>

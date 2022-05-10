@@ -53,7 +53,6 @@ const TopicRow = ({ row }) => {
   const [postedBy, setPostedBy] = useState(null);
   const navigate = useNavigate();
 
-  
 
 
 
@@ -82,7 +81,7 @@ const TopicRow = ({ row }) => {
     });
     
 
-  }, [row.author, row.likedBy, row.dislikedBy]);
+  }, [row.author, row.likedBy, row.dislikedBy, row]);
   
   
   
@@ -472,9 +471,10 @@ const TopicRow = ({ row }) => {
             <Grid
               container
               direction="column"
-              justifyContent="flex-start"
+              justifyContent="stretch"
               alignItems="flex-end"
               alignContent="flex-end"
+              sx={{marginBottom: "10px"}}
             >
               {row.comments.map((comment, index) => {
                 return <CommentRow key={index} postId={row.id} commentId={comment} />;
