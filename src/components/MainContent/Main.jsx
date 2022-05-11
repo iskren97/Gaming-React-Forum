@@ -13,9 +13,7 @@ const Main = () => {
       style={{ backgroundColor: 'rgb(248, 248, 248)' }}
     >
       <Welcome />
-      <div className="category-container">
-        <Categories />
-      </div>
+      <Categories />
       <Scroll showBelow={250} />
       <Footer />
     </div>

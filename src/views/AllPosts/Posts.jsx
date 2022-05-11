@@ -1,8 +1,10 @@
-import { Container, Divider, Grid } from '@mui/material';
+import { Container, Divider, Grid, Tooltip } from '@mui/material';
 import React, { useEffect, useState } from 'react';
 import { getAllPosts } from '../../services/posts.service';
 
 import SearchIcon from '@mui/icons-material/Search';
+import SortIcon from '@mui/icons-material/Sort';
+
 import Footer from '../../components/Footer/Footer';
 
 import Sort from './Sort';
@@ -71,13 +73,15 @@ const Posts = () => {
           <Divider />
 
           <br />
-          {posts.length !== 0 ? (
-            <h2 style={{ fontStyle: 'italic' }}>Sort by:</h2>
-          ) : null}
-          <br />
 
           {posts.length !== 0 ? (
-            <Sort posts={posts} search={search} />
+            <div>
+              <Tooltip title="Sort by:" placement="right">
+                <SortIcon />
+              </Tooltip>
+
+              <Sort posts={posts} search={search} />
+            </div>
           ) : (
             <h3>There are no posts yet.</h3>
           )}

@@ -10,6 +10,22 @@ h2 {
   color: black;
 }
 
+.category-container h1 {
+  font-size: 33px;
+  font-weight: 500;
+  text-transform: uppercase;
+}
+
+.category-container h1::before {
+  background-color: #c50000;
+  border-radius: 0.25rem;
+  content: '';
+  display: block;
+  height: 0.25rem;
+  width: 42px;
+  margin-bottom: 1.25rem;
+}
+
 .category-container h2 {
   display: inline-block;
 }

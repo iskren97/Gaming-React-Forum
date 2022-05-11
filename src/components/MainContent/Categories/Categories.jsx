@@ -29,36 +29,41 @@ const Categories = () => {
         paddingBottom: '55px',
       }}
     >
-      <Grid container spacing={2} direction="column">
-        <Grid item xs={12}>
+      <Grid
+        container
+        spacing={2}
+        direction="column"
+        className="category-container"
+      >
+        <Grid item>
           <h1>Gaming discussions:</h1>
         </Grid>
 
-        <Grid item xs={4}>
+        <Grid item>
           <NavLink to="/general_discussion">
             <Items name="General Discussion" topic="games" logo={generalLogo} />
           </NavLink>
         </Grid>
 
-        <Grid item xs={6}>
+        <Grid item>
           <NavLink to="/shooters">
             <Items name="Shooters" topic="shooting games" logo={shooterLogo} />
           </NavLink>
         </Grid>
 
-        <Grid item xs={6}>
+        <Grid item>
           <NavLink to="/mmorpg">
             <Items name="MMORPG" topic="MMORPGs" logo={mmoLogo} />
           </NavLink>
         </Grid>
 
-        <Grid item xs={6}>
+        <Grid item>
           <NavLink to="/rts">
             <Items name="RTS" topic="real time strategy games" logo={rtsLogo} />
           </NavLink>
         </Grid>
 
-        <Grid item xs={6}>
+        <Grid item>
           <NavLink to="/adventure">
             <Items
               name="Adventure"
@@ -72,7 +77,7 @@ const Categories = () => {
           <h1>Computer hardware:</h1>
         </Grid>
 
-        <Grid item xs={6}>
+        <Grid item>
           <NavLink to="/gaming_pc">
             <Items
               name="Gaming Laptops and PCs"
@@ -82,7 +87,7 @@ const Categories = () => {
           </NavLink>
         </Grid>
 
-        <Grid item xs={6}>
+        <Grid item>
           <NavLink to="/gaming_accessories">
             <Items
               name="Gaming Accessories"
@@ -96,7 +101,7 @@ const Categories = () => {
           <h1>Community:</h1>
         </Grid>
 
-        <Grid item xs={6}>
+        <Grid item>
           <NavLink to="/tournaments">
             <Items
               name="Tournaments"
@@ -106,7 +111,7 @@ const Categories = () => {
           </NavLink>
         </Grid>
 
-        <Grid item xs={6}>
+        <Grid item>
           <NavLink to="/streaming">
             <Items
               name="Streaming"
@@ -116,7 +121,7 @@ const Categories = () => {
           </NavLink>
         </Grid>
 
-        <Grid item xs={6}>
+        <Grid item>
           <NavLink to="/entertainment">
             <Items
               name="Entertainment"

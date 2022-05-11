@@ -13,8 +13,9 @@ import { getAllPosts } from '../../services/posts.service';
 import LoginModal from '../JoinCommunityModal/JoinModal';
 
 import SearchIcon from '@mui/icons-material/Search';
+import SortIcon from '@mui/icons-material/Sort';
 import Sort from '../../views/AllPosts/Sort';
-import { Divider } from '@mui/material';
+import { Divider, Tooltip } from '@mui/material';
 
 const CategoryView = ({ topic, img }) => {
   const [postModal, setPostModal] = useState(false);
@@ -111,14 +112,16 @@ const CategoryView = ({ topic, img }) => {
 
             <br />
 
-            {categoryPosts.length !== 0 ? (
-              <h2 style={{ fontStyle: 'italic' }}>Sort by:</h2>
-            ) : null}
-
             <br />
 
             {categoryPosts.length !== 0 ? (
-              <Sort posts={categoryPosts} search={search} />
+              <Grid item>
+                <Tooltip title="Sort by:" placement="right">
+                  <SortIcon />
+                </Tooltip>
+
+                <Sort posts={categoryPosts} search={search} />
+              </Grid>
             ) : (
               <div>
                 <h3>
