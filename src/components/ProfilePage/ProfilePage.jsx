@@ -22,13 +22,16 @@ import defaultAvatar from '../../assets/avatar.jpg';
 
 import EditIcon from '@mui/icons-material/Edit';
 import TopicRow from '../CategoryView/TopicRow/TopicRow';
-import CommentRow from '../CategoryView/TopicRow/CommentRow/CommentRow';
-import DeleteForeverIcon from '@mui/icons-material/DeleteForever';
 
 import AppContext from '../../providers/AppContext';
 
 import swal from 'sweetalert';
-import { getAllPosts, getCommentsFromUser, getPostById, getCommentById } from '../../services/posts.service';
+import {
+  getAllPosts,
+  getCommentsFromUser,
+  getPostById,
+  getCommentById,
+} from '../../services/posts.service';
 import { getUserData, getUserByHandle } from '../../services/users.service';
 import { useParams } from 'react-router-dom';
 
@@ -52,8 +55,8 @@ const ProfilePage = () => {
   const { user, userData, setContext } = useContext(AppContext);
 
   const [userPosts, setUserPosts] = useState([]);
-  const [likedPosts, setLikedPosts] = useState([])
-  const [commentsOnPosts, setCommentsOnPosts] = useState([])
+  const [likedPosts, setLikedPosts] = useState([]);
+  const [commentsOnPosts, setCommentsOnPosts] = useState([]);
   const [isProfileOwner, setIsProfileOwner] = useState(false);
   const [userProfile, setUserProfile] = useState('');
 
@@ -72,14 +75,13 @@ const ProfilePage = () => {
       });
     }
 
-    if(!userData){
-      setIsProfileOwner(false)
-    }else if(userData?.username == username){
-      setIsProfileOwner(true)
-    }else{
-        setIsProfileOwner(false)
-      }
-    
+    if (!userData) {
+      setIsProfileOwner(false);
+    } else if (userData?.username == username) {
+      setIsProfileOwner(true);
+    } else {
+      setIsProfileOwner(false);
+    }
   }, [userData?.uid, username, userData, userProfile, isProfileOwner]);
 
   useEffect(() => {
@@ -89,67 +91,48 @@ const ProfilePage = () => {
       });
     };
 
-    const getLikedByUser = () =>{
+    const getLikedByUser = () => {
       return getAllPosts().then((posts) => {
-        return posts.filter((post) => post.likedBy.includes(userProfile.username));
-      })
-    }
+        return posts.filter((post) =>
+          post.likedBy.includes(userProfile.username)
+        );
+      });
+    };
 
-  
-    
-    getLikedByUser().then((data)=> setLikedPosts(data))
+    getLikedByUser().then((data) => setLikedPosts(data));
 
     getPostsByUser().then((data) => setUserPosts(data));
   }, [userProfile, username]);
 
-
-
-
-
-
-
   useEffect(() => {
-    const getUsersComments = () =>{
-      return getCommentsFromUser(userProfile.username).then((data) =>{
-        return data.val()
-      })
-    }
+    const getUsersComments = () => {
+      return getCommentsFromUser(userProfile.username).then((data) => {
+        return data.val();
+      });
+    };
     getUsersComments().then((data) => {
       const filtered = [];
-      const userComments = []
-  
-      for(let post in data){
-        getPostById(post).then((data)=>{
+      const userComments = [];
 
-          const currentPost = data
-  
-          data.comments.forEach((comment)=>{
-            getCommentById(data.id ,comment).then(response => {
-              
-              if(response.author === userProfile.username){
-                userComments.push(comment)
+      for (let post in data) {
+        getPostById(post).then((data) => {
+          const currentPost = data;
+
+          data.comments.forEach((comment) => {
+            getCommentById(data.id, comment).then((response) => {
+              if (response.author === userProfile.username) {
+                userComments.push(comment);
               }
-            })
-          })
-          currentPost.comments = userComments
-          filtered.push(currentPost)
-  
-        })
+            });
+          });
+          currentPost.comments = userComments;
+          filtered.push(currentPost);
+        });
       }
 
-      
-      // console.log(filtered)
-     setCommentsOnPosts(filtered)
-      
-
-    })
-  },[userProfile.username])
-
- 
-  // console.log(commentsOnPosts)
-
-  
-
+      setCommentsOnPosts(filtered);
+    });
+  }, [userProfile.username]);
 
   const uploadPicture = (e) => {
     e.preventDefault();
@@ -192,15 +175,6 @@ const ProfilePage = () => {
       .catch(console.error);
   };
 
-
-
- 
-
-
-
-
-
-
   const setUserDescription = () => {
     swal({
       content: {
@@ -234,234 +208,232 @@ const ProfilePage = () => {
 
   return (
     <>
-      
-        <div className="profileContainer">
-          <div className="profileBackground">
-            <img src={background} alt="background"></img>
-          </div>
+      <div className="profileContainer">
+        <div className="profileBackground">
+          <img src={background} alt="background"></img>
+        </div>
 
-          <Container
-            maxWidth="lg"
+        <Container
+          maxWidth="lg"
+          sx={{
+            height: 'auto',
+            backgroundColor: 'white',
+            boxShadow: '0 1px 6px rgba(0,0,0,0.2)',
+            marginTop: '50px',
+            marginBottom: '50px',
+            paddingBottom: '55px',
+          }}
+        >
+          <Grid
+            container
+            direction="column"
+            spacing={1}
             sx={{
-              height: 'auto',
-              backgroundColor: 'white',
-              boxShadow: '0 1px 6px rgba(0,0,0,0.2)',
-              marginTop: '50px',
-              paddingBottom: '55px',
+              textAlign: 'center',
             }}
           >
-            <Grid
-              container
-              direction="column"
-              spacing={1}
-              sx={{ textAlign: 'center' }}
-            >
-              <h1>User Profile</h1>
-              <Divider />
+            <h1>User Profile</h1>
+            <Divider />
 
-              <Grid item>
-                <Grid container direction="row" sx={{ alignItems: 'center' }}>
-                  <Grid item xs={7} sx={{ textAlign: 'left' }}>
-                    <h2>Personal Information</h2>
-                    <br />
+            <Grid item>
+              <Grid container direction="row" sx={{ alignItems: 'center' }}>
+                <Grid item xs={7} sx={{ textAlign: 'left' }}>
+                  <h2>Personal Information</h2>
+                  <br />
 
-                    <p>First Name: {userProfile.firstName}</p>
-                    <p>Last Name: {userProfile.lastName}</p>
-                    <p>Email: {userProfile.email}</p>
-                  </Grid>
-
-                  <Grid item xs={5} sx={{ textAlign: 'right' }}>
-                    {userProfile.avatarUrl ? (
-                      <img
-                        className="avatar"
-                        src={userProfile.avatarUrl}
-                        alt="profile"
-                      />
-                    ) : (
-                      <img
-                        className="avatar"
-                        src={defaultAvatar}
-                        alt="profile"
-                      ></img>
-                    )}
-
-                    {isProfileOwner ? (
-                      <a
-                        href="#/"
-                        onClick={handleOpen}
-                        style={{
-                          color: 'black',
-                          fontSize: '13.5px',
-                          textTransform: 'none',
-                        }}
-                      >
-                        <Tooltip
-                          title="Change profile picture"
-                          placement="right-end"
-                        >
-                          <EditIcon sx={{ cursor: 'pointer' }} />
-                        </Tooltip>
-                      </a>
-                    ) : null}
-                  </Grid>
+                  <p>First Name: {userProfile.firstName}</p>
+                  <p>Last Name: {userProfile.lastName}</p>
+                  <p>Email: {userProfile.email}</p>
                 </Grid>
-              </Grid>
 
-              <Modal
-                open={open}
-                onClose={handleClose}
-                aria-labelledby="modal-modal-title"
-                aria-describedby="modal-modal-description"
-              >
-                <Box sx={style}>
-                  <div
-                    style={{
-                      display: 'flex',
-                      top: '-50px',
-                      justifyContent: 'space-between',
-                      alignItems: 'center',
-                    }}
-                  >
-                    <h3>Upload a picture</h3>
+                <Grid item xs={5} sx={{ textAlign: 'right' }}>
+                  {userProfile.avatarUrl ? (
+                    <img
+                      className="avatar"
+                      src={userProfile.avatarUrl}
+                      alt="profile"
+                    />
+                  ) : (
+                    <img
+                      className="avatar"
+                      src={defaultAvatar}
+                      alt="profile"
+                    ></img>
+                  )}
 
-                    <button
-                      style={{
-                        background: 'none',
-                        border: 'none',
-                        fontSize: '20px',
-                        fontWeight: 'bold',
-                        cursor: 'pointer',
-                      }}
-                      onClick={handleClose}
-                    >
-                      X
-                    </button>
-                  </div>
-
-                  <form onSubmit={uploadPicture}>
-                    <Grid
-                      container
-                      direction="column"
-                      spacing={0}
-                      sx={{ textAlign: 'center', alignItems: 'center' }}
-                    >
-                      <Grid>
-                        <input
-                          type="file"
-                          accept="image/*"
-                          className="custom-file-upload"
-                        />
-                      </Grid>
-
-                      <Grid>
-                        <button className="upload-pic-btn" type="submit">
-                          Click to upload
-                        </button>
-                      </Grid>
-                    </Grid>
-                  </form>
-                </Box>
-              </Modal>
-
-              <Grid item>
-                <Divider />
-                <h1>{userProfile.username}</h1>
-              </Grid>
-
-              <Grid item>
-                <p style={{ marginBottom: '24px' }}>
-                  {userProfile.userDescription || 'My description'}{' '}
                   {isProfileOwner ? (
-                    <a href="#/" onClick={setUserDescription}>
-                      <Tooltip title="Change description" placement="right-end">
+                    <a
+                      href="#/"
+                      onClick={handleOpen}
+                      style={{
+                        color: 'black',
+                        fontSize: '13.5px',
+                        textTransform: 'none',
+                      }}
+                    >
+                      <Tooltip
+                        title="Change profile picture"
+                        placement="right-end"
+                      >
                         <EditIcon sx={{ cursor: 'pointer' }} />
                       </Tooltip>
                     </a>
                   ) : null}
-                </p>
+                </Grid>
               </Grid>
-
-              <Divider />
             </Grid>
-            <Grid
-              container
-              maxWidth="xl"
-              sx={{
-                display: 'flex',
-                justifyContent: 'center',
-                flexDirection: 'column',
-              }}
+
+            <Modal
+              open={open}
+              onClose={handleClose}
+              aria-labelledby="modal-modal-title"
+              aria-describedby="modal-modal-description"
             >
-              <h1>{isProfileOwner ? 'My Posts:' : 'Posts'}</h1>
-
-              {userPosts.length !== 0 ? (
-                <Grid
-                  sx={{
-                    marginTop: '0.5rem',
+              <Box sx={style}>
+                <div
+                  style={{
                     display: 'flex',
-                    flexDirection: 'column',
-                    width: '100%',
-                    alignItems: 'stretch',
+                    top: '-50px',
+                    justifyContent: 'space-between',
+                    alignItems: 'center',
                   }}
                 >
-                  {userPosts.map((post) => (
-                    <TopicRow key={post.id} row={post} />
-                  ))}
-                </Grid>
-              ) : (
-                <div>
-                  <h3> You have no posts yet.</h3>
-                </div>
-              )}
+                  <h3>Upload a picture</h3>
 
-              <h1>{isProfileOwner ? 'My Likes:' : 'Likes'}</h1>
-              {likedPosts.length !== 0 ? (
-                <Grid
-                  sx={{
-                    marginTop: '0.5rem',
-                    display: 'flex',
-                    flexDirection: 'column',
-                    width: '100%',
-                    alignItems: 'stretch',
-                  }}
-                >
-                  {likedPosts.map((post) => (
-                    <TopicRow key={post.id} row={post} />
-                  ))}
-                </Grid>
-              ) : (
-                <div>
-                  <h3> You have no likes yet.</h3>
+                  <button
+                    style={{
+                      background: 'none',
+                      border: 'none',
+                      fontSize: '20px',
+                      fontWeight: 'bold',
+                      cursor: 'pointer',
+                    }}
+                    onClick={handleClose}
+                  >
+                    X
+                  </button>
                 </div>
-              )}
 
+                <form onSubmit={uploadPicture}>
+                  <Grid
+                    container
+                    direction="column"
+                    spacing={0}
+                    sx={{ textAlign: 'center', alignItems: 'center' }}
+                  >
+                    <Grid>
+                      <input
+                        type="file"
+                        accept="image/*"
+                        className="custom-file-upload"
+                      />
+                    </Grid>
 
-              <h1>{isProfileOwner ? 'My Comments:' : 'Comments'}</h1>
-              {commentsOnPosts?.length !== 0 ? (
-                <Grid
-                  sx={{
-                    marginTop: '0.5rem',
-                    display: 'flex',
-                    flexDirection: 'column',
-                    width: '100%',
-                    alignItems: 'stretch',
-                  }}
-                >
-                  {commentsOnPosts?.map((post) => (
-                        <TopicRow row={post} />  
-                    ))
-                  }
-              
-                </Grid>
-              ) : (
-                <div>
-                  <h3> You have no comments yet.</h3>
-                </div>
-              )}
+                    <Grid>
+                      <button className="upload-pic-btn" type="submit">
+                        Click to upload
+                      </button>
+                    </Grid>
+                  </Grid>
+                </form>
+              </Box>
+            </Modal>
+
+            <Grid item>
+              <Divider />
+              <h1>{userProfile.username}</h1>
             </Grid>
-          </Container>
-        </div>
-      
+
+            <Grid item>
+              <p style={{ marginBottom: '24px' }}>
+                {userProfile.userDescription || 'My description'}{' '}
+                {isProfileOwner ? (
+                  <a href="#/" onClick={setUserDescription}>
+                    <Tooltip title="Change description" placement="right-end">
+                      <EditIcon sx={{ cursor: 'pointer' }} />
+                    </Tooltip>
+                  </a>
+                ) : null}
+              </p>
+            </Grid>
+
+            <Divider />
+          </Grid>
+          <Grid
+            container
+            maxWidth="xl"
+            sx={{
+              display: 'flex',
+              justifyContent: 'center',
+              flexDirection: 'column',
+            }}
+          >
+            <h1>{isProfileOwner ? 'My Posts:' : 'Posts'}</h1>
+
+            {userPosts.length !== 0 ? (
+              <Grid
+                sx={{
+                  marginTop: '0.5rem',
+                  display: 'flex',
+                  flexDirection: 'column',
+                  width: '100%',
+                  alignItems: 'stretch',
+                }}
+              >
+                {userPosts.map((post) => (
+                  <TopicRow key={post.id} row={post} />
+                ))}
+              </Grid>
+            ) : (
+              <div>
+                <h3> You have no posts yet.</h3>
+              </div>
+            )}
+
+            <h1>{isProfileOwner ? 'My Likes:' : 'Likes'}</h1>
+            {likedPosts.length !== 0 ? (
+              <Grid
+                sx={{
+                  marginTop: '0.5rem',
+                  display: 'flex',
+                  flexDirection: 'column',
+                  width: '100%',
+                  alignItems: 'stretch',
+                }}
+              >
+                {likedPosts.map((post) => (
+                  <TopicRow key={post.id} row={post} />
+                ))}
+              </Grid>
+            ) : (
+              <div>
+                <h3> You have no likes yet.</h3>
+              </div>
+            )}
+
+            <h1>{isProfileOwner ? 'My Comments:' : 'Comments'}</h1>
+            {commentsOnPosts?.length !== 0 ? (
+              <Grid
+                sx={{
+                  marginTop: '0.5rem',
+                  display: 'flex',
+                  flexDirection: 'column',
+                  width: '100%',
+                  alignItems: 'stretch',
+                }}
+              >
+                {commentsOnPosts?.map((post) => (
+                  <TopicRow row={post} />
+                ))}
+              </Grid>
+            ) : (
+              <div>
+                <h3> You have no comments yet.</h3>
+              </div>
+            )}
+          </Grid>
+        </Container>
+      </div>
     </>
   );
 };

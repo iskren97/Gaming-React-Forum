@@ -3,12 +3,10 @@ import logo from './telerik.svg';
 import './Welcome.css';
 import LoginModal from '../../JoinCommunityModal/JoinModal';
 import AppContext from '../../../providers/AppContext';
-import { useNavigate } from 'react-router-dom';
 import { NavLink } from 'react-router-dom';
 
 const Welcome = () => {
   const { user, userData } = useContext(AppContext);
-  const navigate = useNavigate();
 
   return (
     <div className="welcome-section">
