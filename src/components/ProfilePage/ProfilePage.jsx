@@ -15,7 +15,7 @@ import {
 
 import Container from '@mui/material/Container';
 import Grid from '@mui/material/Grid';
-import { Box, Divider, Modal, Tooltip } from '@mui/material';
+import { Divider, Tooltip } from '@mui/material';
 
 import background from '../../assets/lR2zdL.jpg';
 import defaultAvatar from '../../assets/avatar.jpg';
@@ -33,20 +33,14 @@ import {
   getPostById,
   getCommentById,
 } from '../../services/posts.service';
-import { getUserData, getUserByHandle, updateUserRole } from '../../services/users.service';
+import {
+  getUserData,
+  getUserByHandle,
+  updateUserRole,
+} from '../../services/users.service';
 import { useParams } from 'react-router-dom';
-
-const style = {
-  position: 'absolute',
-  top: '50%',
-  left: '50%',
-  transform: 'translate(-50%, -50%)',
-  width: 400,
-  bgcolor: 'background.paper',
-  border: '2px solid #000',
-  boxShadow: 24,
-  p: 4,
-};
+import UploadCover from './UploadCover';
+import UploadProfile from './UploadProfile';
 
 const ProfilePage = () => {
   const [open, setOpen] = useState(false);
@@ -135,8 +129,9 @@ const ProfilePage = () => {
     });
   }, [userProfile.username]);
 
-
-  const [isUserBlocked, setIsUserBlocked] = useState(userProfile.role === 'blocked');
+  const [isUserBlocked, setIsUserBlocked] = useState(
+    userProfile.role === 'blocked'
+  );
 
   const handleBlockUser = () => {
     if (isUserBlocked) {
@@ -149,11 +144,6 @@ const ProfilePage = () => {
       });
     }
   };
-
- 
-
-
-
 
   const uploadPicture = (e) => {
     e.preventDefault();
@@ -231,8 +221,10 @@ const ProfilePage = () => {
     <>
       <div className="profileContainer">
         <div className="profileBackground">
-          <img src={background} alt="background"></img>
+          <img src={userProfile.coverUrl ?? background} alt="cover"></img>
         </div>
+
+        <UploadCover />
 
         <Container
           maxWidth="lg"
@@ -253,7 +245,15 @@ const ProfilePage = () => {
               textAlign: 'center',
             }}
           >
-            <h1>User Profile</h1>
+            <h1
+              style={{
+                fontWeight: 500,
+                textTransform: 'uppercase',
+                fontSize: '33px',
+              }}
+            >
+              User Profile
+            </h1>
             <Divider />
 
             <Grid item>
@@ -304,76 +304,32 @@ const ProfilePage = () => {
               </Grid>
             </Grid>
 
-            <Modal
+            <UploadProfile
               open={open}
-              onClose={handleClose}
-              aria-labelledby="modal-modal-title"
-              aria-describedby="modal-modal-description"
-            >
-              <Box sx={style}>
-                <div
-                  style={{
-                    display: 'flex',
-                    top: '-50px',
-                    justifyContent: 'space-between',
-                    alignItems: 'center',
-                  }}
-                >
-                  <h3>Upload a picture</h3>
-
-                  <button
-                    style={{
-                      background: 'none',
-                      border: 'none',
-                      fontSize: '20px',
-                      fontWeight: 'bold',
-                      cursor: 'pointer',
-                    }}
-                    onClick={handleClose}
-                  >
-                    X
-                  </button>
-                </div>
-
-                <form onSubmit={uploadPicture}>
-                  <Grid
-                    container
-                    direction="column"
-                    spacing={0}
-                    sx={{ textAlign: 'center', alignItems: 'center' }}
-                  >
-                    <Grid>
-                      <input
-                        type="file"
-                        accept="image/*"
-                        className="custom-file-upload"
-                      />
-                    </Grid>
-
-                    <Grid>
-                      <button className="upload-pic-btn" type="submit">
-                        Click to upload
-                      </button>
-                    </Grid>
-                  </Grid>
-                </form>
-              </Box>
-            </Modal>
+              close={handleClose}
+              upload={uploadPicture}
+            />
 
             <Grid item>
               <Divider />
-              <h1>{userProfile.username} {userData?.role === 'admin' && userProfile.role !== 'admin' ? (
-            <Tooltip
-              title={isUserBlocked ? 'Unblock this user' : 'Block this user'}
-              placement="bottom"
-            >
-              <BlockIcon
-                className={isUserBlocked ? 'blockedUserButton' : 'blockButton'}
-                onClick={() => handleBlockUser()}
-              />
-            </Tooltip>
-          ) : null}</h1>
-              
+              <h1>
+                {userProfile.username}{' '}
+                {userData?.role === 'admin' && userProfile.role !== 'admin' ? (
+                  <Tooltip
+                    title={
+                      isUserBlocked ? 'Unblock this user' : 'Block this user'
+                    }
+                    placement="bottom"
+                  >
+                    <BlockIcon
+                      className={
+                        isUserBlocked ? 'blockedUserButton' : 'blockButton'
+                      }
+                      onClick={() => handleBlockUser()}
+                    />
+                  </Tooltip>
+                ) : null}
+              </h1>
             </Grid>
 
             <Grid item>

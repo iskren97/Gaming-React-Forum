@@ -42,7 +42,16 @@ const UsersView = () => {
             style={{ alignItems: 'center', textAlign: 'center' }}
           >
             <Grid item xs={6}>
-              <h1 style={{ textAlign: 'center' }}>Forum Users</h1>
+              <h1
+                style={{
+                  textAlign: 'center',
+                  fontWeight: '500',
+                  textTransform: 'uppercase',
+                  fontSize: '33px',
+                }}
+              >
+                Forum Users
+              </h1>
             </Grid>
 
             <Grid item xs={6}>

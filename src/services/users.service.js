@@ -40,12 +40,17 @@ export const updateUserProfilePicture = (username, url) => {
   });
 };
 
+export const updateUserCoverPicture = (username, url) => {
+  return update(ref(db), {
+    [`users/${username}/coverUrl`]: url,
+  });
+};
 
-export const updateUserRole = (username, role) =>{
+export const updateUserRole = (username, role) => {
   return update(ref(db), {
     [`users/${username}/role`]: role,
   });
-}
+};
 
 export const updateDescription = (username, description) => {
   return update(ref(db), {
