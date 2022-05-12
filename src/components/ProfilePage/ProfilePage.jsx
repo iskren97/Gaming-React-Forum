@@ -1,17 +1,7 @@
 import React, { useContext, useEffect, useState } from 'react';
 import './ProfilePage.css';
 
-import {
-  ref as storageRef,
-  uploadBytes,
-  getDownloadURL,
-} from 'firebase/storage';
-import { storage } from '../../config/firebase-config';
-
-import {
-  updateDescription,
-  updateUserProfilePicture,
-} from '../../services/users.service';
+import { updateDescription } from '../../services/users.service';
 
 import Container from '@mui/material/Container';
 import Grid from '@mui/material/Grid';
@@ -43,10 +33,6 @@ import UploadCover from './UploadCover';
 import UploadProfile from './UploadProfile';
 
 const ProfilePage = () => {
-  const [open, setOpen] = useState(false);
-  const handleOpen = () => setOpen(true);
-  const handleClose = () => setOpen(false);
-
   const { user, userData, setContext } = useContext(AppContext);
 
   const [userPosts, setUserPosts] = useState([]);
@@ -72,7 +58,7 @@ const ProfilePage = () => {
 
     if (!userData) {
       setIsProfileOwner(false);
-    } else if (userData?.username == username) {
+    } else if (userData?.username === username) {
       setIsProfileOwner(true);
     } else {
       setIsProfileOwner(false);
@@ -143,47 +129,6 @@ const ProfilePage = () => {
         setIsUserBlocked(true);
       });
     }
-  };
-
-  const uploadPicture = (e) => {
-    e.preventDefault();
-
-    const file = e.target[0]?.files?.[0];
-
-    if (!file) return swal('Oops..', 'Please select a file!', 'error');
-
-    if (file['type'].split('/')[0] !== 'image')
-      return swal(
-        'Something went wrong...',
-        'Please upload an image!',
-        'error'
-      );
-
-    const picture = storageRef(
-      storage,
-      `images/${userProfile.username}/avatar`
-    );
-
-    uploadBytes(picture, file)
-      .then((snapshot) => {
-        return getDownloadURL(snapshot.ref).then((url) => {
-          return updateUserProfilePicture(userProfile.username, url).then(
-            () => {
-              setContext({
-                user,
-                userData: {
-                  ...userData,
-                  avatarUrl: url,
-                },
-              });
-
-              swal('Good job!', 'Image uploaded successfully!', 'success');
-              handleClose();
-            }
-          );
-        });
-      })
-      .catch(console.error);
   };
 
   const setUserDescription = () => {
@@ -281,34 +226,11 @@ const ProfilePage = () => {
                       alt="profile"
                     ></img>
                   )}
-
-                  {isProfileOwner ? (
-                    <a
-                      href="#/"
-                      onClick={handleOpen}
-                      style={{
-                        color: 'black',
-                        fontSize: '13.5px',
-                        textTransform: 'none',
-                      }}
-                    >
-                      <Tooltip
-                        title="Change profile picture"
-                        placement="right-end"
-                      >
-                        <EditIcon sx={{ cursor: 'pointer' }} />
-                      </Tooltip>
-                    </a>
-                  ) : null}
                 </Grid>
               </Grid>
             </Grid>
 
-            <UploadProfile
-              open={open}
-              close={handleClose}
-              upload={uploadPicture}
-            />
+            <UploadProfile />
 
             <Grid item>
               <Divider />
@@ -347,6 +269,7 @@ const ProfilePage = () => {
 
             <Divider />
           </Grid>
+
           <Grid
             container
             maxWidth="xl"

@@ -59,7 +59,7 @@ const UploadCover = () => {
 
     if (!userData) {
       setIsProfileOwner(false);
-    } else if (userData?.username == username) {
+    } else if (userData?.username === username) {
       setIsProfileOwner(true);
     } else {
       setIsProfileOwner(false);

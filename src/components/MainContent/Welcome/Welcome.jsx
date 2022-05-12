@@ -21,9 +21,11 @@ const Welcome = () => {
                 <Tooltip title="Open profile">
                   <h2
                     className="user-username"
-                    data-replace={userData.username}
+                    data-replace={userData.firstName + ' ' + userData.lastName}
                   >
-                    <span>{userData.username}</span>
+                    <span>
+                      {userData.firstName} {userData.lastName}
+                    </span>
                   </h2>
                 </Tooltip>
               </NavLink>
