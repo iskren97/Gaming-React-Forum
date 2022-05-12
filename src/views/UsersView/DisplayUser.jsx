@@ -100,7 +100,7 @@ const DisplayUser = ({ avatar, role, username, firstName, lastName }) => {
         </Grid>
 
         <Grid item sx={{ textAlign: 'center' }}>
-          {userData?.role === 'admin' ? (
+          {userData?.role === 'admin' && role !== 'admin' ? (
             <Tooltip
               title={isUserBlocked ? 'Unblock this user' : 'Block this user'}
               placement="bottom"

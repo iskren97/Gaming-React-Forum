@@ -59,7 +59,7 @@ const App = () => {
     <BrowserRouter>
       <ScrollToTop />
       <AppContext.Provider value={{ ...appState, setContext: setAppState }}>
-        <Header loading={loading} />
+        <Header />
 
         <Routes>
           <Route path="/" element={<Main />} />

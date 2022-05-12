@@ -24,6 +24,7 @@ import EditIcon from '@mui/icons-material/Edit';
 import TopicRow from '../CategoryView/TopicRow/TopicRow';
 
 import AppContext from '../../providers/AppContext';
+import BlockIcon from '@mui/icons-material/Block';
 
 import swal from 'sweetalert';
 import {
@@ -32,7 +33,7 @@ import {
   getPostById,
   getCommentById,
 } from '../../services/posts.service';
-import { getUserData, getUserByHandle } from '../../services/users.service';
+import { getUserData, getUserByHandle, updateUserRole } from '../../services/users.service';
 import { useParams } from 'react-router-dom';
 
 const style = {
@@ -133,6 +134,26 @@ const ProfilePage = () => {
       setCommentsOnPosts(filtered);
     });
   }, [userProfile.username]);
+
+
+  const [isUserBlocked, setIsUserBlocked] = useState(userProfile.role === 'blocked');
+
+  const handleBlockUser = () => {
+    if (isUserBlocked) {
+      updateUserRole(username, 'user').then(() => {
+        setIsUserBlocked(false);
+      });
+    } else {
+      updateUserRole(username, 'blocked').then(() => {
+        setIsUserBlocked(true);
+      });
+    }
+  };
+
+ 
+
+
+
 
   const uploadPicture = (e) => {
     e.preventDefault();
@@ -341,7 +362,18 @@ const ProfilePage = () => {
 
             <Grid item>
               <Divider />
-              <h1>{userProfile.username}</h1>
+              <h1>{userProfile.username} {userData?.role === 'admin' && userProfile.role !== 'admin' ? (
+            <Tooltip
+              title={isUserBlocked ? 'Unblock this user' : 'Block this user'}
+              placement="bottom"
+            >
+              <BlockIcon
+                className={isUserBlocked ? 'blockedUserButton' : 'blockButton'}
+                onClick={() => handleBlockUser()}
+              />
+            </Tooltip>
+          ) : null}</h1>
+              
             </Grid>
 
             <Grid item>

@@ -1,6 +1,6 @@
 import React from 'react';
 import './Header.css';
-import { useState, useContext } from 'react';
+import { useState, useContext, useEffect } from 'react';
 
 import HomeIcon from '@mui/icons-material/Home';
 import PeopleIcon from '@mui/icons-material/People';
@@ -35,12 +35,13 @@ import DropDown from '../NewTopicModal/DropDown';
 
 import swal from 'sweetalert';
 
-const Header = ({ loading }) => {
+const Header = () => {
   const navigate = useNavigate();
 
   const [anchorEl, setAnchorEl] = useState(null);
   const [invalidLogin, setInvalidLogin] = useState(false);
   const open = Boolean(anchorEl);
+  const [loadingIndicator, setLoadingIndicator] = useState(true)
 
   const [isTopicVisible, setTopicVisibility] = useState(false);
 
@@ -87,6 +88,19 @@ const Header = ({ loading }) => {
         handleWrongPassword();
       });
   };
+
+
+
+  useEffect(() => {
+    setTimeout(() => {
+      setLoadingIndicator(false);
+    }, 2500);
+    
+  },[])
+
+  
+
+
 
   const handleKeyEnter = (event) => {
     if (event.key === 'Enter') {
@@ -184,7 +198,7 @@ const Header = ({ loading }) => {
           <h1>Forum Name</h1>
         </div>
 
-        {loading ? (
+        {loadingIndicator ? (
           <div className="lds-dual-ring"></div>
         ) : user ? (
           <div className="elementsContainer">
