@@ -4,6 +4,7 @@ import './Welcome.css';
 import LoginModal from '../../JoinCommunityModal/JoinModal';
 import AppContext from '../../../providers/AppContext';
 import { NavLink } from 'react-router-dom';
+import { Tooltip } from '@mui/material';
 
 const Welcome = () => {
   const { user, userData } = useContext(AppContext);
@@ -17,9 +18,14 @@ const Welcome = () => {
               <h1>Welcome,</h1>
 
               <NavLink to={`/profile/${userData.username}`}>
-                <h2 className="user-username" data-replace={userData.username}>
-                  <span>{userData.username}</span>
-                </h2>
+                <Tooltip title="Open profile">
+                  <h2
+                    className="user-username"
+                    data-replace={userData.username}
+                  >
+                    <span>{userData.username}</span>
+                  </h2>
+                </Tooltip>
               </NavLink>
             </div>
           ) : (

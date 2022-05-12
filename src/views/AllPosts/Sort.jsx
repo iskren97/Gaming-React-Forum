@@ -63,7 +63,7 @@ const Sort = (props) => {
                 type="button"
                 onClick={() => requestSort('title')}
                 className={getClassNamesFor('title')}
-                style={{ backgroundColor: '#0fc0fc' }}
+                style={{ backgroundColor: 'rgba(100, 200, 200, 1)' }}
               >
                 Title
               </button>
@@ -74,7 +74,6 @@ const Sort = (props) => {
                 type="button"
                 onClick={() => requestSort('createdOn')}
                 className={getClassNamesFor('createdOn')}
-                style={{ backgroundColor: '#0fc0fc' }}
               >
                 Date
               </button>
@@ -83,9 +82,31 @@ const Sort = (props) => {
             <th>
               <button
                 type="button"
+                onClick={() => requestSort('author')}
+                className={getClassNamesFor('author')}
+                style={{ backgroundColor: '#47DB00' }}
+              >
+                Author
+              </button>
+            </th>
+
+            <th>
+              <button
+                type="button"
+                onClick={() => requestSort('repliesCount')}
+                className={getClassNamesFor('repliesCount')}
+                style={{ backgroundColor: 'rgb(0, 174, 255)' }}
+              >
+                Replies
+              </button>
+            </th>
+
+            <th>
+              <button
+                type="button"
                 onClick={() => requestSort('rating')}
                 className={getClassNamesFor('rating')}
-                style={{ backgroundColor: '#0fc0fc' }}
+                style={{ backgroundColor: '#FFBD33' }}
               >
                 Rating
               </button>
@@ -99,6 +120,8 @@ const Sort = (props) => {
           {items.map((post) => {
             post.rating =
               (post.likedBy?.length || 0) - (post.dislikedBy?.length || 0);
+
+            post.repliesCount = post.comments.length;
 
             if (search) {
               return post.title.toLowerCase().includes(search) ? (

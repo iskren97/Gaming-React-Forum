@@ -50,8 +50,7 @@ const TopicRow = ({ row }) => {
   const [postedBy, setPostedBy] = useState(null);
   const navigate = useNavigate();
 
-
-  const isPostLiked = () => row?.likedBy?.includes(userData?.username)
+  const isPostLiked = () => row?.likedBy?.includes(userData?.username);
 
   const isPostDisliked = () => row?.dislikedBy?.includes(userData?.username);
 
@@ -281,17 +280,23 @@ const TopicRow = ({ row }) => {
     if (!user) {
       return null;
     } else if (userData.username === row.author) {
-      if(userData.role === 'blocked'){
+      if (userData.role === 'blocked') {
         return (
           <div className="iconsContainer">
             <Tooltip title="Edit this post's title" placement="right-end">
-              <EditIcon onClick={() => handleEditTitle()} className="editIcon" />
+              <EditIcon
+                onClick={() => handleEditTitle()}
+                className="editIcon"
+              />
             </Tooltip>
-  
+
             <Tooltip title="Edit this post's content" placement="right-end">
-              <EditIcon onClick={() => handleEditContent()} className="editIcon" />
+              <EditIcon
+                onClick={() => handleEditContent()}
+                className="editIcon"
+              />
             </Tooltip>
-           
+
             <Tooltip title="Delete this post" placement="right-end">
               <DeleteForeverIcon
                 onClick={() => handleDeletePost()}
@@ -300,20 +305,29 @@ const TopicRow = ({ row }) => {
             </Tooltip>
           </div>
         );
-      }else {
+      } else {
         return (
           <div className="iconsContainer">
             <Tooltip title="Edit this post's title" placement="right-end">
-              <EditIcon onClick={() => handleEditTitle()} className="editIcon" />
+              <EditIcon
+                onClick={() => handleEditTitle()}
+                className="editIcon"
+              />
             </Tooltip>
-  
+
             <Tooltip title="Edit this post's content" placement="right-end">
-              <EditIcon onClick={() => handleEditContent()} className="editIcon" />
+              <EditIcon
+                onClick={() => handleEditContent()}
+                className="editIcon"
+              />
             </Tooltip>
             <Tooltip title="Reply to this post" placement="right-end">
-              <ReplyIcon onClick = {()=> handleComment()} className="replyIcon" />
+              <ReplyIcon
+                onClick={() => handleComment()}
+                className="replyIcon"
+              />
             </Tooltip>
-            
+
             <Tooltip title="Delete this post" placement="right-end">
               <DeleteForeverIcon
                 onClick={() => handleDeletePost()}
@@ -323,36 +337,36 @@ const TopicRow = ({ row }) => {
           </div>
         );
       }
-    
-    } else if(userData.role === "admin"){	
-      return(
-      <div className="iconsContainer">
-      
-      <Tooltip title="Reply to this post" placement="right-end">
-        <ReplyIcon onClick = {()=> handleComment()} className="replyIcon" />
-      </Tooltip>
-      
-      <Tooltip title="Delete this post" placement="right-end">
-        <DeleteForeverIcon
-          onClick={() => handleDeletePost()}
-          className="deleteIcon"
-        />
-      </Tooltip>
-      </div>
-      )
+    } else if (userData.role === 'admin') {
+      return (
+        <div className="iconsContainer">
+          <Tooltip title="Reply to this post" placement="right-end">
+            <ReplyIcon onClick={() => handleComment()} className="replyIcon" />
+          </Tooltip>
+
+          <Tooltip title="Delete this post" placement="right-end">
+            <DeleteForeverIcon
+              onClick={() => handleDeletePost()}
+              className="deleteIcon"
+            />
+          </Tooltip>
+        </div>
+      );
     } else {
-      if(userData.role === 'blocked'){
+      if (userData.role === 'blocked') {
         return null;
-      }else{
+      } else {
         return (
           <div className="iconsContainer">
             <Tooltip title="Reply to this post" placement="right-end">
-            <ReplyIcon onClick = {()=> handleComment()} className="replyIcon" />
+              <ReplyIcon
+                onClick={() => handleComment()}
+                className="replyIcon"
+              />
             </Tooltip>
           </div>
         );
       }
-      
     }
   };
 
@@ -385,7 +399,7 @@ const TopicRow = ({ row }) => {
                   alignItems: 'flex-end',
                 }}
               >
-                <h2>Rating</h2>
+                <h2 style={{ color: '#FFBD33' }}>Rating</h2>
 
                 <div>{ratingButtons()}</div>
               </Grid>
@@ -400,7 +414,7 @@ const TopicRow = ({ row }) => {
                   alignItems: 'flex-end',
                 }}
               >
-                <h2>Replies</h2>
+                <h2 style={{ color: '#00aeff' }}>Replies</h2>
 
                 {row.comments.length || '0'}
               </Grid>
@@ -415,7 +429,7 @@ const TopicRow = ({ row }) => {
                   alignItems: 'center',
                 }}
               >
-                <h2>Author</h2>
+                <h2 style={{ color: '#47DB00' }}>Author</h2>
 
                 <div
                   className="userRow"

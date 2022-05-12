@@ -9,6 +9,8 @@ import { Divider } from '@mui/material';
 import { useState, useContext } from 'react';
 
 import VerifiedUserIcon from '@mui/icons-material/VerifiedUser';
+import AdminPanelSettingsIcon from '@mui/icons-material/AdminPanelSettings';
+
 import BlockIcon from '@mui/icons-material/Block';
 import { updateUserRole } from '../../services/users.service';
 import AppContext from '../../providers/AppContext';
@@ -71,10 +73,19 @@ const DisplayUser = ({ avatar, role, username, firstName, lastName }) => {
             </button>
           </Tooltip>
           <p style={{ fontStyle: 'italic' }}>
-            <i>
-              <VerifiedUserIcon sx={{ color: '#47DB00', fontSize: 'medium' }} />{' '}
-            </i>
-            Forum Member
+            {role === 'admin' ? (
+              <i>
+                <AdminPanelSettingsIcon
+                  sx={{ color: '#47DB00', fontSize: '23px' }}
+                />{' '}
+                Forum Admin
+              </i>
+            ) : (
+              <i>
+                <VerifiedUserIcon sx={{ color: '#47DB00', fontSize: '23px' }} />{' '}
+                Forum Member
+              </i>
+            )}
           </p>
 
           <br />

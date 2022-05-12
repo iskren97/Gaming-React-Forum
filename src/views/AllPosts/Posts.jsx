@@ -8,6 +8,7 @@ import SortIcon from '@mui/icons-material/Sort';
 import Footer from '../../components/Footer/Footer';
 
 import Sort from './Sort';
+import postsImg from '../../assets/posts.jpg';
 
 const Posts = () => {
   const [posts, setPosts] = useState([]);
@@ -21,10 +22,7 @@ const Posts = () => {
     <div className="wrapper">
       <div className="profile-container">
         <div className="profile-background">
-          <img
-            src="https://wwd.com/wp-content/uploads/2020/08/adobestock_187467657.jpeg"
-            alt="background"
-          ></img>
+          <img src={postsImg} alt="background"></img>
         </div>
 
         <Container

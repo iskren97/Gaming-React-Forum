@@ -19,8 +19,6 @@ const UsersView = () => {
     getAllUsers().then((resp) => setUsers(Object.values(resp.val())));
   }, []);
 
-
-
   return (
     <div className="wrapper">
       <div className="profile-container">
