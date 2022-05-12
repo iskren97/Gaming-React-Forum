@@ -35,7 +35,7 @@ import DropDown from '../NewTopicModal/DropDown';
 
 import swal from 'sweetalert';
 
-const Header = () => {
+const Header = ({loading}) => {
   const navigate = useNavigate();
 
   const [anchorEl, setAnchorEl] = useState(null);
@@ -92,11 +92,13 @@ const Header = () => {
 
 
   useEffect(() => {
-    setTimeout(() => {
-      setLoadingIndicator(false);
-    }, 2500);
+    if(!loading){
+      setTimeout(() => {
+        setLoadingIndicator(false);
+      }, 500);
+    }
     
-  },[])
+  },[loading])
 
   
 
