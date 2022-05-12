@@ -179,7 +179,7 @@ const ProfilePage = () => {
             boxShadow: '0 1px 6px rgba(0,0,0,0.2)',
             marginTop: '50px',
             marginBottom: '50px',
-            paddingBottom: '55px',
+            padding: '55px',
           }}
         >
           <Grid
@@ -188,6 +188,8 @@ const ProfilePage = () => {
             spacing={1}
             sx={{
               textAlign: 'center',
+              color: 'white',
+              backgroundImage: `url('https://images2.alphacoders.com/473/thumb-1920-473109.png')`,
             }}
           >
             <h1
@@ -202,8 +204,20 @@ const ProfilePage = () => {
             <Divider />
 
             <Grid item>
-              <Grid container direction="row" sx={{ alignItems: 'center' }}>
-                <Grid item xs={7} sx={{ textAlign: 'left' }}>
+              <Grid
+                container
+                direction="row"
+                sx={{
+                  alignItems: 'center',
+                }}
+              >
+                <Grid
+                  item
+                  xs={7}
+                  sx={{
+                    textAlign: 'left',
+                  }}
+                >
                   <h2>Personal Information</h2>
                   <br />
 
