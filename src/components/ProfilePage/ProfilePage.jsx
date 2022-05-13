@@ -25,6 +25,8 @@ import TopicRow from '../CategoryView/TopicRow/TopicRow';
 
 import AppContext from '../../providers/AppContext';
 import BlockIcon from '@mui/icons-material/Block';
+import Achievements from './Achievements/Achievements';
+
 
 import swal from 'sweetalert';
 import {
@@ -117,16 +119,17 @@ const ProfilePage = () => {
 
       for (let post in data) {
         getPostById(post).then((data) => {
-          const currentPost = data;
+          const currentPost = {...data};
 
+          const comments = []
           data.comments.forEach((comment) => {
             getCommentById(data.id, comment).then((response) => {
               if (response.author === userProfile.username) {
-                userComments.push(comment);
+                comments.push(comment);
               }
             });
           });
-          currentPost.comments = userComments;
+          currentPost.comments = comments;
           filtered.push(currentPost);
         });
       }
@@ -151,7 +154,6 @@ const ProfilePage = () => {
   };
 
  
-
 
 
 
@@ -390,6 +392,14 @@ const ProfilePage = () => {
             </Grid>
 
             <Divider />
+
+            <Grid item>
+             <Achievements user={userProfile} />
+            </Grid>
+
+            <Divider />
+
+
           </Grid>
           <Grid
             container
@@ -418,7 +428,7 @@ const ProfilePage = () => {
               </Grid>
             ) : (
               <div>
-                <h3> You have no posts yet.</h3>
+                <h3> {isProfileOwner ? 'You have no posts yet' : 'No posts yet.'}</h3>
               </div>
             )}
 
@@ -439,7 +449,7 @@ const ProfilePage = () => {
               </Grid>
             ) : (
               <div>
-                <h3> You have no likes yet.</h3>
+                <h3> {isProfileOwner ? 'You have no likes yet' : 'No likes yet.'}</h3>
               </div>
             )}
 
@@ -460,7 +470,7 @@ const ProfilePage = () => {
               </Grid>
             ) : (
               <div>
-                <h3> You have no comments yet.</h3>
+                <h3> {isProfileOwner ? 'You have no comments yet' : 'No comments yet.'} </h3>
               </div>
             )}
           </Grid>
