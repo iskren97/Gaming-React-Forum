@@ -6,19 +6,21 @@
   min-height: 20rem;
 }
 
-.statsElements{
-  display:flex;
+.statsElements {
+  display: flex;
   flex-direction: row;
-  gap: 2rem;
+  gap: 1.25rem;
+  width: 100%;
+  justify-content: flex-start;
+  align-content: stretch;
+  align-items: flex-start;
 }
-
 .singleElement {
   display: flex;
   flex-direction: column;
   align-items: center;
   min-height: 5rem;
+  width: 6rem;
   justify-content: space-around;
 }
-
-
 

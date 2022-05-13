@@ -285,13 +285,13 @@ const ProfilePage = () => {
             </Grid>
 
          
+<Grid item>
+ <Achievements user={userProfile} />
+</Grid>
 
           </Grid>
           <Divider />
 
-<Grid item>
- <Achievements user={userProfile} />
-</Grid>
 
 <Divider />
 
