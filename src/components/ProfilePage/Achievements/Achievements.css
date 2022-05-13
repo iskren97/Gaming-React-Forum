@@ -1,0 +1,24 @@
+.statsContainer{
+  display:flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: space-around;
+  min-height: 20rem;
+}
+
+.statsElements{
+  display:flex;
+  flex-direction: row;
+  gap: 2rem;
+}
+
+.singleElement {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  min-height: 5rem;
+  justify-content: space-around;
+}
+
+
+

@@ -284,16 +284,16 @@ const ProfilePage = () => {
               </p>
             </Grid>
 
-            <Divider />
-
-            <Grid item>
-             <Achievements user={userProfile} />
-            </Grid>
-
-            <Divider />
-
+         
 
           </Grid>
+          <Divider />
+
+<Grid item>
+ <Achievements user={userProfile} />
+</Grid>
+
+<Divider />
 
           <Grid
             container
