@@ -1,8 +1,10 @@
 import React from 'react'
-import { useState, useEffect } from 'react'
+import { useState, useEffect, useContext } from 'react'
 
 import { Divider, Tooltip } from '@mui/material';
 import InfoOutlinedIcon from '@mui/icons-material/InfoOutlined';
+import AppContext from '../../../providers/AppContext';
+
 
 import {
   getAllPosts,
@@ -15,24 +17,9 @@ import './Achievements.css'
 
 function Achievements({user}) {
 
-  const [userStats, setUserStats] = useState({})
+  const [ userStats, setUserStats ] = useState({})
   const [ userScore, setUserScore ] = useState(0)
-//Get number of Likes on posts(1 point) CHECKED
-
-//Get number of comments on posts(4 points) CHECKED
-
-
-//Get number of users posts(10 points) CHECKED
-//_________________________________________
-//Get total number of likes on our posts(3 points) CHECKED
-
-//Get total number of dislikes on our posts( -2 point) CHECKED
-//__________________________________________
-//Get total number of likes on our comments(2 points)
-
-//Get total number of dislikes on our comments( -1 Point)
-//______________________________________________
-//Get total number of comments on our posts(5 points) CHECKED
+  const { userData, setContext } = useContext(AppContext);
 
 
 
@@ -184,7 +171,7 @@ function Achievements({user}) {
   return (
     <>
     <div className="statsContainer">
-      <h1> My Stats </h1>
+      <h1> {user.username === userData.username ? "My Stats": "Stats"}</h1>
       <h2>
       Level: {Math.floor(userScore/30)} 
       {" "}
