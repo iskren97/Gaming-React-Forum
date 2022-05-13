@@ -116,7 +116,6 @@ const UploadProfile = () => {
           href="#/"
           onClick={handleOpen}
           style={{
-            color: 'black',
             fontSize: '13.5px',
             textTransform: 'none',
           }}
