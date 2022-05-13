@@ -138,7 +138,7 @@ const ProfilePage = () => {
         attributes: {
           placeholder: 'Shortly describe yourself',
           type: 'text',
-          maxLength: 63,
+          maxLength: 75,
           closeModal: true,
         },
       },
@@ -196,12 +196,12 @@ const ProfilePage = () => {
               style={{
                 fontWeight: 500,
                 textTransform: 'uppercase',
-                fontSize: '33px',
+                fontSize: '35px',
               }}
             >
               User Profile
             </h1>
-            <Divider />
+            <Divider style={{ background: 'white' }} />
 
             <Grid item>
               <Grid
@@ -218,7 +218,7 @@ const ProfilePage = () => {
                     textAlign: 'left',
                   }}
                 >
-                  <h2>Personal Information</h2>
+                  <h2 style={{ color: '#00ff40' }}>Personal Information</h2>
                   <br />
 
                   <p>First Name: {userProfile.firstName}</p>
@@ -246,8 +246,8 @@ const ProfilePage = () => {
 
             <UploadProfile />
 
-            <Grid item>
-              <Divider />
+            <Grid item style={{ textAlign: 'left' }}>
+              <Divider style={{ background: 'white' }} />
               <h1>
                 {userProfile.username}{' '}
                 {userData?.role === 'admin' && userProfile.role !== 'admin' ? (
@@ -268,7 +268,7 @@ const ProfilePage = () => {
               </h1>
             </Grid>
 
-            <Grid item>
+            <Grid item style={{ textAlign: 'left' }}>
               <p style={{ marginBottom: '24px' }}>
                 {userProfile.userDescription || 'My description'}{' '}
                 {isProfileOwner ? (
