@@ -42,7 +42,16 @@ const Posts = () => {
             style={{ alignItems: 'center', textAlign: 'center' }}
           >
             <Grid item xs={6}>
-              <h1 style={{ textAlign: 'center' }}>Forum Posts</h1>
+              <h1
+                style={{
+                  textAlign: 'center',
+                  fontWeight: '500',
+                  textTransform: 'uppercase',
+                  fontSize: '33px',
+                }}
+              >
+                Forum Posts
+              </h1>
             </Grid>
 
             <Grid item xs={6}>

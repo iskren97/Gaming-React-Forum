@@ -14,7 +14,7 @@
   display: block;
   position: relative;
   width: 100vw;
-  height: 800px;
+  height: 750px;
   overflow: hidden;
   margin-top: -350px;
 }
@@ -122,7 +122,6 @@
   color: #efefef;
   background-color: grey !important;
 }
-
 
 .swal-button--danger {
   background-color: #e64942;

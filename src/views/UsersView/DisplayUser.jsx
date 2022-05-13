@@ -10,6 +10,7 @@ import { useState, useContext } from 'react';
 
 import VerifiedUserIcon from '@mui/icons-material/VerifiedUser';
 import AdminPanelSettingsIcon from '@mui/icons-material/AdminPanelSettings';
+import PersonIcon from '@mui/icons-material/Person';
 
 import BlockIcon from '@mui/icons-material/Block';
 import { updateUserRole } from '../../services/users.service';
@@ -110,7 +111,9 @@ const DisplayUser = ({ avatar, role, username, firstName, lastName }) => {
                 onClick={() => handleBlockUser()}
               />
             </Tooltip>
-          ) : null}
+          ) : (
+            <PersonIcon />
+          )}
         </Grid>
       </Grid>
     </Container>
