@@ -17,7 +17,6 @@ import AppContext from '../../providers/AppContext';
 import BlockIcon from '@mui/icons-material/Block';
 import Achievements from './Achievements/Achievements';
 
-
 import swal from 'sweetalert';
 import {
   getAllPosts,
@@ -95,13 +94,12 @@ const ProfilePage = () => {
     };
     getUsersComments().then((data) => {
       const filtered = [];
-      const userComments = [];
 
       for (let post in data) {
         getPostById(post).then((data) => {
-          const currentPost = {...data};
+          const currentPost = { ...data };
 
-          const comments = []
+          const comments = [];
           data.comments.forEach((comment) => {
             getCommentById(data.id, comment).then((response) => {
               if (response.author === userProfile.username) {
@@ -284,16 +282,13 @@ const ProfilePage = () => {
               </p>
             </Grid>
 
-         
-<Grid item>
- <Achievements user={userProfile} />
-</Grid>
-
+            <Grid item>
+              <Achievements user={userProfile} />
+            </Grid>
           </Grid>
           <Divider />
 
-
-<Divider />
+          <Divider />
 
           <Grid
             container
@@ -322,7 +317,10 @@ const ProfilePage = () => {
               </Grid>
             ) : (
               <div>
-                <h3> {isProfileOwner ? 'You have no posts yet' : 'No posts yet.'}</h3>
+                <h3>
+                  {' '}
+                  {isProfileOwner ? 'You have no posts yet' : 'No posts yet.'}
+                </h3>
               </div>
             )}
 
@@ -343,7 +341,10 @@ const ProfilePage = () => {
               </Grid>
             ) : (
               <div>
-                <h3> {isProfileOwner ? 'You have no likes yet' : 'No likes yet.'}</h3>
+                <h3>
+                  {' '}
+                  {isProfileOwner ? 'You have no likes yet' : 'No likes yet.'}
+                </h3>
               </div>
             )}
 
@@ -359,12 +360,17 @@ const ProfilePage = () => {
                 }}
               >
                 {commentsOnPosts?.map((post) => (
-                  <TopicRow row={post} />
+                  <TopicRow key={post.id} row={post} />
                 ))}
               </Grid>
             ) : (
               <div>
-                <h3> {isProfileOwner ? 'You have no comments yet' : 'No comments yet.'} </h3>
+                <h3>
+                  {' '}
+                  {isProfileOwner
+                    ? 'You have no comments yet'
+                    : 'No comments yet.'}{' '}
+                </h3>
               </div>
             )}
           </Grid>

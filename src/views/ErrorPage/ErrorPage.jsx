@@ -17,7 +17,7 @@ const ErrorPage = () => {
           textAlign: 'center',
         }}
       >
-        <img src={img} alt="error" srcset="" />
+        <img src={img} alt="error" />
 
         <h1>404</h1>
 

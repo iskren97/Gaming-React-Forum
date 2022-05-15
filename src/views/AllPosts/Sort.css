@@ -3,6 +3,10 @@ table {
   border-collapse: collapse;
 }
 
+thead tr {
+  display: inline-block;
+}
+
 thead th {
   text-align: left;
 }
@@ -38,8 +42,4 @@ thead button.descending::after {
 tbody td {
   padding: 0.5em;
   border-bottom: 1px solid #ccc;
-}
-
-tbody tr:hover {
-  background-color: #eee;
 }
