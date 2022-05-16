@@ -88,12 +88,12 @@ const Achievements = ({ user }) => {
   getUserStats().then((stats) => {
     setUserStats(stats);
     setUserScore(
-      stats.likedPosts +
-        stats.numberOfPosts * 10 +
-        stats.commentsOnPosts * 4 +
-        stats.likesOnPosts * 3 -
-        stats.dislikesOnPosts * 2 +
-        stats.commentsOnMyPosts * 5
+      stats.likedPosts
+        + stats.numberOfPosts * 10
+        + stats.commentsOnPosts * 4
+        + stats.likesOnPosts * 3
+        - stats.dislikesOnPosts * 2
+        + stats.commentsOnMyPosts * 5
     );
 
     const achivs = {
