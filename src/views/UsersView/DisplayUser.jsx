@@ -46,9 +46,8 @@ const DisplayUser = ({ avatar, role, username, firstName, lastName }) => {
         backgroundColor: 'white',
         boxShadow: '0 1px 6px rgba(0,0,0,0.2)',
         paddingBottom: '16px',
-        paddingTop: '16px',
-      }}
-    >
+        paddingTop: '16px'
+      }}>
       <Grid container spacing={2} direction="column">
         <Grid item sx={{ textAlign: 'center' }}>
           <img
@@ -58,7 +57,7 @@ const DisplayUser = ({ avatar, role, username, firstName, lastName }) => {
               width: '13em',
               height: '13em',
               borderRadius: '50%',
-              backgroundColor: 'white',
+              backgroundColor: 'white'
             }}
             alt="profile pic"
           />
@@ -66,25 +65,18 @@ const DisplayUser = ({ avatar, role, username, firstName, lastName }) => {
 
         <Grid item sx={{ textAlign: 'center' }}>
           <Tooltip title="Click to see profile" placement="top">
-            <button
-              style={{ all: 'unset' }}
-              onClick={() => navigate(`/profile/${username}`)}
-            >
+            <button style={{ all: 'unset' }} onClick={() => navigate(`/profile/${username}`)}>
               <h3 style={{ cursor: 'pointer' }}>{username}</h3>
             </button>
           </Tooltip>
           <p style={{ fontStyle: 'italic' }}>
             {role === 'admin' ? (
               <i>
-                <AdminPanelSettingsIcon
-                  sx={{ color: '#47DB00', fontSize: '23px' }}
-                />{' '}
-                Forum Admin
+                <AdminPanelSettingsIcon sx={{ color: '#47DB00', fontSize: '23px' }} /> Forum Admin
               </i>
             ) : (
               <i>
-                <VerifiedUserIcon sx={{ color: '#47DB00', fontSize: '23px' }} />{' '}
-                Forum Member
+                <VerifiedUserIcon sx={{ color: '#47DB00', fontSize: '23px' }} /> Forum Member
               </i>
             )}
           </p>
@@ -104,8 +96,7 @@ const DisplayUser = ({ avatar, role, username, firstName, lastName }) => {
           {userData?.role === 'admin' && role !== 'admin' ? (
             <Tooltip
               title={isUserBlocked ? 'Unblock this user' : 'Block this user'}
-              placement="bottom"
-            >
+              placement="bottom">
               <BlockIcon
                 className={isUserBlocked ? 'blockedUserButton' : 'blockButton'}
                 onClick={() => handleBlockUser()}

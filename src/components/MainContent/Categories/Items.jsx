@@ -6,7 +6,7 @@ const Item = styled(Paper)(({ theme }) => ({
   backgroundColor: theme.palette.mode === 'dark' ? '#1A2027' : '#fff',
   ...theme.typography.body2,
   padding: theme.spacing(1),
-  color: theme.palette.text.primary,
+  color: theme.palette.text.primary
 }));
 
 const Items = ({ name, topic, logo }) => {

@@ -58,8 +58,7 @@
 .join-button {
   background: #db002f;
   color: rgb(255, 255, 255);
-  box-shadow: 0 4px 8px 0 rgb(107 119 128 / 12%),
-    2px 0 8px rgb(107 119 128 / 8%);
+  box-shadow: 0 4px 8px 0 rgb(107 119 128 / 12%), 2px 0 8px rgb(107 119 128 / 8%);
 
   border: none;
   border-radius: 7px;

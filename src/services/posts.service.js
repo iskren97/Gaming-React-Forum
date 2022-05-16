@@ -7,34 +7,32 @@ export const addPost = (title, content, handle, category) => {
     content,
     author: handle,
     createdOn: Date.now(),
-    category: category,
+    category: category
   }).then((result) => {
     return getPostById(result.key);
   });
 };
 
 export const getCommentById = (postId, commentId) => {
-  return get(ref(db, `posts/${postId}/comments/${commentId}`)).then(
-    (result) => {
-      const comment = result.val();
-      comment.id = postId;
-      comment.createdOn = new Date(comment.createdOn);
+  return get(ref(db, `posts/${postId}/comments/${commentId}`)).then((result) => {
+    const comment = result.val();
+    comment.id = postId;
+    comment.createdOn = new Date(comment.createdOn);
 
-      if (!comment.likedBy) {
-        comment.likedBy = [];
-      } else {
-        comment.likedBy = Object.keys(comment.likedBy);
-      }
-
-      if (!comment.dislikedBy) {
-        comment.dislikedBy = [];
-      } else {
-        comment.dislikedBy = Object.keys(comment.dislikedBy);
-      }
-
-      return comment;
+    if (!comment.likedBy) {
+      comment.likedBy = [];
+    } else {
+      comment.likedBy = Object.keys(comment.likedBy);
     }
-  );
+
+    if (!comment.dislikedBy) {
+      comment.dislikedBy = [];
+    } else {
+      comment.dislikedBy = Object.keys(comment.dislikedBy);
+    }
+
+    return comment;
+  });
 };
 
 export const getPostById = (id) => {
@@ -80,7 +78,7 @@ export const fromPostsDocument = (snapshot) => {
       createdOn: new Date(post.createdOn),
       likedBy: post.likedBy ? Object.keys(post.likedBy) : [],
       dislikedBy: post.dislikedBy ? Object.keys(post.dislikedBy) : [],
-      comments: post.comments ? Object.keys(post.comments) : [],
+      comments: post.comments ? Object.keys(post.comments) : []
     };
   });
 };
@@ -144,19 +142,19 @@ export const deletePost = async (id) => {
   await update(ref(db), updateDislikes);
 
   return update(ref(db), {
-    [`/posts/${id}`]: null,
+    [`/posts/${id}`]: null
   });
 };
 
 export const editPostTitle = (id, postTitle) => {
   return update(ref(db, `posts/${id}`), {
-    title: postTitle,
+    title: postTitle
   });
 };
 
 export const editPostContent = (id, postContent) => {
   return update(ref(db, `posts/${id}`), {
-    content: postContent,
+    content: postContent
   });
 };
 
@@ -167,20 +165,18 @@ export const commentPost = (id, content, author) => {
   update(ref(db, `posts/${id}/comments/${replyId}`), {
     content: content,
     author: author,
-    createdOn: Date.now(),
+    createdOn: Date.now()
   });
 
   update(ref(db, `users/${author}/commentsonposts/${id}/${replyId}`), {
     content: content,
-    createdOn: Date.now(),
+    createdOn: Date.now()
   });
 };
 
 export const likeComment = (handle, postId, commentId) => {
   const updateLikes = {};
-  updateLikes[
-    `/posts/${postId}/comments/${commentId}/likedBy/${handle}`
-  ] = true;
+  updateLikes[`/posts/${postId}/comments/${commentId}/likedBy/${handle}`] = true;
   updateLikes[`/users/${handle}/likedComments/${commentId}`] = true;
 
   return update(ref(db), updateLikes);
@@ -188,8 +184,7 @@ export const likeComment = (handle, postId, commentId) => {
 
 export const removeLikeComment = (handle, postId, commentId) => {
   const updateLikes = {};
-  updateLikes[`/posts/${postId}/comments/${commentId}/likedBy/${handle}`] =
-    null;
+  updateLikes[`/posts/${postId}/comments/${commentId}/likedBy/${handle}`] = null;
   updateLikes[`/users/${handle}/likedComments/${commentId}`] = null;
 
   return update(ref(db), updateLikes);
@@ -197,9 +192,7 @@ export const removeLikeComment = (handle, postId, commentId) => {
 
 export const dislikeComment = (handle, postId, commentId) => {
   const updateLikes = {};
-  updateLikes[
-    `/posts/${postId}/comments/${commentId}/dislikedBy/${handle}`
-  ] = true;
+  updateLikes[`/posts/${postId}/comments/${commentId}/dislikedBy/${handle}`] = true;
   updateLikes[`/users/${handle}/dislikedComments/${commentId}`] = true;
 
   return update(ref(db), updateLikes);
@@ -207,8 +200,7 @@ export const dislikeComment = (handle, postId, commentId) => {
 
 export const removeDislikeComment = (handle, postId, commentId) => {
   const updateLikes = {};
-  updateLikes[`/posts/${postId}/comments/${commentId}/dislikedBy/${handle}`] =
-    null;
+  updateLikes[`/posts/${postId}/comments/${commentId}/dislikedBy/${handle}`] = null;
   updateLikes[`/users/${handle}/dislikedComments/${commentId}`] = null;
 
   return update(ref(db), updateLikes);
@@ -228,29 +220,26 @@ export const deleteComment = async (postId, commentId) => {
   });
 
   await update(ref(db), {
-    [`users/${comment.author}/commentsonposts/${postId}/${commentId}`]: null,
+    [`users/${comment.author}/commentsonposts/${postId}/${commentId}`]: null
   });
 
   await update(ref(db), updateLikes);
   await update(ref(db), updateDislikes);
 
   return update(ref(db), {
-    [`/posts/${postId}/comments/${commentId}`]: null,
+    [`/posts/${postId}/comments/${commentId}`]: null
   });
 };
 
 export const editCommentContent = async (postId, commentId, commentContent) => {
   const comment = await getCommentById(postId, commentId);
 
-  await update(
-    ref(db, `users/${comment.author}/commentsonposts/${postId}/${commentId}`),
-    {
-      content: commentContent,
-    }
-  );
+  await update(ref(db, `users/${comment.author}/commentsonposts/${postId}/${commentId}`), {
+    content: commentContent
+  });
 
   return update(ref(db, `posts/${postId}/comments/${commentId}`), {
-    content: commentContent,
+    content: commentContent
   });
 };
 

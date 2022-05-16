@@ -17,7 +17,7 @@ const Register = ({ closeModal }) => {
   const {
     register,
     handleSubmit,
-    formState: { errors },
+    formState: { errors }
   } = useForm();
 
   const closeOnSubmit = () => {
@@ -51,7 +51,7 @@ const Register = ({ closeModal }) => {
         if (userData.exists()) {
           setContext({
             user: data.email,
-            userData: userData.val()[Object.keys(userData.val())[0]],
+            userData: userData.val()[Object.keys(userData.val())[0]]
           });
         }
 
@@ -73,23 +73,17 @@ const Register = ({ closeModal }) => {
           required: true,
           minLength: 4,
           maxLength: 32,
-          pattern: /^[A-Za-z]+$/i,
+          pattern: /^[A-Za-z]+$/i
         })}
       />
-      {errors?.firstName?.type === 'required' && (
-        <p>⚠ This field is required</p>
-      )}
+      {errors?.firstName?.type === 'required' && <p>⚠ This field is required</p>}
 
       {errors?.firstName?.type === 'minLength' && (
         <p>First name cannot be less than 4 characters</p>
       )}
 
-      {errors?.firstName?.type === 'maxLength' && (
-        <p>First name cannot exceed 32 characters</p>
-      )}
-      {errors?.firstName?.type === 'pattern' && (
-        <p>Alphabetical characters only</p>
-      )}
+      {errors?.firstName?.type === 'maxLength' && <p>First name cannot exceed 32 characters</p>}
+      {errors?.firstName?.type === 'pattern' && <p>Alphabetical characters only</p>}
 
       <input
         placeholder="Last name"
@@ -97,55 +91,41 @@ const Register = ({ closeModal }) => {
           required: true,
           minLength: 4,
           maxLength: 32,
-          pattern: /^[A-Za-z]+$/i,
+          pattern: /^[A-Za-z]+$/i
         })}
       />
       {errors?.lastName?.type === 'required' && <p>⚠ This field is required</p>}
 
-      {errors?.lastName?.type === 'minLength' && (
-        <p>Last name cannot be less than 4 characters</p>
-      )}
+      {errors?.lastName?.type === 'minLength' && <p>Last name cannot be less than 4 characters</p>}
 
-      {errors?.lastName?.type === 'maxLength' && (
-        <p>Last name cannot exceed 32 characters</p>
-      )}
-      {errors?.lastName?.type === 'pattern' && (
-        <p>Alphabetical characters only</p>
-      )}
+      {errors?.lastName?.type === 'maxLength' && <p>Last name cannot exceed 32 characters</p>}
+      {errors?.lastName?.type === 'pattern' && <p>Alphabetical characters only</p>}
 
       <input
         placeholder="Email"
         {...register('email', {
           minLength: 3,
           maxLength: 32,
-          required: true,
+          required: true
         })}
       />
       {errors?.email?.type === 'required' && <p>⚠ This field is required</p>}
 
-      {errors?.email?.type === 'minLength' && (
-        <p>Email cannot be less than 3 characters</p>
-      )}
-      {errors?.email?.type === 'maxLength' && (
-        <p>Email cannot exceed 320 characters</p>
-      )}
+      {errors?.email?.type === 'minLength' && <p>Email cannot be less than 3 characters</p>}
+      {errors?.email?.type === 'maxLength' && <p>Email cannot exceed 320 characters</p>}
 
       <input
         placeholder="Username"
         {...register('username', {
           required: true,
           minLength: 3,
-          maxLength: 18,
+          maxLength: 18
         })}
       />
       {errors?.username?.type === 'required' && <p>⚠ This field is required</p>}
 
-      {errors?.username?.type === 'minLength' && (
-        <p>Username cannot be less than 3 characters</p>
-      )}
-      {errors?.username?.type === 'maxLength' && (
-        <p>Username cannot exceed 30 characters</p>
-      )}
+      {errors?.username?.type === 'minLength' && <p>Username cannot be less than 3 characters</p>}
+      {errors?.username?.type === 'maxLength' && <p>Username cannot exceed 30 characters</p>}
 
       <input
         placeholder="Password"
@@ -153,18 +133,14 @@ const Register = ({ closeModal }) => {
         {...register('password', {
           required: true,
           minLength: 6,
-          maxLength: 18,
+          maxLength: 18
         })}
       />
       {errors?.password?.type === 'required' && <p>⚠ This field is required</p>}
 
-      {errors?.password?.type === 'minLength' && (
-        <p>Password cannot be less than 6 characters </p>
-      )}
+      {errors?.password?.type === 'minLength' && <p>Password cannot be less than 6 characters </p>}
 
-      {errors?.password?.type === 'maxLength' && (
-        <p>Password cannot exceed 20 characters </p>
-      )}
+      {errors?.password?.type === 'maxLength' && <p>Password cannot exceed 20 characters </p>}
 
       <input type="submit" />
     </form>

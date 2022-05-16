@@ -35,13 +35,13 @@ import DropDown from '../NewTopicModal/DropDown';
 
 import swal from 'sweetalert';
 
-const Header = ({loading}) => {
+const Header = ({ loading }) => {
   const navigate = useNavigate();
 
   const [anchorEl, setAnchorEl] = useState(null);
   const [invalidLogin, setInvalidLogin] = useState(false);
   const open = Boolean(anchorEl);
-  const [loadingIndicator, setLoadingIndicator] = useState(true)
+  const [loadingIndicator, setLoadingIndicator] = useState(true);
 
   const [isTopicVisible, setTopicVisibility] = useState(false);
 
@@ -56,13 +56,13 @@ const Header = ({loading}) => {
 
   const [form, setForm] = useState({
     email: '',
-    password: '',
+    password: ''
   });
 
   const updateForm = (prop) => (e) => {
     setForm({
       ...form,
-      [prop]: e.target.value,
+      [prop]: e.target.value
     });
   };
 
@@ -79,7 +79,7 @@ const Header = ({loading}) => {
           if (snapshot.exists()) {
             setContext({
               user: u.user.email,
-              userData: snapshot.val()[Object.keys(snapshot.val())[0]],
+              userData: snapshot.val()[Object.keys(snapshot.val())[0]]
             });
           }
         });
@@ -89,20 +89,14 @@ const Header = ({loading}) => {
       });
   };
 
-
-
   useEffect(() => {
-    if(!loading){
+    if (!loading) {
+      // eslint-disable-next-line no-undef
       setTimeout(() => {
         setLoadingIndicator(false);
       }, 500);
     }
-    
-  },[loading])
-
-  
-
-
+  }, [loading]);
 
   const handleKeyEnter = (event) => {
     if (event.key === 'Enter') {
@@ -137,10 +131,9 @@ const Header = ({loading}) => {
               width: '30vw',
               marginLeft: '35vw',
               boxShadow: '0px 4px 24px 3px rgb(0 0 0)',
-              alignItems: 'center',
+              alignItems: 'center'
             }}
-            variant="filled"
-          >
+            variant="filled">
             Incorrect email or password
           </Alert>
         </ClickAwayListener>
@@ -170,8 +163,7 @@ const Header = ({loading}) => {
 
           <button
             style={{ background: 'none', border: 'none' }}
-            onClick={() => setTopicVisibility(true)}
-          >
+            onClick={() => setTopicVisibility(true)}>
             <Tooltip title="New topic">
               <LibraryAddIcon
                 style={{ color: '#ffffff', transition: '0.25s ease' }}
@@ -194,9 +186,8 @@ const Header = ({loading}) => {
 
         <div
           style={{
-            color: 'white',
-          }}
-        >
+            color: 'white'
+          }}>
           <h1>Forum Name</h1>
         </div>
 
@@ -211,16 +202,11 @@ const Header = ({loading}) => {
                 sx={{
                   display: 'flex',
                   alignItems: 'center',
-                  textAlign: 'center',
-                }}
-              >
+                  textAlign: 'center'
+                }}>
                 {userData.avatarUrl ? (
                   <Avatar onClick={handleClick} sx={{ width: 48, height: 48 }}>
-                    <img
-                      src={userData.avatarUrl}
-                      className="profilePic"
-                      alt="profile"
-                    />
+                    <img src={userData.avatarUrl} className="profilePic" alt="profile" />
                   </Avatar>
                 ) : (
                   <Avatar onClick={handleClick} sx={{ width: 48, height: 48 }}>
@@ -246,7 +232,7 @@ const Header = ({loading}) => {
                     width: 32,
                     height: 32,
                     ml: -0.5,
-                    mr: 1,
+                    mr: 1
                   },
 
                   '&:before': {
@@ -259,18 +245,16 @@ const Header = ({loading}) => {
                     height: 10,
                     bgcolor: 'background.paper',
                     transform: 'translateY(-50%) rotate(45deg)',
-                    zIndex: 0,
-                  },
-                },
+                    zIndex: 0
+                  }
+                }
               }}
               transformOrigin={{ horizontal: 'right', vertical: 'top' }}
-              anchorOrigin={{ horizontal: 'right', vertical: 'bottom' }}
-            >
+              anchorOrigin={{ horizontal: 'right', vertical: 'bottom' }}>
               {/* <NavLink to="/MyProfile"> */}
               <MenuItem
                 onClick={() => navigate(`/profile/${userData.username}`)}
-                sx={{ bgcolor: 'white' }}
-              >
+                sx={{ bgcolor: 'white' }}>
                 <ListItemIcon>
                   <AccountCircleIcon fontSize="medium" />
                 </ListItemIcon>
@@ -295,8 +279,7 @@ const Header = ({loading}) => {
               id="email"
               placeholder="Email"
               value={form.email}
-              onChange={updateForm('email')}
-            ></input>
+              onChange={updateForm('email')}></input>
 
             <br />
 
@@ -307,25 +290,18 @@ const Header = ({loading}) => {
               id="password"
               placeholder="Password"
               value={form.password}
-              onChange={updateForm('password')}
-            ></input>
+              onChange={updateForm('password')}></input>
 
             <br />
             <br />
 
-            <Button
-              onClick={login}
-              variant="contained"
-              style={{ background: '#47DB00' }}
-            >
+            <Button onClick={login} variant="contained" style={{ background: '#47DB00' }}>
               Login
             </Button>
           </div>
         )}
       </div>
-      {isTopicVisible ? (
-        <DropDown test={isTopicVisible} set={setTopicVisibility} />
-      ) : null}
+      {isTopicVisible ? <DropDown test={isTopicVisible} set={setTopicVisibility} /> : null}
     </>
   );
 };

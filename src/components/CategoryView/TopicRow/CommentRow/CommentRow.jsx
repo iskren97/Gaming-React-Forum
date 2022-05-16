@@ -1,11 +1,10 @@
-import React from 'react'
+import React from 'react';
 import { styled } from '@mui/material/styles';
 import Paper from '@mui/material/Paper';
 import Grid from '@mui/material/Grid';
-import Container from '@mui/material/Container';
-import './CommentRow.css'
+import './CommentRow.css';
 
-import { useState, useEffect, useContext } from 'react'
+import { useState, useEffect, useContext } from 'react';
 import AppContext from '../../../../providers/AppContext';
 
 import ThumbUpAltIcon from '@mui/icons-material/ThumbUpAlt';
@@ -23,132 +22,115 @@ import {
   dislikeComment,
   removeDislikeComment,
   deleteComment,
-  editCommentContent,
-  
+  editCommentContent
 } from '../../../../services/posts.service';
 
 import DeleteForeverIcon from '@mui/icons-material/DeleteForever';
 import EditIcon from '@mui/icons-material/Edit';
 import Tooltip from '@mui/material/Tooltip';
 
-import {getUserByHandle } from '../../../../services/users.service'
+import { getUserByHandle } from '../../../../services/users.service';
 import swal from 'sweetalert';
 
 const Item = styled(Paper)(({ theme }) => ({
   backgroundColor: 'lightgray',
   ...theme.typography.body2,
   padding: theme.spacing(1),
-  // textAlign: 'center',
   color: theme.palette.text.primary,
-  marginTop: "1rem",
+  marginTop: '1rem'
 }));
 
+const CommentRow = ({ postId, commentId }) => {
+  const [commentInfo, setCommentInfo] = useState('');
+  const [userInfo, setUserInfo] = useState('');
 
-function CommentRow({postId, commentId}) {
-  const [commentInfo, setCommentInfo] = useState("")
-  const [userInfo, setUserInfo] = useState("")
-
-  const { user, userData, setContext } = useContext(AppContext);
-  const [commentContent, setCommentContent] = useState("")
+  const { user, userData } = useContext(AppContext);
+  const [commentContent, setCommentContent] = useState('');
   const navigate = useNavigate();
 
-  useEffect(()=>{
-    getCommentById(postId, commentId).then(comment => {
-      setCommentInfo(comment)
-    }
-    )
-    
-  }, [commentId, postId, user, userData, userInfo])
+  useEffect(() => {
+    getCommentById(postId, commentId).then((comment) => {
+      setCommentInfo(comment);
+    });
+  }, [commentId, postId, user, userData, userInfo]);
 
-  useEffect(()=>{
-    getUserByHandle(commentInfo.author).then(res=>{
-      setUserInfo(res.val())
-      setCommentContent(commentInfo.content)
-    }
-  )
+  useEffect(() => {
+    getUserByHandle(commentInfo.author).then((res) => {
+      setUserInfo(res.val());
+      setCommentContent(commentInfo.content);
+    });
+  }, [commentInfo.author, commentInfo.content, userInfo]);
 
-  }, [commentInfo.author, commentInfo.content, userInfo])
-
-
-
-  // console.log(commentInfo)
-
-  const isCommentLiked = () => commentInfo?.likedBy?.includes(userData?.username)
+  const isCommentLiked = () => commentInfo?.likedBy?.includes(userData?.username);
 
   const isCommentDisliked = () => commentInfo?.dislikedBy?.includes(userData?.username);
 
   const handleLike = () => {
-    if(isCommentLiked()){
-      removeLikeComment(userData?.username, postId, commentId)
-    }else{
-      if(isCommentDisliked()){
+    if (isCommentLiked()) {
+      removeLikeComment(userData?.username, postId, commentId);
+    } else {
+      if (isCommentDisliked()) {
         removeDislikeComment(userData?.username, postId, commentId);
-        likeComment(userData?.username, postId, commentId);      
-      }else{
-        likeComment(userData?.username, postId, commentId);      
-
+        likeComment(userData?.username, postId, commentId);
+      } else {
+        likeComment(userData?.username, postId, commentId);
       }
-    } 
-  }
+    }
+  };
 
-  const handleDislike = () =>{
-    if(isCommentDisliked()){
+  const handleDislike = () => {
+    if (isCommentDisliked()) {
       removeDislikeComment(userData?.username, postId, commentId);
-    }else{
-      if(isCommentLiked()){
+    } else {
+      if (isCommentLiked()) {
         removeLikeComment(userData?.username, postId, commentId);
         dislikeComment(userData?.username, postId, commentId);
-      }else{
+      } else {
         dislikeComment(userData?.username, postId, commentId);
       }
     }
-  }
-
+  };
 
   const handleDeleteComment = () => {
     swal({
-      className: "swal-red",
+      className: 'swal-red',
       title: 'Are you sure?',
       text: "You won't be able to revert this!",
       icon: 'warning',
       buttons: true,
-      dangerMode: true,
+      dangerMode: true
     }).then((willDelete) => {
       if (willDelete) {
         deleteComment(postId, commentId);
         swal('Post deleted!', {
-          className: "swal-green",
-          icon: 'success',
+          className: 'swal-green',
+          icon: 'success'
         });
       } else {
         swal('Your post is safe!', {
-          className: "swal-green",
-          icon: 'success',
+          className: 'swal-green',
+          icon: 'success'
         });
       }
     });
-
   };
 
-
-
-  const handleEditContent = () =>{
+  const handleEditContent = () => {
     swal({
       title: 'Edit Content',
       Text: 'Edit this posts content',
-    
- 
+
       content: {
         element: 'input',
         attributes: {
           placeholder: 'content',
           type: 'text',
-          value: commentInfo.content,
-        },
-      },
+          value: commentInfo.content
+        }
+      }
     }).then((content) => {
       if (content) {
-        setCommentContent(content)
+        setCommentContent(content);
         if (content === '' || content.length < 32 || content.length > 8192) {
           swal(
             'Something went wrong...',
@@ -159,19 +141,16 @@ function CommentRow({postId, commentId}) {
         } else {
           editCommentContent(postId, commentId, content);
           swal('Post content edited!', {
-            icon: 'success',
+            icon: 'success'
           });
         }
-
-         
       } else {
         swal('No changes were made to your post!', {
-          icon: 'warning',
+          icon: 'warning'
         });
       }
     });
-  }
- 
+  };
 
   const iconsField = () => {
     if (!user) {
@@ -183,12 +162,8 @@ function CommentRow({postId, commentId}) {
             <EditIcon onClick={() => handleEditContent()} className="editIcon" />
           </Tooltip>
 
-                   
           <Tooltip title="Delete this post" placement="right-end">
-            <DeleteForeverIcon
-              onClick={() => handleDeleteComment()}
-              className="deleteIcon"
-            />
+            <DeleteForeverIcon onClick={() => handleDeleteComment()} className="deleteIcon" />
           </Tooltip>
         </div>
       );
@@ -196,20 +171,14 @@ function CommentRow({postId, commentId}) {
       return (
         <div className="iconsContainer">
           <Tooltip title="Delete this post" placement="right-end">
-            <DeleteForeverIcon
-              onClick={() => handleDeleteComment()}
-              className="deleteIcon"
-            />
+            <DeleteForeverIcon onClick={() => handleDeleteComment()} className="deleteIcon" />
           </Tooltip>
         </div>
       );
-
-    }else {
-      return <div className="iconsContainer"></div>
+    } else {
+      return <div className="iconsContainer"></div>;
     }
   };
-
-
 
   const ratingButtons = () => {
     const loggedView = (
@@ -226,20 +195,16 @@ function CommentRow({postId, commentId}) {
       </div>
     );
 
-    const defaultView =
-      (commentInfo.likedBy?.length || 0) - (commentInfo.dislikedBy?.length || 0);
+    const defaultView = (commentInfo.likedBy?.length || 0) - (commentInfo.dislikedBy?.length || 0);
 
-    return !user || userData?.username === commentInfo.author
-      ? defaultView
-      : loggedView;
+    return !user || userData?.username === commentInfo.author ? defaultView : loggedView;
   };
 
-
   const dateFormatDate = (date) => {
-    let d = new Date(date);
+    const d = new Date(date);
     let month = '' + (d.getMonth() + 1);
     let day = '' + d.getDate();
-    let year = d.getFullYear();
+    const year = d.getFullYear();
 
     if (month.length < 2) month = '0' + month;
     if (day.length < 2) day = '0' + day;
@@ -247,7 +212,7 @@ function CommentRow({postId, commentId}) {
     return [year, month, day].join('-');
   };
   const dateFormatHour = (date) => {
-    let d = new Date(date);
+    const d = new Date(date);
     let hours = d.getHours();
     let minutes = d.getMinutes();
 
@@ -257,105 +222,102 @@ function CommentRow({postId, commentId}) {
     return [hours, minutes].join(':');
   };
 
-
-
   return (
     <>
-    <div className="commentRowContainer">
-
-    <Item>
-
-    <Grid container direction="row" sx={{marginTop: "5px", gap: '1.5rem', flexWrap: 'nowrap', justifyContent: 'flex-end', minWidth: "65rem"}} >
-    <Grid item xs={9}  style={{
-                  display: 'flex',
-                  justifyContent: 'flex-start',
-                  alignItems: 'flex-start',
-                }}>
-          {commentContent} 
-          </Grid>
+      <div className="commentRowContainer">
+        <Item>
           <Grid
-                item
-                xs={2}
-                style={{
-                  display: 'flex',
-                  flexDirection: 'column',
-                  justifyContent: 'flex-start',
-                  alignItems: 'center',
-                }}
-              >
-                <div>Date</div>
+            container
+            direction="row"
+            sx={{
+              marginTop: '5px',
+              gap: '1.5rem',
+              flexWrap: 'nowrap',
+              justifyContent: 'flex-end',
+              minWidth: '65rem'
+            }}>
+            <Grid
+              item
+              xs={9}
+              style={{
+                display: 'flex',
+                justifyContent: 'flex-start',
+                alignItems: 'flex-start'
+              }}>
+              {commentContent}
+            </Grid>
+            <Grid
+              item
+              xs={2}
+              style={{
+                display: 'flex',
+                flexDirection: 'column',
+                justifyContent: 'flex-start',
+                alignItems: 'center'
+              }}>
+              <div>Date</div>
 
-                <div>{dateFormatDate(commentInfo.createdOn)}</div>
-                <div>{dateFormatHour(commentInfo.createdOn)}</div>
-              </Grid>
+              <div>{dateFormatDate(commentInfo.createdOn)}</div>
+              <div>{dateFormatHour(commentInfo.createdOn)}</div>
+            </Grid>
 
-              
-              <Grid
-                item
-                xs={1}
-                style={{
-                  display: 'flex',
-                  flexDirection: 'column',
-                  justifyContent: 'flex-start',
-                  alignItems: 'flex-end',
-                }}
-              >
+            <Grid
+              item
+              xs={1}
+              style={{
+                display: 'flex',
+                flexDirection: 'column',
+                justifyContent: 'flex-start',
+                alignItems: 'flex-end'
+              }}>
               <div> Author</div>
               <div
-                  className="userRow"
-                  onClick={() => {
-                    getUserByHandle(commentInfo.author).then((resp) => {
-                      return swal({
-                        title: `${resp.val().username}`,
-                        icon: `${resp.val().avatarUrl ?? avatar}`,
-                        closeOnEsc: true,
-                        button: 'View details',
-                        closeOnClickOutside: true
-                      }).then((res) => {
-                        if(res){
-
+                className="userRow"
+                onClick={() => {
+                  getUserByHandle(commentInfo.author).then((resp) => {
+                    return swal({
+                      title: `${resp.val().username}`,
+                      icon: `${resp.val().avatarUrl ?? avatar}`,
+                      closeOnEsc: true,
+                      button: 'View details',
+                      closeOnClickOutside: true
+                    }).then((res) => {
+                      if (res) {
                         navigate(`/profile/${userInfo.username}`);
-                        }
-                      });
+                      }
                     });
-                  }}
-                >
-                  {userInfo?.avatarUrl ? (
-                    <Avatar sx={{ width: 48, height: 48 }}>
-                      <img
-                        src={userInfo.avatarUrl}
-                        className="profilePic"
-                        alt="profile"
-                      />
-                    </Avatar>
-                  ) : (
-                    <Avatar sx={{ width: 48, height: 48 }}>
-                      <img src={avatar} className="profilePic" alt="profile" />
-                    </Avatar>
-                  )}
-                  {commentInfo.author}
-                </div>
-          </Grid>
-          <Grid
-                item
-                xs={1}
-                style={{
-                  display: 'flex',
-                  flexDirection: 'column',
-                  justifyContent: 'flex-start',
-                  alignItems: 'flex-end',
-                }}
-              >
-                <div>Rating</div>
-          <div>{ratingButtons()}</div>
-          </Grid>
-    </Grid>
-
-    </Item>
-              {iconsField()}
+                  });
+                }}>
+                {userInfo?.avatarUrl ? (
+                  <Avatar sx={{ width: 48, height: 48 }}>
+                    <img src={userInfo.avatarUrl} className="profilePic" alt="profile" />
+                  </Avatar>
+                ) : (
+                  <Avatar sx={{ width: 48, height: 48 }}>
+                    <img src={avatar} className="profilePic" alt="profile" />
+                  </Avatar>
+                )}
+                {commentInfo.author}
               </div>
-              </>
-  )
-}
+            </Grid>
+            <Grid
+              item
+              xs={1}
+              style={{
+                display: 'flex',
+                flexDirection: 'column',
+                justifyContent: 'flex-start',
+                alignItems: 'flex-end'
+              }}>
+              <div>Rating</div>
+              <div>{ratingButtons()}</div>
+            </Grid>
+          </Grid>
+        </Item>
+        {iconsField()}
+      </div>
+    </>
+  );
+};
 
-export default CommentRow
+export default CommentRow;

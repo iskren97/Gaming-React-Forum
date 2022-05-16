@@ -2,19 +2,11 @@ import { Grid, Modal, Tooltip } from '@mui/material';
 import { Box } from '@mui/system';
 import React, { useContext, useEffect, useState } from 'react';
 
-import {
-  ref as storageRef,
-  uploadBytes,
-  getDownloadURL,
-} from 'firebase/storage';
+import { ref as storageRef, uploadBytes, getDownloadURL } from 'firebase/storage';
 import { storage } from '../../config/firebase-config';
 
 import swal from 'sweetalert';
-import {
-  getUserByHandle,
-  getUserData,
-  updateUserCoverPicture,
-} from '../../services/users.service';
+import { getUserByHandle, getUserData, updateUserCoverPicture } from '../../services/users.service';
 import AppContext from '../../providers/AppContext';
 import { useParams } from 'react-router-dom';
 
@@ -29,7 +21,7 @@ const style = {
   bgcolor: 'white',
   border: '2px solid #000',
   boxShadow: 24,
-  p: 4,
+  p: 4
 };
 
 const UploadCover = () => {
@@ -74,11 +66,7 @@ const UploadCover = () => {
     if (!file) return swal('Oops..', 'Please select a file!', 'error');
 
     if (file['type'].split('/')[0] !== 'image')
-      return swal(
-        'Something went wrong...',
-        'Please upload an image!',
-        'error'
-      );
+      return swal('Something went wrong...', 'Please upload an image!', 'error');
 
     const picture = storageRef(storage, `images/${userProfile.username}/cover`);
 
@@ -90,8 +78,8 @@ const UploadCover = () => {
               user,
               userData: {
                 ...userData,
-                coverUrl: url,
-              },
+                coverUrl: url
+              }
             });
 
             swal('Good job!', 'Image uploaded successfully!', 'success');
@@ -99,6 +87,7 @@ const UploadCover = () => {
           });
         });
       })
+      // eslint-disable-next-line no-undef
       .catch(console.error);
   };
 
@@ -111,9 +100,8 @@ const UploadCover = () => {
           style={{
             color: 'black',
             fontSize: '13.5px',
-            textTransform: 'none',
-          }}
-        >
+            textTransform: 'none'
+          }}>
           <Tooltip title="Change profile cover" placement="right-end">
             <EditIcon sx={{ cursor: 'pointer' }} />
           </Tooltip>
@@ -124,17 +112,15 @@ const UploadCover = () => {
         open={open}
         onClose={handleClose}
         aria-labelledby="modal-modal-title"
-        aria-describedby="modal-modal-description"
-      >
+        aria-describedby="modal-modal-description">
         <Box sx={style}>
           <div
             style={{
               display: 'flex',
               top: '-50px',
               justifyContent: 'space-between',
-              alignItems: 'center',
-            }}
-          >
+              alignItems: 'center'
+            }}>
             <h3>Upload a picture</h3>
 
             <button
@@ -143,10 +129,9 @@ const UploadCover = () => {
                 border: 'none',
                 fontSize: '20px',
                 fontWeight: 'bold',
-                cursor: 'pointer',
+                cursor: 'pointer'
               }}
-              onClick={handleClose}
-            >
+              onClick={handleClose}>
               X
             </button>
           </div>
@@ -156,14 +141,9 @@ const UploadCover = () => {
               container
               direction="column"
               spacing={0}
-              sx={{ textAlign: 'center', alignItems: 'center' }}
-            >
+              sx={{ textAlign: 'center', alignItems: 'center' }}>
               <Grid>
-                <input
-                  type="file"
-                  accept="image/*"
-                  className="custom-file-upload"
-                />
+                <input type="file" accept="image/*" className="custom-file-upload" />
               </Grid>
 
               <Grid>

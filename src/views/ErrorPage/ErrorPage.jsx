@@ -14,9 +14,8 @@ const ErrorPage = () => {
           boxShadow: '0 1px 6px rgba(0,0,0,0.2)',
           paddingTop: '55px',
           paddingBottom: '55px',
-          textAlign: 'center',
-        }}
-      >
+          textAlign: 'center'
+        }}>
         <img src={img} alt="error" />
 
         <h1>404</h1>
@@ -36,9 +35,8 @@ const ErrorPage = () => {
             paddingLeft: '17px',
             paddingRight: '17px',
             border: 'none',
-            borderRadius: '5px',
-          }}
-        >
+            borderRadius: '5px'
+          }}>
           Get back to safety
         </a>
       </Container>
