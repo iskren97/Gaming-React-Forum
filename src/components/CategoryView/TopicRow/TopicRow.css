@@ -65,6 +65,7 @@
 
 .topicRowContainer {
   display: flex;
+  margin-top: 5px;
   flex-direction: row;
   align-items: stretch;
   width: initial;
@@ -105,10 +106,8 @@
   flex-direction: column;
   gap: 0.5em;
   margin: 0.5em;
-  min-widtH: 1.5em;
+  min-width: 1.5em;
 }
-
-
 
 .swal-icon img {
   margin-top: 10px;
@@ -119,7 +118,6 @@
   background-color: white;
 }
 
-
 .swal-red .swal-button:active {
   background-color: #e64942;
 }
@@ -129,6 +127,5 @@
 }
 
 .swal-button:active {
-  background-color: #47db00
+  background-color: #47db00;
 }
-

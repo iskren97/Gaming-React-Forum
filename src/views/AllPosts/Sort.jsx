@@ -57,87 +57,97 @@ const Sort = (props) => {
     <table>
       <thead>
         <tr>
-          <tr>
-            <th>
-              <button
-                type="button"
-                onClick={() => requestSort('title')}
-                className={getClassNamesFor('title')}
-                style={{ backgroundColor: 'rgba(100, 200, 200, 1)' }}
-              >
-                Title
-              </button>
-            </th>
+          <th>
+            <button
+              type="button"
+              onClick={() => requestSort('title')}
+              className={getClassNamesFor('title')}
+              style={{ backgroundColor: 'rgba(100, 200, 200, 1)' }}
+            >
+              Title
+            </button>
+          </th>
+        </tr>
 
-            <th>
-              <button
-                type="button"
-                onClick={() => requestSort('createdOn')}
-                className={getClassNamesFor('createdOn')}
-              >
-                Date
-              </button>
-            </th>
+        <tr>
+          <th>
+            <button
+              type="button"
+              onClick={() => requestSort('createdOn')}
+              className={getClassNamesFor('createdOn')}
+            >
+              Date
+            </button>
+          </th>
+        </tr>
 
-            <th>
-              <button
-                type="button"
-                onClick={() => requestSort('author')}
-                className={getClassNamesFor('author')}
-                style={{ backgroundColor: '#47DB00' }}
-              >
-                Author
-              </button>
-            </th>
+        <tr>
+          <th>
+            <button
+              type="button"
+              onClick={() => requestSort('author')}
+              className={getClassNamesFor('author')}
+              style={{ backgroundColor: '#47DB00' }}
+            >
+              Author
+            </button>
+          </th>
+        </tr>
 
-            <th>
-              <button
-                type="button"
-                onClick={() => requestSort('repliesCount')}
-                className={getClassNamesFor('repliesCount')}
-                style={{ backgroundColor: 'rgb(0, 174, 255)' }}
-              >
-                Replies
-              </button>
-            </th>
+        <tr>
+          <th>
+            <button
+              type="button"
+              onClick={() => requestSort('repliesCount')}
+              className={getClassNamesFor('repliesCount')}
+              style={{ backgroundColor: 'rgb(0, 174, 255)' }}
+            >
+              Replies
+            </button>
+          </th>
+        </tr>
 
-            <th>
-              <button
-                type="button"
-                onClick={() => requestSort('rating')}
-                className={getClassNamesFor('rating')}
-                style={{ backgroundColor: '#FFBD33' }}
-              >
-                Rating
-              </button>
-            </th>
-          </tr>
+        <tr>
+          <th>
+            <button
+              type="button"
+              onClick={() => requestSort('rating')}
+              className={getClassNamesFor('rating')}
+              style={{ backgroundColor: '#FFBD33' }}
+            >
+              Rating
+            </button>
+          </th>
         </tr>
       </thead>
 
       <tbody>
-        <Grid container direction="column" spacing={2}>
-          {items.map((post) => {
-            post.rating =
-              (post.likedBy?.length || 0) - (post.dislikedBy?.length || 0);
+        <tr>
+          <td>
+            <Grid container direction="column" spacing={2}>
+              {items.map((post) => {
+                post.rating =
+                  (post.likedBy?.length || 0) - (post.dislikedBy?.length || 0);
 
-            post.repliesCount = post.comments.length;
+                post.repliesCount = post.comments.length;
 
-            if (search) {
-              return post.title.toLowerCase().includes(search) ? (
-                <Grid key={post.id} item>
-                  <TopicRow key={post.id} row={post} />
-                </Grid>
-              ) : null;
-            }
+                if (search) {
+                  return post.title.toLowerCase().includes(search) ? (
+                    <Grid key={post.id} item>
+                      <TopicRow key={post.id} row={post} />
+                    </Grid>
+                  ) : null;
+                }
 
-            return (
-              <Grid key={post.id} item>
-                <TopicRow key={post.id} row={post} />
-              </Grid>
-            );
-          })}
-        </Grid>
+                return (
+                  <Grid key={post.id} item>
+                    <TopicRow key={post.id} row={post} />
+                  </Grid>
+                );
+              })}
+            </Grid>
+          </td>
+        </tr>
       </tbody>
     </table>
   );

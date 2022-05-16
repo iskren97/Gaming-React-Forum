@@ -90,7 +90,7 @@ const Posts = () => {
               <Sort posts={posts} search={search} />
             </div>
           ) : (
-            <h3>There are no posts yet.</h3>
+            <h3 style={{ textAlign: 'center' }}>There are no posts yet.</h3>
           )}
         </Container>
       </div>
