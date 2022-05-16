@@ -1,31 +1,22 @@
 import React from 'react';
 import { useState, useContext } from 'react';
-
-import { useForm } from 'react-hook-form';
-
-import { getUserByHandle } from '../../../services/users.service';
-import { createUserHandle } from '../../../services/users.service';
-
-import AppContext from '../../../providers/AppContext';
-import { getUserData } from '../../../services/users.service';
-
-import Button from '@mui/material/Button';
-
 import './TopicPostModal.css';
 
-import { addPost, getPostById } from '../../../services/posts.service';
+import AppContext from '../../../providers/AppContext';
 
-import swal from 'sweetalert';
-
+import Button from '@mui/material/Button';
 import { Modal } from '@mui/material';
 import { Box } from '@mui/system';
+
+import { addPost } from '../../../services/posts.service';
+
+import swal from 'sweetalert';
 
 function TopicPostModal({ onClose, category, postModal, setPostModal }) {
   const handleClose = () => {
     setPostModal(false);
   };
 
-  const { setContext } = useContext(AppContext);
   const [content, setContent] = useState('');
   const [title, setTitle] = useState('');
 

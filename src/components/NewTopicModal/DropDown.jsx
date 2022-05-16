@@ -93,143 +93,143 @@ const DropDown = ({ test, set }) => {
 
   return (
     <>
-      {user ? userData.role !== 'blocked' ? (
-        <Modal
-          open={test}
-          onClose={handleClose}
-          aria-labelledby="modal-modal-title"
-          aria-describedby="modal-modal-description"
-        >
-          <Box sx={style}>
-            <div
-              style={{
-                display: 'flex',
-                justifyContent: 'space-between',
-                fontSize: '20px',
-              }}
-            >
-              <h3>New Topic</h3>
-
-              <button
-                style={{
-                  background: 'none',
-                  border: 'none',
-                  fontSize: '27px',
-                  fontWeight: 'bold',
-                  cursor: 'pointer',
-                  float: 'right',
-                }}
-                onClick={() => handleClose()}
-              >
-                X
-              </button>
-            </div>
-
-            <Divider />
-            <br />
-
-            <div className="dropdown">
+      {user ? (
+        userData.role !== 'blocked' ? (
+          <Modal
+            open={test}
+            onClose={handleClose}
+            aria-labelledby="modal-modal-title"
+            aria-describedby="modal-modal-description"
+          >
+            <Box sx={style}>
               <div
-                className="dropdown-btn"
-                onClick={() => setIsActive(!isActive)}
+                style={{
+                  display: 'flex',
+                  justifyContent: 'space-between',
+                  fontSize: '20px',
+                }}
               >
-                {selected}
-                <ExpandMoreIcon />
+                <h3>New Topic</h3>
+
+                <button
+                  style={{
+                    background: 'none',
+                    border: 'none',
+                    fontSize: '27px',
+                    fontWeight: 'bold',
+                    cursor: 'pointer',
+                    float: 'right',
+                  }}
+                  onClick={() => handleClose()}
+                >
+                  X
+                </button>
               </div>
 
-              {isActive && (
-                <div className="dropdown-content">
-                  {topics.map((topic) => {
-                    return (
-                      <div
-                        key={topics.indexOf(topic)}
-                        onClick={(e) => {
-                          setSelected(topic);
-                          setIsActive(false);
+              <Divider />
+              <br />
 
-                          setCategory(e.target.textContent);
-                        }}
-                        className="dropdown-item"
-                      >
-                        {topic}
-                      </div>
-                    );
-                  })}
+              <div className="dropdown">
+                <div
+                  className="dropdown-btn"
+                  onClick={() => setIsActive(!isActive)}
+                >
+                  {selected}
+                  <ExpandMoreIcon />
                 </div>
-              )}
-            </div>
-            <form className="post-form">
-              <h3>Title</h3>
 
-              <input
-                maxLength="61"
-                type="text"
-                style={{ width: '700px' }}
-                onChange={(e) => setTitle(e.target.value)}
-              />
+                {isActive && (
+                  <div className="dropdown-content">
+                    {topics.map((topic) => {
+                      return (
+                        <div
+                          key={topics.indexOf(topic)}
+                          onClick={(e) => {
+                            setSelected(topic);
+                            setIsActive(false);
 
-              <h3>Content</h3>
-              <textarea
-                maxLength="8192"
-                name="content"
-                rows="5"
-                style={{ resize: 'none', fontSize: '15px' }}
-                onChange={(e) => setContent(e.target.value)}
-              ></textarea>
+                            setCategory(e.target.textContent);
+                          }}
+                          className="dropdown-item"
+                        >
+                          {topic}
+                        </div>
+                      );
+                    })}
+                  </div>
+                )}
+              </div>
+              <form className="post-form">
+                <h3>Title</h3>
 
-              <Button
-                onClick={() => createPost()}
-                variant="contained"
-                style={{ background: '#47DB00' }}
-              >
-                Post
-              </Button>
-            </form>
-          </Box>
-        </Modal>
-      ) :   
-      (
-        <Modal
-          open={test}
-          onClose={handleClose}
-          aria-labelledby="modal-modal-title"
-          aria-describedby="modal-modal-description"
-        >
-          <Box sx={style}>
-            <div
-              style={{
-                display: 'flex',
-                justifyContent: 'space-between',
-                fontSize: '20px',
-              }}
-            >
-              <h3>New Topic</h3>
+                <input
+                  maxLength="61"
+                  type="text"
+                  style={{ width: '700px' }}
+                  onChange={(e) => setTitle(e.target.value)}
+                />
 
-              <button
+                <h3>Content</h3>
+                <textarea
+                  maxLength="8192"
+                  name="content"
+                  rows="5"
+                  style={{ resize: 'none', fontSize: '15px' }}
+                  onChange={(e) => setContent(e.target.value)}
+                ></textarea>
+
+                <Button
+                  onClick={() => createPost()}
+                  variant="contained"
+                  style={{ background: '#47DB00' }}
+                >
+                  Post
+                </Button>
+              </form>
+            </Box>
+          </Modal>
+        ) : (
+          <Modal
+            open={test}
+            onClose={handleClose}
+            aria-labelledby="modal-modal-title"
+            aria-describedby="modal-modal-description"
+          >
+            <Box sx={style}>
+              <div
                 style={{
-                  background: 'none',
-                  border: 'none',
-                  fontSize: '27px',
-                  fontWeight: 'bold',
-                  cursor: 'pointer',
-                  float: 'right',
+                  display: 'flex',
+                  justifyContent: 'space-between',
+                  fontSize: '20px',
                 }}
-                onClick={() => handleClose()}
               >
-                X
-              </button>
-            </div>
+                <h3>New Topic</h3>
 
-            <Divider />
-            <br />
+                <button
+                  style={{
+                    background: 'none',
+                    border: 'none',
+                    fontSize: '27px',
+                    fontWeight: 'bold',
+                    cursor: 'pointer',
+                    float: 'right',
+                  }}
+                  onClick={() => handleClose()}
+                >
+                  X
+                </button>
+              </div>
 
-            <h3 style={{ textAlign: 'center' }}>You are blocked from writing posts!</h3>
-          </Box>
-        </Modal>
-      )
-      
-      
-      : (
+              <Divider />
+              <br />
+
+              <h3 style={{ textAlign: 'center' }}>
+                You are blocked from writing posts!
+              </h3>
+            </Box>
+          </Modal>
+        )
+      ) : (
         <Modal
           open={test}
           onClose={handleClose}

@@ -5,10 +5,11 @@ import { updateDescription } from '../../services/users.service';
 
 import Container from '@mui/material/Container';
 import Grid from '@mui/material/Grid';
-import { Divider, Tooltip } from '@mui/material';
+import { Tooltip } from '@mui/material';
 
 import background from '../../assets/lR2zdL.jpg';
 import defaultAvatar from '../../assets/avatar.jpg';
+import nvidia from '../../assets/nvidia.png';
 
 import EditIcon from '@mui/icons-material/Edit';
 import TopicRow from '../CategoryView/TopicRow/TopicRow';
@@ -18,6 +19,7 @@ import BlockIcon from '@mui/icons-material/Block';
 import Achievements from './Achievements/Achievements';
 
 import swal from 'sweetalert';
+
 import {
   getAllPosts,
   getCommentsFromUser,
@@ -32,6 +34,7 @@ import {
 import { useParams } from 'react-router-dom';
 import UploadCover from './UploadCover';
 import UploadProfile from './UploadProfile';
+import Scroll from '../Scroll/Scroll';
 
 const ProfilePage = () => {
   const { user, userData, setContext } = useContext(AppContext);
@@ -190,7 +193,9 @@ const ProfilePage = () => {
             sx={{
               textAlign: 'center',
               color: 'white',
-              backgroundImage: `url('https://images2.alphacoders.com/473/thumb-1920-473109.png')`,
+              backgroundImage: `url(${nvidia})`,
+              backgroundRepeat: 'no-repeat',
+              backgroundColor: 'black',
             }}
           >
             <h1
@@ -202,7 +207,6 @@ const ProfilePage = () => {
             >
               User Profile
             </h1>
-            <Divider style={{ background: 'white' }} />
 
             <Grid item>
               <Grid
@@ -248,7 +252,6 @@ const ProfilePage = () => {
             <UploadProfile />
 
             <Grid item style={{ textAlign: 'left' }}>
-              <Divider style={{ background: 'white' }} />
               <h1>
                 {userProfile.username}{' '}
                 {userData?.role === 'admin' && userProfile.role !== 'admin' ? (
@@ -286,9 +289,6 @@ const ProfilePage = () => {
               <Achievements user={userProfile} />
             </Grid>
           </Grid>
-          <Divider />
-
-          <Divider />
 
           <Grid
             container
@@ -376,6 +376,8 @@ const ProfilePage = () => {
           </Grid>
         </Container>
       </div>
+
+      <Scroll showBelow={250} />
     </>
   );
 };
