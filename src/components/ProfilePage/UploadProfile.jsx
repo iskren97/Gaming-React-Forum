@@ -1,11 +1,7 @@
 import React, { useContext, useEffect, useState } from 'react';
 import { useParams } from 'react-router-dom';
 
-import {
-  ref as storageRef,
-  uploadBytes,
-  getDownloadURL,
-} from 'firebase/storage';
+import { ref as storageRef, uploadBytes, getDownloadURL } from 'firebase/storage';
 import { storage } from '../../config/firebase-config';
 
 import AppContext from '../../providers/AppContext';
@@ -19,7 +15,7 @@ import swal from 'sweetalert';
 import {
   getUserData,
   getUserByHandle,
-  updateUserProfilePicture,
+  updateUserProfilePicture
 } from '../../services/users.service';
 
 const style = {
@@ -31,7 +27,7 @@ const style = {
   bgcolor: 'white',
   border: '2px solid #000',
   boxShadow: 24,
-  p: 4,
+  p: 4
 };
 
 const UploadProfile = () => {
@@ -76,36 +72,28 @@ const UploadProfile = () => {
     if (!file) return swal('Oops..', 'Please select a file!', 'error');
 
     if (file['type'].split('/')[0] !== 'image')
-      return swal(
-        'Something went wrong...',
-        'Please upload an image!',
-        'error'
-      );
+      return swal('Something went wrong...', 'Please upload an image!', 'error');
 
-    const picture = storageRef(
-      storage,
-      `images/${userProfile.username}/avatar`
-    );
+    const picture = storageRef(storage, `images/${userProfile.username}/avatar`);
 
     uploadBytes(picture, file)
       .then((snapshot) => {
         return getDownloadURL(snapshot.ref).then((url) => {
-          return updateUserProfilePicture(userProfile.username, url).then(
-            () => {
-              setContext({
-                user,
-                userData: {
-                  ...userData,
-                  avatarUrl: url,
-                },
-              });
+          return updateUserProfilePicture(userProfile.username, url).then(() => {
+            setContext({
+              user,
+              userData: {
+                ...userData,
+                avatarUrl: url
+              }
+            });
 
-              swal('Good job!', 'Image uploaded successfully!', 'success');
-              handleClose();
-            }
-          );
+            swal('Good job!', 'Image uploaded successfully!', 'success');
+            handleClose();
+          });
         });
       })
+      // eslint-disable-next-line no-undef
       .catch(console.error);
   };
 
@@ -117,9 +105,8 @@ const UploadProfile = () => {
           onClick={handleOpen}
           style={{
             fontSize: '13.5px',
-            textTransform: 'none',
-          }}
-        >
+            textTransform: 'none'
+          }}>
           <Tooltip title="Change profile picture" placement="right-end">
             <EditIcon sx={{ cursor: 'pointer' }} />
           </Tooltip>
@@ -130,17 +117,15 @@ const UploadProfile = () => {
         open={open}
         onClose={handleClose}
         aria-labelledby="modal-modal-title"
-        aria-describedby="modal-modal-description"
-      >
+        aria-describedby="modal-modal-description">
         <Box sx={style}>
           <div
             style={{
               display: 'flex',
               top: '-50px',
               justifyContent: 'space-between',
-              alignItems: 'center',
-            }}
-          >
+              alignItems: 'center'
+            }}>
             <h3>Upload a picture</h3>
 
             <button
@@ -149,10 +134,9 @@ const UploadProfile = () => {
                 border: 'none',
                 fontSize: '20px',
                 fontWeight: 'bold',
-                cursor: 'pointer',
+                cursor: 'pointer'
               }}
-              onClick={handleClose}
-            >
+              onClick={handleClose}>
               X
             </button>
           </div>
@@ -162,14 +146,9 @@ const UploadProfile = () => {
               container
               direction="column"
               spacing={0}
-              sx={{ textAlign: 'center', alignItems: 'center' }}
-            >
+              sx={{ textAlign: 'center', alignItems: 'center' }}>
               <Grid>
-                <input
-                  type="file"
-                  accept="image/*"
-                  className="custom-file-upload"
-                />
+                <input type="file" accept="image/*" className="custom-file-upload" />
               </Grid>
 
               <Grid>

@@ -32,11 +32,11 @@ const AboutPage = () => {
 
           <h1>Gaming Forum</h1>
           <p style={{ fontSize: '18px' }}>
-            Our Forum Project is part of Telerik Academy's JavaScript Alpha
-            program, a national IT group and leading IT teaching center. <br />
+            Our Forum Project is part of Telerik Academy's JavaScript Alpha program, a national IT
+            group and leading IT teaching center. <br />
             <br />
-            Visit their corporate site. <br /> © Telerik Academy, 30 Krastyo
-            Rakovski Str. <br /> 1729 Sofia, Bulgaria.
+            Visit their corporate site. <br /> © Telerik Academy, 30 Krastyo Rakovski Str. <br />{' '}
+            1729 Sofia, Bulgaria.
             <br />
             <br />
             All rights reserved.

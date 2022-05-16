@@ -57,9 +57,8 @@ const Footer = () => {
             direction="row"
             sx={{
               justifyContent: 'center',
-              paddingTop: '6px',
-            }}
-          >
+              paddingTop: '6px'
+            }}>
             <Grid item>
               <NavLink to="/about">
                 <InstagramIcon />

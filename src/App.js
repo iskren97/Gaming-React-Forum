@@ -1,3 +1,4 @@
+import React from 'react';
 import './App.css';
 import Header from './components/Header/Header';
 import Main from './components/MainContent/Main';
@@ -33,10 +34,10 @@ import ent from './assets/ent.jpg';
 const App = () => {
   const [appState, setAppState] = useState({
     user: null,
-    userData: null,
+    userData: null
   });
 
-  let [user, loading] = useAuthState(auth);
+  const [user, loading] = useAuthState(auth);
 
   useEffect(() => {
     if (user === null) return;
@@ -49,9 +50,10 @@ const App = () => {
 
         setAppState({
           user,
-          userData: snapshot.val()[Object.keys(snapshot.val())[0]],
+          userData: snapshot.val()[Object.keys(snapshot.val())[0]]
         });
       })
+      // eslint-disable-next-line no-undef
       .catch((e) => alert(e.message));
   }, [user]);
 
@@ -69,33 +71,20 @@ const App = () => {
           <Route path="/users" element={<UsersView />} />
           <Route
             path="/profile/:username"
+            // eslint-disable-next-line no-undef
             element={<ProfilePage key={window.location.pathname} />}
           />
           <Route path="/all_posts" element={<Posts />} />
 
           <Route
             path="/general_discussion"
-            element={
-              <CategoryView topic={'General Discussion'} img={general} />
-            }
+            element={<CategoryView topic={'General Discussion'} img={general} />}
           />
-          <Route
-            path="/shooters"
-            element={<CategoryView topic={'Shooters'} img={shooters} />}
-          />
-          <Route
-            path="/mmorpg"
-            element={<CategoryView topic={'MMORPG'} img={mmo} />}
-          />
-          <Route
-            path="/rts"
-            element={<CategoryView topic={'Real Time Strategy'} img={rts} />}
-          />
+          <Route path="/shooters" element={<CategoryView topic={'Shooters'} img={shooters} />} />
+          <Route path="/mmorpg" element={<CategoryView topic={'MMORPG'} img={mmo} />} />
+          <Route path="/rts" element={<CategoryView topic={'Real Time Strategy'} img={rts} />} />
 
-          <Route
-            path="/adventure"
-            element={<CategoryView topic={'Adventure'} img={adv} />}
-          />
+          <Route path="/adventure" element={<CategoryView topic={'Adventure'} img={adv} />} />
           <Route
             path="/gaming_pc"
             element={<CategoryView topic={'Gaming Laptops and PCs'} img={pc} />}
@@ -104,14 +93,8 @@ const App = () => {
             path="/gaming_accessories"
             element={<CategoryView topic={'Gaming Accessories'} img={accs} />}
           />
-          <Route
-            path="/tournaments"
-            element={<CategoryView topic={'Tournaments'} img={vs} />}
-          />
-          <Route
-            path="/streaming"
-            element={<CategoryView topic={'Streaming'} img={stream} />}
-          />
+          <Route path="/tournaments" element={<CategoryView topic={'Tournaments'} img={vs} />} />
+          <Route path="/streaming" element={<CategoryView topic={'Streaming'} img={stream} />} />
           <Route
             path="/entertainment"
             element={<CategoryView topic={'Entertainment'} img={ent} />}

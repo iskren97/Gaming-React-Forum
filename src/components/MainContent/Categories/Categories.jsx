@@ -26,15 +26,9 @@ const Categories = () => {
         backgroundColor: 'white',
         boxShadow: '0 1px 6px rgba(0,0,0,0.2)',
         marginTop: '50px',
-        paddingBottom: '55px',
-      }}
-    >
-      <Grid
-        container
-        spacing={2}
-        direction="column"
-        className="category-container"
-      >
+        paddingBottom: '55px'
+      }}>
+      <Grid container spacing={2} direction="column" className="category-container">
         <Grid item>
           <h1>Gaming discussions:</h1>
         </Grid>
@@ -65,11 +59,7 @@ const Categories = () => {
 
         <Grid item>
           <NavLink to="/adventure">
-            <Items
-              name="Adventure"
-              topic="adventure games"
-              logo={adventureLogo}
-            />
+            <Items name="Adventure" topic="adventure games" logo={adventureLogo} />
           </NavLink>
         </Grid>
 
@@ -79,21 +69,13 @@ const Categories = () => {
 
         <Grid item>
           <NavLink to="/gaming_pc">
-            <Items
-              name="Gaming Laptops and PCs"
-              topic="gaming machines"
-              logo={desktopLogo}
-            />
+            <Items name="Gaming Laptops and PCs" topic="gaming machines" logo={desktopLogo} />
           </NavLink>
         </Grid>
 
         <Grid item>
           <NavLink to="/gaming_accessories">
-            <Items
-              name="Gaming Accessories"
-              topic="gaming accessories"
-              logo={mouseLogo}
-            />
+            <Items name="Gaming Accessories" topic="gaming accessories" logo={mouseLogo} />
           </NavLink>
         </Grid>
 
@@ -113,11 +95,7 @@ const Categories = () => {
 
         <Grid item>
           <NavLink to="/streaming">
-            <Items
-              name="Streaming"
-              topic="your favorite streamers"
-              logo={streamLogo}
-            />
+            <Items name="Streaming" topic="your favorite streamers" logo={streamLogo} />
           </NavLink>
         </Grid>
 

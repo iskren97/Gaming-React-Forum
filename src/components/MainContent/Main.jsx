@@ -8,10 +8,7 @@ import './Categories/Categories.css';
 
 const Main = () => {
   return (
-    <div
-      className="main-container"
-      style={{ backgroundColor: 'rgb(248, 248, 248)' }}
-    >
+    <div className="main-container" style={{ backgroundColor: 'rgb(248, 248, 248)' }}>
       <Welcome />
       <Categories />
       <Scroll showBelow={250} />

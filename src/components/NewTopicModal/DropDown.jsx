@@ -20,7 +20,7 @@ const DropDown = ({ test, set }) => {
     'Gaming Accessories',
     'Tournaments',
     'Streaming',
-    'Entertainment',
+    'Entertainment'
   ];
 
   const [selected, setSelected] = useState('Choose Category');
@@ -46,11 +46,11 @@ const DropDown = ({ test, set }) => {
     boxShadow: 24,
     p: 4,
     paddingTop: 0,
-    paddingBottom: 0,
+    paddingBottom: 0
   };
 
-  const handleValidation = (title, content, category) => {
-    if (title === '' || title.length < 16 || title.length > 64) {
+  const handleValidation = (titleStr, contentStr, cate) => {
+    if (titleStr === '' || titleStr.length < 16 || titleStr.length > 64) {
       swal(
         'Something went wrong...',
         'Post title must be between 16 and 64 characters long!',
@@ -60,7 +60,7 @@ const DropDown = ({ test, set }) => {
       return false;
     }
 
-    if (content === '' || content.length < 32 || content.length > 8192) {
+    if (contentStr === '' || contentStr.length < 32 || contentStr.length > 8192) {
       swal(
         'Something went wrong...',
         'Post content must be between 32 and 8192 characters long!',
@@ -70,12 +70,8 @@ const DropDown = ({ test, set }) => {
       return false;
     }
 
-    if (!topics.includes(category)) {
-      swal(
-        'Something went wrong...',
-        'Please choose a valid category',
-        'error'
-      );
+    if (!topics.includes(cate)) {
+      swal('Something went wrong...', 'Please choose a valid category', 'error');
 
       return false;
     }
@@ -99,16 +95,14 @@ const DropDown = ({ test, set }) => {
             open={test}
             onClose={handleClose}
             aria-labelledby="modal-modal-title"
-            aria-describedby="modal-modal-description"
-          >
+            aria-describedby="modal-modal-description">
             <Box sx={style}>
               <div
                 style={{
                   display: 'flex',
                   justifyContent: 'space-between',
-                  fontSize: '20px',
-                }}
-              >
+                  fontSize: '20px'
+                }}>
                 <h3>New Topic</h3>
 
                 <button
@@ -118,10 +112,9 @@ const DropDown = ({ test, set }) => {
                     fontSize: '27px',
                     fontWeight: 'bold',
                     cursor: 'pointer',
-                    float: 'right',
+                    float: 'right'
                   }}
-                  onClick={() => handleClose()}
-                >
+                  onClick={() => handleClose()}>
                   X
                 </button>
               </div>
@@ -130,10 +123,7 @@ const DropDown = ({ test, set }) => {
               <br />
 
               <div className="dropdown">
-                <div
-                  className="dropdown-btn"
-                  onClick={() => setIsActive(!isActive)}
-                >
+                <div className="dropdown-btn" onClick={() => setIsActive(!isActive)}>
                   {selected}
                   <ExpandMoreIcon />
                 </div>
@@ -150,8 +140,7 @@ const DropDown = ({ test, set }) => {
 
                             setCategory(e.target.textContent);
                           }}
-                          className="dropdown-item"
-                        >
+                          className="dropdown-item">
                           {topic}
                         </div>
                       );
@@ -175,14 +164,12 @@ const DropDown = ({ test, set }) => {
                   name="content"
                   rows="5"
                   style={{ resize: 'none', fontSize: '15px' }}
-                  onChange={(e) => setContent(e.target.value)}
-                ></textarea>
+                  onChange={(e) => setContent(e.target.value)}></textarea>
 
                 <Button
                   onClick={() => createPost()}
                   variant="contained"
-                  style={{ background: '#47DB00' }}
-                >
+                  style={{ background: '#47DB00' }}>
                   Post
                 </Button>
               </form>
@@ -193,16 +180,14 @@ const DropDown = ({ test, set }) => {
             open={test}
             onClose={handleClose}
             aria-labelledby="modal-modal-title"
-            aria-describedby="modal-modal-description"
-          >
+            aria-describedby="modal-modal-description">
             <Box sx={style}>
               <div
                 style={{
                   display: 'flex',
                   justifyContent: 'space-between',
-                  fontSize: '20px',
-                }}
-              >
+                  fontSize: '20px'
+                }}>
                 <h3>New Topic</h3>
 
                 <button
@@ -212,10 +197,9 @@ const DropDown = ({ test, set }) => {
                     fontSize: '27px',
                     fontWeight: 'bold',
                     cursor: 'pointer',
-                    float: 'right',
+                    float: 'right'
                   }}
-                  onClick={() => handleClose()}
-                >
+                  onClick={() => handleClose()}>
                   X
                 </button>
               </div>
@@ -223,9 +207,7 @@ const DropDown = ({ test, set }) => {
               <Divider />
               <br />
 
-              <h3 style={{ textAlign: 'center' }}>
-                You are blocked from writing posts!
-              </h3>
+              <h3 style={{ textAlign: 'center' }}>You are blocked from writing posts!</h3>
             </Box>
           </Modal>
         )
@@ -234,16 +216,14 @@ const DropDown = ({ test, set }) => {
           open={test}
           onClose={handleClose}
           aria-labelledby="modal-modal-title"
-          aria-describedby="modal-modal-description"
-        >
+          aria-describedby="modal-modal-description">
           <Box sx={style}>
             <div
               style={{
                 display: 'flex',
                 justifyContent: 'space-between',
-                fontSize: '20px',
-              }}
-            >
+                fontSize: '20px'
+              }}>
               <h3>New Topic</h3>
 
               <button
@@ -253,10 +233,9 @@ const DropDown = ({ test, set }) => {
                   fontSize: '27px',
                   fontWeight: 'bold',
                   cursor: 'pointer',
-                  float: 'right',
+                  float: 'right'
                 }}
-                onClick={() => handleClose()}
-              >
+                onClick={() => handleClose()}>
                 X
               </button>
             </div>

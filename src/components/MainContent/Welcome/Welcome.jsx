@@ -21,8 +21,7 @@ const Welcome = () => {
                 <Tooltip title="Open profile">
                   <h2
                     className="user-username"
-                    data-replace={userData.firstName + ' ' + userData.lastName}
-                  >
+                    data-replace={userData.firstName + ' ' + userData.lastName}>
                     <span>
                       {userData.firstName} {userData.lastName}
                     </span>
@@ -44,11 +43,7 @@ const Welcome = () => {
       <div className="inner-welcome-section">
         <div className="telerik-name-logo">
           <p>Powered by:</p>
-          <a
-            href="https://www.telerikacademy.com/"
-            target="_blank"
-            rel="noreferrer"
-          >
+          <a href="https://www.telerikacademy.com/" target="_blank" rel="noreferrer">
             <img className="telerik-logo" src={logo} alt="telerik logo"></img>
           </a>
         </div>

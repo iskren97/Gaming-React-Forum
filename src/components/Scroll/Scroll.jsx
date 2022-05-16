@@ -1,3 +1,4 @@
+/* eslint-disable no-undef */
 import React, { useState, useEffect } from 'react';
 import { ExpandLess } from '@mui/icons-material';
 import { IconButton } from '@mui/material';
@@ -15,13 +16,13 @@ const Scroll = ({ showBelow }) => {
   };
 
   const handleClick = () => {
-    window[`scrollTo`]({ top: 0, behavior: `smooth` });
+    window['scrollTo']({ top: 0, behavior: 'smooth' });
   };
 
   useEffect(() => {
     if (showBelow) {
-      window.addEventListener(`scroll`, handleScroll);
-      return () => window.removeEventListener(`scroll`, handleScroll);
+      window.addEventListener('scroll', handleScroll);
+      return () => window.removeEventListener('scroll', handleScroll);
     }
   });
 
@@ -33,8 +34,7 @@ const Scroll = ({ showBelow }) => {
           sx={{ backgroundColor: '#47DB00' }}
           onClick={handleClick}
           aria-label="to top"
-          component="span"
-        >
+          component="span">
           <ExpandLess fontSize="large" />
         </IconButton>
       )}

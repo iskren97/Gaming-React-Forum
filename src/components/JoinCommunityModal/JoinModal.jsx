@@ -14,7 +14,7 @@ const style = {
   bgcolor: 'background.paper',
   border: '2px solid #000',
   boxShadow: 24,
-  p: 4,
+  p: 4
 };
 
 const JoinModal = () => {
@@ -30,26 +30,23 @@ const JoinModal = () => {
           color: 'white',
           fontSize: '13.5px',
           textTransform: 'none',
-          fontFamily: 'Courier New',
-        }}
-      >
+          fontFamily: 'Courier New'
+        }}>
         Join the community
       </Button>
       <Modal
         open={open}
         onClose={handleClose}
         aria-labelledby="modal-modal-title"
-        aria-describedby="modal-modal-description"
-      >
+        aria-describedby="modal-modal-description">
         <Box sx={style}>
           <div
             style={{
               display: 'flex',
               top: '-50px',
               justifyContent: 'space-between',
-              alignItems: 'center',
-            }}
-          >
+              alignItems: 'center'
+            }}>
             <h2>Register</h2>
 
             <button
@@ -58,10 +55,9 @@ const JoinModal = () => {
                 border: 'none',
                 fontSize: '27px',
                 fontWeight: 'bold',
-                cursor: 'pointer',
+                cursor: 'pointer'
               }}
-              onClick={handleClose}
-            >
+              onClick={handleClose}>
               X
             </button>
           </div>

@@ -1,12 +1,4 @@
-import {
-  get,
-  set,
-  ref,
-  query,
-  equalTo,
-  orderByChild,
-  update,
-} from 'firebase/database';
+import { get, set, ref, query, equalTo, orderByChild, update } from 'firebase/database';
 import { db } from '../config/firebase-config';
 
 export const createUserHandle = (firstName, lastName, email, username, uid) => {
@@ -18,7 +10,7 @@ export const createUserHandle = (firstName, lastName, email, username, uid) => {
     uid,
     createdOn: new Date(),
     likedPosts: {},
-    role: 'user',
+    role: 'user'
   });
 };
 
@@ -36,24 +28,24 @@ export const getUserByHandle = (username) => {
 
 export const updateUserProfilePicture = (username, url) => {
   return update(ref(db), {
-    [`users/${username}/avatarUrl`]: url,
+    [`users/${username}/avatarUrl`]: url
   });
 };
 
 export const updateUserCoverPicture = (username, url) => {
   return update(ref(db), {
-    [`users/${username}/coverUrl`]: url,
+    [`users/${username}/coverUrl`]: url
   });
 };
 
 export const updateUserRole = (username, role) => {
   return update(ref(db), {
-    [`users/${username}/role`]: role,
+    [`users/${username}/role`]: role
   });
 };
 
 export const updateDescription = (username, description) => {
   return update(ref(db), {
-    [`users/${username}/userDescription`]: description,
+    [`users/${username}/userDescription`]: description
   });
 };

@@ -21,7 +21,7 @@ import {
   deletePost,
   editPostTitle,
   editPostContent,
-  commentPost,
+  commentPost
 } from '../../../services/posts.service';
 
 import Tooltip from '@mui/material/Tooltip';
@@ -37,7 +37,7 @@ const Item = styled(Paper)(({ theme }) => ({
   backgroundColor: theme.palette.mode === 'dark' ? '#1A2027' : '#fff',
   ...theme.typography.body2,
   padding: theme.spacing(1),
-  color: theme.palette.text.primary,
+  color: theme.palette.text.primary
 }));
 
 const TopicRow = ({ row }) => {
@@ -62,9 +62,7 @@ const TopicRow = ({ row }) => {
 
   useEffect(() => {
     if (elementRef.current.clientHeight) {
-      setHeight(
-        elementRef.current.clientHeight + headerRef.current.clientHeight + 26
-      );
+      setHeight(elementRef.current.clientHeight + headerRef.current.clientHeight + 26);
     }
   }, [open]);
 
@@ -96,28 +94,29 @@ const TopicRow = ({ row }) => {
     height: height,
     transition: 'height 0.15s ease-in',
     overflow: 'hidden',
-    width: '100%',
+    width: '100%'
   };
   const on_hide_styles = {
     height: height,
     transition: 'height 0.15s ease-out',
     overflow: 'hidden',
-    width: '100%',
+    width: '100%'
   };
 
   const dateFormatDate = (date) => {
-    let d = new Date(date);
+    const d = new Date(date);
     let month = '' + (d.getMonth() + 1);
     let day = '' + d.getDate();
-    let year = d.getFullYear();
+    const year = d.getFullYear();
 
     if (month.length < 2) month = '0' + month;
     if (day.length < 2) day = '0' + day;
 
     return [year, month, day].join('-');
   };
+
   const dateFormatHour = (date) => {
-    let d = new Date(date);
+    const d = new Date(date);
     let hours = d.getHours();
     let minutes = d.getMinutes();
 
@@ -142,12 +141,9 @@ const TopicRow = ({ row }) => {
       </div>
     );
 
-    const defaultView =
-      (row.likedBy?.length || 0) - (row.dislikedBy?.length || 0);
+    const defaultView = (row.likedBy?.length || 0) - (row.dislikedBy?.length || 0);
 
-    return !user || userData?.username === row.author
-      ? defaultView
-      : loggedView;
+    return !user || userData?.username === row.author ? defaultView : loggedView;
   };
 
   const handleDeletePost = () => {
@@ -157,18 +153,18 @@ const TopicRow = ({ row }) => {
       text: "You won't be able to revert this!",
       icon: 'warning',
       buttons: true,
-      dangerMode: true,
+      dangerMode: true
     }).then((willDelete) => {
       if (willDelete) {
         deletePost(row.id);
         swal('Post deleted!', {
           className: 'swal-green',
-          icon: 'success',
+          icon: 'success'
         });
       } else {
         swal('Your post is safe!', {
           className: 'swal-green',
-          icon: 'success',
+          icon: 'success'
         });
       }
     });
@@ -183,9 +179,9 @@ const TopicRow = ({ row }) => {
         attributes: {
           placeholder: 'Title',
           type: 'text',
-          value: row.title,
-        },
-      },
+          value: row.title
+        }
+      }
     }).then((title) => {
       if (title) {
         if (title === '' || title.length < 16 || title.length > 64) {
@@ -198,12 +194,12 @@ const TopicRow = ({ row }) => {
         } else {
           editPostTitle(row.id, title);
           swal('Post title edited!', {
-            icon: 'success',
+            icon: 'success'
           });
         }
       } else {
         swal('No changes were made to your post!', {
-          icon: 'warning',
+          icon: 'warning'
         });
       }
     });
@@ -219,9 +215,9 @@ const TopicRow = ({ row }) => {
         attributes: {
           placeholder: 'content',
           type: 'text',
-          value: row.content,
-        },
-      },
+          value: row.content
+        }
+      }
     }).then((content) => {
       if (content) {
         if (content === '' || content.length < 32 || content.length > 8192) {
@@ -234,12 +230,12 @@ const TopicRow = ({ row }) => {
         } else {
           editPostContent(row.id, content);
           swal('Post content edited!', {
-            icon: 'success',
+            icon: 'success'
           });
         }
       } else {
         swal('No changes were made to your post!', {
-          icon: 'warning',
+          icon: 'warning'
         });
       }
     });
@@ -253,9 +249,9 @@ const TopicRow = ({ row }) => {
         element: 'input',
         attributes: {
           placeholder: 'Type a comment to this post',
-          type: 'text',
-        },
-      },
+          type: 'text'
+        }
+      }
     }).then((comment) => {
       if (comment) {
         if (comment === '' || comment.length < 32 || comment.length > 8192) {
@@ -268,7 +264,7 @@ const TopicRow = ({ row }) => {
         } else {
           commentPost(row.id, comment, userData.username);
           swal('Comment posted!', {
-            icon: 'success',
+            icon: 'success'
           });
         }
       }
@@ -283,24 +279,15 @@ const TopicRow = ({ row }) => {
         return (
           <div className="iconsContainer">
             <Tooltip title="Edit this post's title" placement="right-end">
-              <EditIcon
-                onClick={() => handleEditTitle()}
-                className="editIcon"
-              />
+              <EditIcon onClick={() => handleEditTitle()} className="editIcon" />
             </Tooltip>
 
             <Tooltip title="Edit this post's content" placement="right-end">
-              <EditIcon
-                onClick={() => handleEditContent()}
-                className="editIcon"
-              />
+              <EditIcon onClick={() => handleEditContent()} className="editIcon" />
             </Tooltip>
 
             <Tooltip title="Delete this post" placement="right-end">
-              <DeleteForeverIcon
-                onClick={() => handleDeletePost()}
-                className="deleteIcon"
-              />
+              <DeleteForeverIcon onClick={() => handleDeletePost()} className="deleteIcon" />
             </Tooltip>
           </div>
         );
@@ -308,30 +295,18 @@ const TopicRow = ({ row }) => {
         return (
           <div className="iconsContainer">
             <Tooltip title="Edit this post's title" placement="right-end">
-              <EditIcon
-                onClick={() => handleEditTitle()}
-                className="editIcon"
-              />
+              <EditIcon onClick={() => handleEditTitle()} className="editIcon" />
             </Tooltip>
 
             <Tooltip title="Edit this post's content" placement="right-end">
-              <EditIcon
-                onClick={() => handleEditContent()}
-                className="editIcon"
-              />
+              <EditIcon onClick={() => handleEditContent()} className="editIcon" />
             </Tooltip>
             <Tooltip title="Reply to this post" placement="right-end">
-              <ReplyIcon
-                onClick={() => handleComment()}
-                className="replyIcon"
-              />
+              <ReplyIcon onClick={() => handleComment()} className="replyIcon" />
             </Tooltip>
 
             <Tooltip title="Delete this post" placement="right-end">
-              <DeleteForeverIcon
-                onClick={() => handleDeletePost()}
-                className="deleteIcon"
-              />
+              <DeleteForeverIcon onClick={() => handleDeletePost()} className="deleteIcon" />
             </Tooltip>
           </div>
         );
@@ -344,10 +319,7 @@ const TopicRow = ({ row }) => {
           </Tooltip>
 
           <Tooltip title="Delete this post" placement="right-end">
-            <DeleteForeverIcon
-              onClick={() => handleDeletePost()}
-              className="deleteIcon"
-            />
+            <DeleteForeverIcon onClick={() => handleDeletePost()} className="deleteIcon" />
           </Tooltip>
         </div>
       );
@@ -358,10 +330,7 @@ const TopicRow = ({ row }) => {
         return (
           <div className="iconsContainer">
             <Tooltip title="Reply to this post" placement="right-end">
-              <ReplyIcon
-                onClick={() => handleComment()}
-                className="replyIcon"
-              />
+              <ReplyIcon onClick={() => handleComment()} className="replyIcon" />
             </Tooltip>
           </div>
         );
@@ -378,8 +347,7 @@ const TopicRow = ({ row }) => {
               container
               direction="row"
               onClick={() => setOpen(!open)}
-              className="rowHeaderStyle"
-            >
+              className="rowHeaderStyle">
               <h2 ref={headerRef}> {row.title} </h2>
               <KeyboardArrowDownIcon
                 className={open ? 'arrowTriggered' : 'arrowTrigger'}
@@ -395,9 +363,8 @@ const TopicRow = ({ row }) => {
                   display: 'flex',
                   flexDirection: 'column',
                   justifyContent: 'flex-start',
-                  alignItems: 'flex-end',
-                }}
-              >
+                  alignItems: 'flex-end'
+                }}>
                 <h2 style={{ color: '#FFBD33' }}>Rating</h2>
 
                 <div>{ratingButtons()}</div>
@@ -410,9 +377,8 @@ const TopicRow = ({ row }) => {
                   display: 'flex',
                   flexDirection: 'column',
                   justifyContent: 'flex-start',
-                  alignItems: 'flex-end',
-                }}
-              >
+                  alignItems: 'flex-end'
+                }}>
                 <h2 style={{ color: '#00aeff' }}>Replies</h2>
 
                 {row.comments.length || '0'}
@@ -425,9 +391,8 @@ const TopicRow = ({ row }) => {
                   display: 'flex',
                   flexDirection: 'column',
                   justifyContent: 'flex-start',
-                  alignItems: 'center',
-                }}
-              >
+                  alignItems: 'center'
+                }}>
                 <h2 style={{ color: '#47DB00' }}>Author</h2>
 
                 <div
@@ -439,22 +404,17 @@ const TopicRow = ({ row }) => {
                         icon: `${resp.val().avatarUrl ?? avatar}`,
                         closeOnEsc: true,
                         button: 'View details',
-                        closeOnClickOutside: true,
+                        closeOnClickOutside: true
                       }).then((res) => {
                         if (res) {
                           navigate(`/profile/${postedBy.username}`);
                         }
                       });
                     });
-                  }}
-                >
+                  }}>
                   {postedBy?.avatarUrl ? (
                     <Avatar sx={{ width: 48, height: 48 }}>
-                      <img
-                        src={postedBy.avatarUrl}
-                        className="profilePic"
-                        alt="profile"
-                      />
+                      <img src={postedBy.avatarUrl} className="profilePic" alt="profile" />
                     </Avatar>
                   ) : (
                     <Avatar sx={{ width: 48, height: 48 }}>
@@ -472,9 +432,8 @@ const TopicRow = ({ row }) => {
                   display: 'flex',
                   flexDirection: 'column',
                   justifyContent: 'flex-start',
-                  alignItems: 'center',
-                }}
-              >
+                  alignItems: 'center'
+                }}>
                 <h2>Date</h2>
 
                 <div>{dateFormatDate(row.createdOn)}</div>
@@ -488,10 +447,9 @@ const TopicRow = ({ row }) => {
                   display: 'flex',
                   justifyContent: 'flex-start',
                   alignItems: 'flex-start',
-                  fontSize: '16px',
+                  fontSize: '16px'
                 }}
-                ref={elementRef}
-              >
+                ref={elementRef}>
                 {innerContent}
               </Grid>
             </Grid>
@@ -508,12 +466,9 @@ const TopicRow = ({ row }) => {
             justifyContent="stretch"
             alignItems="flex-end"
             alignContent="flex-end"
-            sx={{ marginBottom: '10px' }}
-          >
+            sx={{ marginBottom: '10px' }}>
             {row.comments.map((comment, index) => {
-              return (
-                <CommentRow key={index} postId={row.id} commentId={comment} />
-              );
+              return <CommentRow key={index} postId={row.id} commentId={comment} />;
             })}
           </Grid>
         ) : null

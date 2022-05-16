@@ -21,9 +21,8 @@ const Profile = ({ name, img, age, location, town, ins, fb, linked }) => {
         backgroundColor: 'white',
         boxShadow: '0 1px 6px rgba(0,0,0,0.2)',
         paddingBottom: '16px',
-        paddingTop: '16px',
-      }}
-    >
+        paddingTop: '16px'
+      }}>
       <Grid container spacing={2} direction="column">
         <Grid item sx={{ textAlign: 'center' }}>
           <img
@@ -40,8 +39,7 @@ const Profile = ({ name, img, age, location, town, ins, fb, linked }) => {
               href="https://www.telerikacademy.com/"
               target="_blank"
               rel="noreferrer"
-              style={{ textDecoration: 'none' }}
-            >
+              style={{ textDecoration: 'none' }}>
               <SchoolIcon sx={{ color: '#47DB00', fontSize: 'medium' }} />{' '}
             </a>
             Telerik Academy student
@@ -54,12 +52,7 @@ const Profile = ({ name, img, age, location, town, ins, fb, linked }) => {
           <p>{age} years old</p>
         </Grid>
         <Grid item sx={{ textAlign: 'center' }}>
-          <a
-            href={location}
-            target="_blank"
-            rel="noreferrer"
-            style={{ textDecoration: 'none' }}
-          >
+          <a href={location} target="_blank" rel="noreferrer" style={{ textDecoration: 'none' }}>
             <LocationOnIcon /> {town}, Bulgaria
           </a>
         </Grid>

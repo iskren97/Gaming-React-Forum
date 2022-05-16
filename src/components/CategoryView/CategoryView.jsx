@@ -62,8 +62,7 @@ const CategoryView = ({ topic, img }) => {
               <Button
                 onClick={() => setPostModal(!postModal)}
                 variant="contained"
-                style={{ borderRadius: '2em' }}
-              >
+                style={{ borderRadius: '2em' }}>
                 Create a Post
               </Button>
             ) : null}
@@ -98,9 +97,8 @@ const CategoryView = ({ topic, img }) => {
             boxShadow: '0 1px 6px rgba(0,0,0,0.2)',
             marginTop: '2rem',
             marginBottom: '2rem',
-            paddingBottom: '1rem',
-          }}
-        >
+            paddingBottom: '1rem'
+          }}>
           <Grid container direction="column">
             <Grid item xs={12}>
               <h1>
@@ -131,8 +129,7 @@ const CategoryView = ({ topic, img }) => {
                     <Button
                       onClick={() => setPostModal(!postModal)}
                       variant="contained"
-                      style={{ borderRadius: '2em' }}
-                    >
+                      style={{ borderRadius: '2em' }}>
                       Create a Post
                     </Button>
                   ) : (

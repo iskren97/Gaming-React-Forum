@@ -24,13 +24,9 @@ import {
   getAllPosts,
   getCommentsFromUser,
   getPostById,
-  getCommentById,
+  getCommentById
 } from '../../services/posts.service';
-import {
-  getUserData,
-  getUserByHandle,
-  updateUserRole,
-} from '../../services/users.service';
+import { getUserData, getUserByHandle, updateUserRole } from '../../services/users.service';
 import { useParams } from 'react-router-dom';
 import UploadCover from './UploadCover';
 import UploadProfile from './UploadProfile';
@@ -53,6 +49,7 @@ const ProfilePage = () => {
         setUserProfile(res.val());
       });
     } else {
+      // eslint-disable-next-line no-shadow
       getUserData(userData?.uid).then((user) => {
         if (userProfile === '') {
           setUserProfile(user.val()[Object.keys(user.val())[0]]);
@@ -78,9 +75,7 @@ const ProfilePage = () => {
 
     const getLikedByUser = () => {
       return getAllPosts().then((posts) => {
-        return posts.filter((post) =>
-          post.likedBy.includes(userProfile.username)
-        );
+        return posts.filter((post) => post.likedBy.includes(userProfile.username));
       });
     };
 
@@ -98,7 +93,8 @@ const ProfilePage = () => {
     getUsersComments().then((data) => {
       const filtered = [];
 
-      for (let post in data) {
+      for (const post in data) {
+        // eslint-disable-next-line no-shadow
         getPostById(post).then((data) => {
           const currentPost = { ...data };
 
@@ -119,9 +115,7 @@ const ProfilePage = () => {
     });
   }, [userProfile.username]);
 
-  const [isUserBlocked, setIsUserBlocked] = useState(
-    userProfile.role === 'blocked'
-  );
+  const [isUserBlocked, setIsUserBlocked] = useState(userProfile.role === 'blocked');
 
   const handleBlockUser = () => {
     if (isUserBlocked) {
@@ -143,12 +137,12 @@ const ProfilePage = () => {
           placeholder: 'Shortly describe yourself',
           type: 'text',
           maxLength: 75,
-          closeModal: true,
-        },
+          closeModal: true
+        }
       },
       button: {
-        text: 'Submit',
-      },
+        text: 'Submit'
+      }
     }).then((description) => {
       if (!description) {
         return;
@@ -159,8 +153,8 @@ const ProfilePage = () => {
           user,
           userData: {
             ...userData,
-            userDescription: description,
-          },
+            userDescription: description
+          }
         });
       });
     });
@@ -183,9 +177,8 @@ const ProfilePage = () => {
             boxShadow: '0 1px 6px rgba(0,0,0,0.2)',
             marginTop: '50px',
             marginBottom: '50px',
-            padding: '55px',
-          }}
-        >
+            padding: '55px'
+          }}>
           <Grid
             container
             direction="column"
@@ -195,16 +188,14 @@ const ProfilePage = () => {
               color: 'white',
               backgroundImage: `url(${nvidia})`,
               backgroundRepeat: 'no-repeat',
-              backgroundColor: 'black',
-            }}
-          >
+              backgroundColor: 'black'
+            }}>
             <h1
               style={{
                 fontWeight: 500,
                 textTransform: 'uppercase',
-                fontSize: '35px',
-              }}
-            >
+                fontSize: '35px'
+              }}>
               User Profile
             </h1>
 
@@ -213,16 +204,14 @@ const ProfilePage = () => {
                 container
                 direction="row"
                 sx={{
-                  alignItems: 'center',
-                }}
-              >
+                  alignItems: 'center'
+                }}>
                 <Grid
                   item
                   xs={7}
                   sx={{
-                    textAlign: 'left',
-                  }}
-                >
+                    textAlign: 'left'
+                  }}>
                   <h2 style={{ color: '#00ff40' }}>Personal Information</h2>
                   <br />
 
@@ -233,17 +222,9 @@ const ProfilePage = () => {
 
                 <Grid item xs={5} sx={{ textAlign: 'right' }}>
                   {userProfile.avatarUrl ? (
-                    <img
-                      className="avatar"
-                      src={userProfile.avatarUrl}
-                      alt="profile"
-                    />
+                    <img className="avatar" src={userProfile.avatarUrl} alt="profile" />
                   ) : (
-                    <img
-                      className="avatar"
-                      src={defaultAvatar}
-                      alt="profile"
-                    ></img>
+                    <img className="avatar" src={defaultAvatar} alt="profile"></img>
                   )}
                 </Grid>
               </Grid>
@@ -256,15 +237,10 @@ const ProfilePage = () => {
                 {userProfile.username}{' '}
                 {userData?.role === 'admin' && userProfile.role !== 'admin' ? (
                   <Tooltip
-                    title={
-                      isUserBlocked ? 'Unblock this user' : 'Block this user'
-                    }
-                    placement="bottom"
-                  >
+                    title={isUserBlocked ? 'Unblock this user' : 'Block this user'}
+                    placement="bottom">
                     <BlockIcon
-                      className={
-                        isUserBlocked ? 'blockedUserButton' : 'blockButton'
-                      }
+                      className={isUserBlocked ? 'blockedUserButton' : 'blockButton'}
                       onClick={() => handleBlockUser()}
                     />
                   </Tooltip>
@@ -296,9 +272,8 @@ const ProfilePage = () => {
             sx={{
               display: 'flex',
               justifyContent: 'center',
-              flexDirection: 'column',
-            }}
-          >
+              flexDirection: 'column'
+            }}>
             <h1>{isProfileOwner ? 'My Posts:' : 'Posts'}</h1>
 
             {userPosts.length !== 0 ? (
@@ -308,19 +283,15 @@ const ProfilePage = () => {
                   display: 'flex',
                   flexDirection: 'column',
                   width: '100%',
-                  alignItems: 'stretch',
-                }}
-              >
+                  alignItems: 'stretch'
+                }}>
                 {userPosts.map((post) => (
                   <TopicRow key={post.id} row={post} />
                 ))}
               </Grid>
             ) : (
               <div>
-                <h3>
-                  {' '}
-                  {isProfileOwner ? 'You have no posts yet' : 'No posts yet.'}
-                </h3>
+                <h3> {isProfileOwner ? 'You have no posts yet' : 'No posts yet.'}</h3>
               </div>
             )}
 
@@ -332,19 +303,15 @@ const ProfilePage = () => {
                   display: 'flex',
                   flexDirection: 'column',
                   width: '100%',
-                  alignItems: 'stretch',
-                }}
-              >
+                  alignItems: 'stretch'
+                }}>
                 {likedPosts.map((post) => (
                   <TopicRow key={post.id} row={post} />
                 ))}
               </Grid>
             ) : (
               <div>
-                <h3>
-                  {' '}
-                  {isProfileOwner ? 'You have no likes yet' : 'No likes yet.'}
-                </h3>
+                <h3> {isProfileOwner ? 'You have no likes yet' : 'No likes yet.'}</h3>
               </div>
             )}
 
@@ -356,21 +323,15 @@ const ProfilePage = () => {
                   display: 'flex',
                   flexDirection: 'column',
                   width: '100%',
-                  alignItems: 'stretch',
-                }}
-              >
+                  alignItems: 'stretch'
+                }}>
                 {commentsOnPosts?.map((post) => (
                   <TopicRow key={post.id} row={post} />
                 ))}
               </Grid>
             ) : (
               <div>
-                <h3>
-                  {' '}
-                  {isProfileOwner
-                    ? 'You have no comments yet'
-                    : 'No comments yet.'}{' '}
-                </h3>
+                <h3> {isProfileOwner ? 'You have no comments yet' : 'No comments yet.'} </h3>
               </div>
             )}
           </Grid>

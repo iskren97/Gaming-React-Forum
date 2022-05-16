@@ -10,14 +10,11 @@ import controversialOpinion from './achievementLogos/controversialOpinion.png';
 import loveGiver from './achievementLogos/loveGiver.jpg';
 import mrFamous from './achievementLogos/mrFamous.jpg';
 
-import {
-  getAllPosts,
-  getCommentsFromUser,
-} from '../../../services/posts.service';
+import { getAllPosts, getCommentsFromUser } from '../../../services/posts.service';
 
 import './Achievements.css';
 
-function Achievements({ user }) {
+const Achievements = ({ user }) => {
   const [userStats, setUserStats] = useState({});
   const [userScore, setUserScore] = useState(0);
   const [userAchievements, setUserAchievements] = useState(null);
@@ -25,9 +22,7 @@ function Achievements({ user }) {
 
   const getUserStats = async () => {
     const posts = await getAllPosts();
-    const comments = await getCommentsFromUser(user?.username).then((res) =>
-      res.val()
-    );
+    const comments = await getCommentsFromUser(user?.username).then((res) => res.val());
     const likedPosts = posts.reduce((acc, post) => {
       if (post.likedBy.includes(user?.username)) {
         acc++;
@@ -77,17 +72,17 @@ function Achievements({ user }) {
       return acc;
     }, 0);
 
-    const userStats = {
+    const stats = {
       likedPosts,
       dislikedPosts,
       numberOfPosts,
       commentsOnPosts,
       likesOnPosts,
       dislikesOnPosts,
-      commentsOnMyPosts,
+      commentsOnMyPosts
     };
 
-    return userStats;
+    return stats;
   };
 
   getUserStats().then((stats) => {
@@ -101,65 +96,65 @@ function Achievements({ user }) {
         stats.commentsOnMyPosts * 5
     );
 
-    const userAchievements = {
+    const achivs = {
       bigMouth: 'Locked',
       conversationStarter: 'Locked',
       controversialOpinion: 'Locked',
       loveGiver: 'Locked',
-      mrFamous: 'Locked',
+      mrFamous: 'Locked'
     };
 
     if (stats.numberOfPosts >= 10) {
-      userAchievements.conversationStarter = 'Uncommon';
+      achivs.conversationStarter = 'Uncommon';
     } else if (stats.numberOfPosts >= 50) {
-      userAchievements.conversationStarter = 'Rare';
+      achivs.conversationStarter = 'Rare';
     } else if (stats.numberOfPosts >= 100) {
-      userAchievements.conversationStarter = 'Epic';
+      achivs.conversationStarter = 'Epic';
     } else if (stats.numberOfPosts >= 250) {
-      userAchievements.conversationStarter = 'Legendary';
+      achivs.conversationStarter = 'Legendary';
     }
 
     if (stats.likedPosts >= 10) {
-      userAchievements.loveGiver = 'Uncommon';
+      achivs.loveGiver = 'Uncommon';
     } else if (stats.likedPosts >= 50) {
-      userAchievements.loveGiver = 'Rare';
+      achivs.loveGiver = 'Rare';
     } else if (stats.likedPosts >= 100) {
-      userAchievements.loveGiver = 'Epic';
+      achivs.loveGiver = 'Epic';
     } else if (stats.likedPosts >= 250) {
-      userAchievements.loveGiver = 'Legendary';
+      achivs.loveGiver = 'Legendary';
     }
 
     if (stats.commentsOnPosts >= 10) {
-      userAchievements.bigMouth = 'Uncommon';
+      achivs.bigMouth = 'Uncommon';
     } else if (stats.commentsOnPosts >= 50) {
-      userAchievements.bigMouth = 'Rare';
+      achivs.bigMouth = 'Rare';
     } else if (stats.commentsOnPosts >= 100) {
-      userAchievements.bigMouth = 'Epic';
+      achivs.bigMouth = 'Epic';
     } else if (stats.commentsOnPosts >= 250) {
-      userAchievements.bigMouth = 'Legendary';
+      achivs.bigMouth = 'Legendary';
     }
 
     if (stats.likesOnPosts >= 10) {
-      userAchievements.mrFamous = 'Uncommon';
+      achivs.mrFamous = 'Uncommon';
     } else if (stats.likesOnPosts >= 50) {
-      userAchievements.mrFamous = 'Rare';
+      achivs.mrFamous = 'Rare';
     } else if (stats.likesOnPosts >= 100) {
-      userAchievements.mrFamous = 'Epic';
+      achivs.mrFamous = 'Epic';
     } else if (stats.likesOnPosts >= 250) {
-      userAchievements.mrFamous = 'Legendary';
+      achivs.mrFamous = 'Legendary';
     }
 
     if (stats.commentsOnMyPosts >= 10) {
-      userAchievements.controversialOpinion = 'Uncommon';
+      achivs.controversialOpinion = 'Uncommon';
     } else if (stats.commentsOnMyPosts >= 50) {
-      userAchievements.controversialOpinion = 'Rare';
+      achivs.controversialOpinion = 'Rare';
     } else if (stats.commentsOnMyPosts >= 100) {
-      userAchievements.controversialOpinion = 'Epic';
+      achivs.controversialOpinion = 'Epic';
     } else if (stats.commentsOnMyPosts >= 250) {
-      userAchievements.controversialOpinion = 'Legendary';
+      achivs.controversialOpinion = 'Legendary';
     }
 
-    setUserAchievements(userAchievements);
+    setUserAchievements(achivs);
   });
 
   const setUsersRank = (level) => {
@@ -192,7 +187,7 @@ function Achievements({ user }) {
     marginTop: '3rem',
     marginBottom: '3rem',
     marginLeft: '0.5rem',
-    marginRight: '0.5rem',
+    marginRight: '0.5rem'
   };
 
   const fillerStyles = {
@@ -201,13 +196,13 @@ function Achievements({ user }) {
     backgroundColor: 'rgb(0, 255, 64)',
     borderRadius: 'inherit',
     textAlign: 'right',
-    transition: 'all 0.75s ease',
+    transition: 'all 0.75s ease'
   };
 
   const labelStyles = {
     padding: 5,
     color: 'black',
-    fontWeight: 'bold',
+    fontWeight: 'bold'
   };
 
   return (
@@ -228,8 +223,7 @@ function Achievements({ user }) {
                 Every 30 points grant 1 level
               </div>
             }
-            placement="right-end"
-          >
+            placement="right-end">
             <InfoOutlinedIcon fontSize="small" />
           </Tooltip>
         </h2>
@@ -239,8 +233,8 @@ function Achievements({ user }) {
           <Tooltip
             title={
               <div>
-                Total score - the sum of all of the interactions with other
-                users. The score is calculated by the following principle:
+                Total score - the sum of all of the interactions with other users. The score is
+                calculated by the following principle:
                 <br />
                 - 1 Like - +1 point <br />
                 - 1 Comment - +4 points <br />
@@ -254,8 +248,7 @@ function Achievements({ user }) {
                 <br />- 1 Comment on your post - +5 points
               </div>
             }
-            placement="right-end"
-          >
+            placement="right-end">
             <InfoOutlinedIcon fontSize="small" />
           </Tooltip>
         </h2>
@@ -285,8 +278,7 @@ function Achievements({ user }) {
                 Admin - Game Master
               </div>
             }
-            placement="right-end"
-          >
+            placement="right-end">
             <InfoOutlinedIcon fontSize="small" />
           </Tooltip>
         </h2>
@@ -295,16 +287,12 @@ function Achievements({ user }) {
           style={{
             display: 'flex',
             flexDirection: 'row',
-            alignItems: 'center',
-          }}
-        >
+            alignItems: 'center'
+          }}>
           <h3>Level {Math.floor(userScore / 30)} </h3>
           <div style={containerStyles}>
             <div style={fillerStyles}>
-              <span style={labelStyles}>{`${(
-                ((userScore % 30) / 30) *
-                100
-              ).toFixed(2)}%`}</span>
+              <span style={labelStyles}>{`${(((userScore % 30) / 30) * 100).toFixed(2)}%`}</span>
             </div>
           </div>
 
@@ -362,13 +350,8 @@ function Achievements({ user }) {
                   Legendary: 250 comments on posts <br />
                 </div>
               }
-              placement="bottom"
-            >
-              <div
-                className={
-                  'hexagonBackground' + ' ' + userAchievements?.bigMouth
-                }
-              >
+              placement="bottom">
+              <div className={'hexagonBackground' + ' ' + userAchievements?.bigMouth}>
                 <div className="hexagon">
                   <img src={bigMouthAchievement} alt="achievement1" />
                 </div>
@@ -380,30 +363,17 @@ function Achievements({ user }) {
             <Tooltip
               title={
                 <div>
-                  <h3>
-                    {userAchievements?.conversationStarter} Conversation Starter
-                  </h3>{' '}
-                  <br />
+                  <h3>{userAchievements?.conversationStarter} Conversation Starter</h3> <br />
                   Uncommon: 10 posts <br />
                   Rare: 50 posts <br />
                   Epic: 100 posts <br />
                   Legendary: 250 posts <br />
                 </div>
               }
-              placement="bottom"
-            >
-              <div
-                className={
-                  'hexagonBackground' +
-                  ' ' +
-                  userAchievements?.conversationStarter
-                }
-              >
+              placement="bottom">
+              <div className={'hexagonBackground' + ' ' + userAchievements?.conversationStarter}>
                 <div className="hexagon">
-                  <img
-                    src={conversationStarterAchievement}
-                    alt="achievement1"
-                  />
+                  <img src={conversationStarterAchievement} alt="achievement1" />
                 </div>
               </div>
             </Tooltip>
@@ -413,26 +383,15 @@ function Achievements({ user }) {
             <Tooltip
               title={
                 <div>
-                  <h3>
-                    {userAchievements?.controversialOpinion} Controversial
-                    Opinion
-                  </h3>{' '}
-                  <br />
+                  <h3>{userAchievements?.controversialOpinion} Controversial Opinion</h3> <br />
                   Uncommon: 10 comments on users posts <br />
                   Rare: 50 comments on users posts <br />
                   Epic: 100 comments on users posts <br />
                   Legendary: 250 comments on users posts <br />
                 </div>
               }
-              placement="bottom"
-            >
-              <div
-                className={
-                  'hexagonBackground' +
-                  ' ' +
-                  userAchievements?.controversialOpinion
-                }
-              >
+              placement="bottom">
+              <div className={'hexagonBackground' + ' ' + userAchievements?.controversialOpinion}>
                 <div className="hexagon">
                   <img src={controversialOpinion} alt="achievement1" />
                 </div>
@@ -451,13 +410,8 @@ function Achievements({ user }) {
                   Legendary: 250 Liked posts <br />
                 </div>
               }
-              placement="bottom"
-            >
-              <div
-                className={
-                  'hexagonBackground' + ' ' + userAchievements?.loveGiver
-                }
-              >
+              placement="bottom">
+              <div className={'hexagonBackground' + ' ' + userAchievements?.loveGiver}>
                 <div className="hexagon">
                   <img src={loveGiver} alt="achievement1" />
                 </div>
@@ -476,13 +430,8 @@ function Achievements({ user }) {
                   Legendary: 250 Likes on users posts <br />
                 </div>
               }
-              placement="bottom"
-            >
-              <div
-                className={
-                  'hexagonBackground' + ' ' + userAchievements?.mrFamous
-                }
-              >
+              placement="bottom">
+              <div className={'hexagonBackground' + ' ' + userAchievements?.mrFamous}>
                 <div className="hexagon">
                   <img src={mrFamous} alt="achievement1" />
                 </div>
@@ -493,6 +442,6 @@ function Achievements({ user }) {
       </div>
     </>
   );
-}
+};
 
 export default Achievements;

@@ -12,7 +12,7 @@ import { addPost } from '../../../services/posts.service';
 
 import swal from 'sweetalert';
 
-function TopicPostModal({ onClose, category, postModal, setPostModal }) {
+const TopicPostModal = ({ onClose, category, postModal, setPostModal }) => {
   const handleClose = () => {
     setPostModal(false);
   };
@@ -21,11 +21,11 @@ function TopicPostModal({ onClose, category, postModal, setPostModal }) {
   const [title, setTitle] = useState('');
 
   const {
-    userData: { username },
+    userData: { username }
   } = useContext(AppContext);
 
-  const handleValidation = (title, content) => {
-    if (title === '' || title.length < 16 || title.length > 64) {
+  const handleValidation = (titleStr, contentStr) => {
+    if (titleStr === '' || titleStr.length < 16 || titleStr.length > 64) {
       swal(
         'Something went wrong...',
         'Post title must be between 16 and 64 characters long!',
@@ -33,7 +33,7 @@ function TopicPostModal({ onClose, category, postModal, setPostModal }) {
       );
       return false;
     }
-    if (content === '' || content.length < 32 || content.length > 8192) {
+    if (contentStr === '' || contentStr.length < 32 || contentStr.length > 8192) {
       swal(
         'Something went wrong...',
         'Post content must be between 32 and 8192 characters long!',
@@ -58,8 +58,7 @@ function TopicPostModal({ onClose, category, postModal, setPostModal }) {
       open={postModal}
       onClose={handleClose}
       aria-labelledby="modal-modal-title"
-      aria-describedby="modal-modal-description"
-    >
+      aria-describedby="modal-modal-description">
       <Box className="post-modal">
         <form className="post-form">
           <div style={{ display: 'flex', justifyContent: 'space-between' }}>
@@ -72,19 +71,14 @@ function TopicPostModal({ onClose, category, postModal, setPostModal }) {
                 fontSize: '27px',
                 fontWeight: 'bold',
                 cursor: 'pointer',
-                float: 'right',
+                float: 'right'
               }}
-              onClick={() => handleClose()}
-            >
+              onClick={() => handleClose()}>
               X
             </button>
           </div>
 
-          <input
-            maxLength="55"
-            type="text"
-            onChange={(e) => setTitle(e.target.value)}
-          />
+          <input maxLength="55" type="text" onChange={(e) => setTitle(e.target.value)} />
 
           <h3>Content</h3>
           <textarea
@@ -92,20 +86,18 @@ function TopicPostModal({ onClose, category, postModal, setPostModal }) {
             name="content"
             rows="5"
             style={{ resize: 'none' }}
-            onChange={(e) => setContent(e.target.value)}
-          ></textarea>
+            onChange={(e) => setContent(e.target.value)}></textarea>
 
           <Button
             onClick={() => createPost()}
             variant="contained"
-            style={{ background: '#47DB00' }}
-          >
+            style={{ background: '#47DB00' }}>
             Post
           </Button>
         </form>
       </Box>
     </Modal>
   );
-}
+};
 
 export default TopicPostModal;

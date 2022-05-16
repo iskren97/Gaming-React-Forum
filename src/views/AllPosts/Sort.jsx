@@ -8,7 +8,7 @@ const useSortableData = (items, config = null) => {
   const [sortConfig, setSortConfig] = useState(config);
 
   const sortedItems = useMemo(() => {
-    let sortableItems = [...items];
+    const sortableItems = [...items];
 
     if (sortConfig !== null) {
       sortableItems.sort((a, b) => {
@@ -28,11 +28,7 @@ const useSortableData = (items, config = null) => {
   const requestSort = (key) => {
     let direction = 'ascending';
 
-    if (
-      sortConfig &&
-      sortConfig.key === key &&
-      sortConfig.direction === 'ascending'
-    ) {
+    if (sortConfig && sortConfig.key === key && sortConfig.direction === 'ascending') {
       direction = 'descending';
     }
 
@@ -62,8 +58,7 @@ const Sort = (props) => {
               type="button"
               onClick={() => requestSort('title')}
               className={getClassNamesFor('title')}
-              style={{ backgroundColor: 'rgba(100, 200, 200, 1)' }}
-            >
+              style={{ backgroundColor: 'rgba(100, 200, 200, 1)' }}>
               Title
             </button>
           </th>
@@ -74,8 +69,7 @@ const Sort = (props) => {
             <button
               type="button"
               onClick={() => requestSort('createdOn')}
-              className={getClassNamesFor('createdOn')}
-            >
+              className={getClassNamesFor('createdOn')}>
               Date
             </button>
           </th>
@@ -87,8 +81,7 @@ const Sort = (props) => {
               type="button"
               onClick={() => requestSort('author')}
               className={getClassNamesFor('author')}
-              style={{ backgroundColor: '#47DB00' }}
-            >
+              style={{ backgroundColor: '#47DB00' }}>
               Author
             </button>
           </th>
@@ -100,8 +93,7 @@ const Sort = (props) => {
               type="button"
               onClick={() => requestSort('repliesCount')}
               className={getClassNamesFor('repliesCount')}
-              style={{ backgroundColor: 'rgb(0, 174, 255)' }}
-            >
+              style={{ backgroundColor: 'rgb(0, 174, 255)' }}>
               Replies
             </button>
           </th>
@@ -113,8 +105,7 @@ const Sort = (props) => {
               type="button"
               onClick={() => requestSort('rating')}
               className={getClassNamesFor('rating')}
-              style={{ backgroundColor: '#FFBD33' }}
-            >
+              style={{ backgroundColor: '#FFBD33' }}>
               Rating
             </button>
           </th>
@@ -126,8 +117,7 @@ const Sort = (props) => {
           <td>
             <Grid container direction="column" spacing={2}>
               {items.map((post) => {
-                post.rating =
-                  (post.likedBy?.length || 0) - (post.dislikedBy?.length || 0);
+                post.rating = (post.likedBy?.length || 0) - (post.dislikedBy?.length || 0);
 
                 post.repliesCount = post.comments.length;
 

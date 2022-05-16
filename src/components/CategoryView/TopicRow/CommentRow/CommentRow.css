@@ -1,9 +1,8 @@
-.usernameAndPicContainer{
-  display:flex;
+.usernameAndPicContainer {
+  display: flex;
   flex-direction: row;
   align-items: center;
 }
-
 
 .thumbDownIcon {
   transition: all 0.25s ease;
@@ -33,17 +32,13 @@
   transition: all 0.25s ease;
 }
 
-
-.rating-button{
-  display:flex;
+.rating-button {
+  display: flex;
   flex-direction: row;
 }
 
-
-.commentRowContainer{
+.commentRowContainer {
   display: flex;
   align-items: flex-start;
   flex-direction: row;
-
 }
-

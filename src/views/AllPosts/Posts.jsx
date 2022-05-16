@@ -32,24 +32,21 @@ const Posts = () => {
             boxShadow: '0 1px 6px rgba(0,0,0,0.2)',
             marginTop: '50px',
             marginBottom: '50px',
-            paddingBottom: '55px',
-          }}
-        >
+            paddingBottom: '55px'
+          }}>
           <Grid
             container
             direction="row"
             spacing={50}
-            style={{ alignItems: 'center', textAlign: 'center' }}
-          >
+            style={{ alignItems: 'center', textAlign: 'center' }}>
             <Grid item xs={6}>
               <h1
                 style={{
                   textAlign: 'center',
                   fontWeight: '500',
                   textTransform: 'uppercase',
-                  fontSize: '33px',
-                }}
-              >
+                  fontSize: '33px'
+                }}>
                 Forum Posts
               </h1>
             </Grid>
