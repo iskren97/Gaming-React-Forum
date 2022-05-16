@@ -4,7 +4,11 @@ import { useState, useEffect, useContext } from 'react'
 import { Divider, Tooltip } from '@mui/material';
 import InfoOutlinedIcon from '@mui/icons-material/InfoOutlined';
 import AppContext from '../../../providers/AppContext';
-
+import bigMouthAchievement from './achievementLogos/BigMouth.jpg';
+import conversationStarterAchievement from './achievementLogos/conversationStarter.jpg';
+import controversialOpinion from './achievementLogos/controversialOpinion.png';
+import loveGiver from './achievementLogos/loveGiver.jpg';
+import mrFamous from './achievementLogos/mrFamous.jpg';
 
 import {
   getAllPosts,
@@ -19,6 +23,7 @@ function Achievements({user}) {
 
   const [ userStats, setUserStats ] = useState({})
   const [ userScore, setUserScore ] = useState(0)
+  const [ userAchievements, setUserAchievements ] = useState(null)
   const { userData, setContext } = useContext(AppContext);
 
 
@@ -28,16 +33,16 @@ function Achievements({user}) {
   
   const getUserStats = async () => {
     const posts = await getAllPosts()
-    const comments = await getCommentsFromUser(user.username).then(res => res.val())
+    const comments = await getCommentsFromUser(user?.username).then(res => res.val())
     const likedPosts = posts.reduce((acc, post) => {
 
-      if (post.likedBy.includes(user.username)){
+      if (post.likedBy.includes(user?.username)){
         acc++
       }
       return acc 
     }, 0)
     const dislikedPosts = posts.reduce((acc, post) => {
-      if(post.dislikedBy.includes(user.username)){
+      if(post.dislikedBy.includes(user?.username)){
         acc++
       }
       return acc
@@ -45,14 +50,14 @@ function Achievements({user}) {
     , 0)
 
     const numberOfPosts = posts.reduce((acc,post) =>{
-      if(post.author === user.username) acc++
+      if(post.author === user?.username) acc++
       return acc
     }, 0 )
 
     const commentsOnPosts = comments ? Object.keys(comments).length : 0
  
     const likesOnPosts = posts.reduce((acc, post) => {
-      if(post.author === user.username){
+      if(post.author === user?.username){
         if(post.likedBy){
         acc += Object.keys(post.likedBy).length
 
@@ -65,7 +70,7 @@ function Achievements({user}) {
 
     
     const dislikesOnPosts = posts.reduce((acc, post) => {
-      if(post.author === user.username){
+      if(post.author === user?.username){
         if(post.dislikedBy){
         acc += Object.keys(post.dislikedBy).length
 
@@ -78,7 +83,7 @@ function Achievements({user}) {
 
   
     const commentsOnMyPosts = posts.reduce((acc, post) => {
-      if(post.author === user.username){
+      if(post.author === user?.username){
         if(post.comments){
         acc += Object.keys(post.comments).length
 
@@ -98,15 +103,76 @@ function Achievements({user}) {
     }
 
     return userStats
-
-
 }
+
 
 
 
   getUserStats().then(stats => {
     setUserStats(stats)
     setUserScore(stats.likedPosts + (stats.numberOfPosts * 10 )+( stats.commentsOnPosts * 4) + (stats.likesOnPosts * 3) - (stats.dislikesOnPosts * 2) + (stats.commentsOnMyPosts * 5))
+
+    const userAchievements = {
+      bigMouth: "Locked",
+      conversationStarter: "Locked",
+      controversialOpinion: "Locked",
+      loveGiver: "Locked",
+      mrFamous: "Locked",
+    }
+
+    if(stats.numberOfPosts >= 10){
+      userAchievements.conversationStarter = "Uncommon"
+    }else if(stats.numberOfPosts >= 50){
+      userAchievements.conversationStarter = "Rare"
+    }else if(stats.numberOfPosts >= 100){
+      userAchievements.conversationStarter = "Epic"
+    }else if(stats.numberOfPosts >= 250){
+      userAchievements.conversationStarter = "Legendary"
+    }
+
+    if(stats.likedPosts >= 10){
+      userAchievements.loveGiver = "Uncommon"
+    }else if(stats.likedPosts >= 50){
+      userAchievements.loveGiver = "Rare"
+    }else if(stats.likedPosts >= 100){
+      userAchievements.loveGiver = "Epic"
+    }else if(stats.likedPosts >= 250){
+      userAchievements.loveGiver = "Legendary"
+    }
+
+    if(stats.commentsOnPosts >= 10){
+      userAchievements.bigMouth = "Uncommon"
+    }else if(stats.commentsOnPosts >= 50){
+      userAchievements.bigMouth = "Rare"
+    }else if(stats.commentsOnPosts >= 100){
+      userAchievements.bigMouth = "Epic"
+    }else if(stats.commentsOnPosts >= 250){
+      userAchievements.bigMouth = "Legendary"
+    }
+
+    if(stats.likesOnPosts >= 10){
+      userAchievements.mrFamous = "Uncommon"
+    }else if(stats.likesOnPosts >= 50){
+      userAchievements.mrFamous = "Rare"
+    }else if(stats.likesOnPosts >= 100){
+      userAchievements.mrFamous = "Epic"
+    }else if(stats.likesOnPosts >= 250){
+      userAchievements.mrFamous = "Legendary"
+    }
+
+
+    if(stats.commentsOnMyPosts >= 10){
+      userAchievements.controversialOpinion = "Uncommon"
+    }else if(stats.commentsOnMyPosts >= 50){
+      userAchievements.controversialOpinion = "Rare"
+    }else if(stats.commentsOnMyPosts >= 100){
+      userAchievements.controversialOpinion = "Epic"
+    }else if(stats.commentsOnMyPosts >= 250){
+      userAchievements.controversialOpinion = "Legendary"
+    }
+
+
+    setUserAchievements(userAchievements)
   })
 
 
@@ -132,9 +198,6 @@ function Achievements({user}) {
     }else{
       return "Grand Master"
     }
-
-
-
   }
 
 
@@ -170,8 +233,9 @@ function Achievements({user}) {
   // console.log(userStats)
   return (
     <>
+    
     <div className="statsContainer">
-      <h1> {user.username === userData.username ? "My Stats": "Stats"}</h1>
+      <h1> {user?.username === userData?.username ? "My Stats": "Stats"}</h1>
       <h2>
       Level: {Math.floor(userScore/30)} 
       {" "}
@@ -260,6 +324,94 @@ Admin - Game Master
       <h3>Comments on my posts</h3>
       </div>
 
+
+</div>
+<h1> Achievements </h1>
+<div className="achievementsContainer">
+
+<div className="achievementElement">
+<Tooltip title={
+          <div><h3>{userAchievements?.bigMouth} Big Mouth</h3> <br/>
+          Uncommon: 10 posts <br/>
+          Rare: 50 posts <br/>
+          Epic: 100 posts <br/>
+          Legendary: 250 posts <br/>
+    </div>} placement="bottom">
+
+
+  <div className={"hexagonBackground" + " " + userAchievements?.bigMouth}>
+    <div className="hexagon">
+      <img src={bigMouthAchievement} alt="achievement1" />
+    </div>
+  </div>
+    </Tooltip>
+</div>
+
+
+<div className="achievementElement">
+<Tooltip title={
+          <div><h3>{userAchievements?.conversationStarter} Conversation Starter</h3> <br/>
+          Uncommon: 10 comments on posts <br/>
+          Rare: 50 comments on posts <br/>
+          Epic: 100 comments on posts <br/>
+          Legendary: 250 comments on posts <br/>
+    </div>} placement="bottom">
+  <div className={"hexagonBackground" + " " + userAchievements?.conversationStarter}>
+    <div className="hexagon">
+      <img src={conversationStarterAchievement} alt="achievement1" />
+    </div>
+  </div>
+  </Tooltip>
+</div>
+
+
+<div className="achievementElement">
+<Tooltip title={
+          <div><h3>{userAchievements?.controversialOpinion} Controversial Opinion</h3> <br/>
+          Uncommon: 10 comments on users posts <br/>
+          Rare: 50 comments on users posts <br/>
+          Epic: 100 comments on users posts <br/>
+          Legendary: 250 comments on users posts <br/>
+    </div>} placement="bottom">
+  <div className={"hexagonBackground" + " " + userAchievements?.controversialOpinion}>
+    <div className="hexagon">
+      <img src={controversialOpinion} alt="achievement1" />
+    </div>
+  </div>
+  </Tooltip>
+</div>
+
+<div className="achievementElement">
+<Tooltip title={
+          <div><h3>{userAchievements?.loveGiver} Love Giver</h3> <br/>
+          Uncommon: 10 Liked posts <br/>
+          Rare: 50 Liked posts <br/>
+          Epic: 100 Liked posts <br/>
+          Legendary: 250 Liked posts <br/>
+    </div>} placement="bottom">
+  <div className={"hexagonBackground" + " " + userAchievements?.loveGiver}>
+    <div className="hexagon">
+      <img src={loveGiver} alt="achievement1" />
+    </div>
+  </div>
+  </Tooltip>
+</div>
+
+<div className="achievementElement">
+<Tooltip title={
+          <div><h3>{userAchievements?.mrFamous} Mr. Famous</h3> <br/>
+          Uncommon: 10 Likes on users posts <br/>
+          Rare: 50 Likes on users posts <br/>
+          Epic: 100 Likes on users posts <br/>
+          Legendary: 250 Likes on users posts <br/>
+    </div>} placement="bottom">
+  <div className={"hexagonBackground" + " " + userAchievements?.mrFamous}>
+    <div className="hexagon">
+      <img src={mrFamous} alt="achievement1" />
+    </div>
+  </div>
+  </Tooltip>
+</div>
 
 </div>
 </div>

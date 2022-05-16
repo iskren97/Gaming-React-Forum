@@ -5,14 +5,14 @@ import { getDatabase } from 'firebase/database';
 import { getStorage } from 'firebase/storage';
 
 export const firebaseConfig = {
-  apiKey: "AIzaSyCqolKvhxzuDMW38pbbP-GergQW_O8GL34",
-  authDomain: "react-team3-forum.firebaseapp.com",
-  databaseURL: "https://react-team3-forum-default-rtdb.europe-west1.firebasedatabase.app",
-  projectId: "react-team3-forum",
-  storageBucket: "react-team3-forum.appspot.com",
-  messagingSenderId: "602768559676",
-  appId: "1:602768559676:web:ac2a3f4ef5141e587ebd39",
-  measurementId: "G-5EHZ0L0DCF"
+  apiKey: 'AIzaSyDXep-3TJWEtqx934Z1PcHmgt2ZIh1zZ84',
+  authDomain: 'team3forum.firebaseapp.com',
+  databaseURL:
+    'https://team3forum-default-rtdb.europe-west1.firebasedatabase.app/',
+  projectId: 'team3forum',
+  storageBucket: 'team3forum.appspot.com',
+  messagingSenderId: '231058361849',
+  appId: '1:231058361849:web:f29cb9fe759a0405948128',
 };
 
 export const app = initializeApp(firebaseConfig);
