@@ -56,7 +56,7 @@ const TopicRow = ({ row }) => {
   let innerContent = '';
   !open
     ? row.content?.length > 80
-      ? (innerContent = row.content.slice(0, 120) + '...')
+      ? (innerContent = row.content.slice(0, 80) + '...')
       : (innerContent = row.content)
     : (innerContent = row.content);
 
@@ -489,6 +489,8 @@ const TopicRow = ({ row }) => {
                   justifyContent: 'flex-start',
                   alignItems: 'flex-start',
                   fontSize: '16px',
+                  overflow: "hidden",
+                  maxWidth: "75rem"
                 }}
                 ref={elementRef}
               >
