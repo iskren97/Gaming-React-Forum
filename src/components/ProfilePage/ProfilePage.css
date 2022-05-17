@@ -19,6 +19,10 @@
   margin-top: -350px;
 }
 
+.profileBackground > img {
+  width: 100%
+}
+
 .avatar {
   margin-top: 10px;
   object-fit: cover;
