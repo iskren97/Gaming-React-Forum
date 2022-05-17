@@ -238,7 +238,7 @@ const CommentRow = ({ postId, commentId }) => {
             }}>
             <Grid
               item
-              xs={9}
+              xs={8}
               style={{
                 display: 'flex',
                 justifyContent: 'flex-start',
@@ -263,7 +263,7 @@ const CommentRow = ({ postId, commentId }) => {
 
             <Grid
               item
-              xs={1}
+              xs={2}
               style={{
                 display: 'flex',
                 flexDirection: 'column',
