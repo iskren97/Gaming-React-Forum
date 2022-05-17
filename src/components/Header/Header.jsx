@@ -6,8 +6,6 @@ import HomeIcon from '@mui/icons-material/Home';
 import PeopleIcon from '@mui/icons-material/People';
 import LibraryAddIcon from '@mui/icons-material/LibraryAdd';
 import ExploreIcon from '@mui/icons-material/Explore';
-import StarIcon from '@mui/icons-material/Star';
-import SearchIcon from '@mui/icons-material/Search';
 import Button from '@mui/material/Button';
 
 import Box from '@mui/material/Box';
@@ -32,8 +30,6 @@ import { NavLink } from 'react-router-dom';
 import { useNavigate } from 'react-router';
 import { Tooltip } from '@mui/material';
 import DropDown from '../NewTopicModal/DropDown';
-
-import swal from 'sweetalert';
 
 const Header = ({ loading }) => {
   const navigate = useNavigate();
@@ -188,7 +184,7 @@ const Header = ({ loading }) => {
           style={{
             color: 'white'
           }}>
-          <h1>Forum Name</h1>
+          <h1>AggroAudience</h1>
         </div>
 
         {loadingIndicator ? (
@@ -251,7 +247,6 @@ const Header = ({ loading }) => {
               }}
               transformOrigin={{ horizontal: 'right', vertical: 'top' }}
               anchorOrigin={{ horizontal: 'right', vertical: 'bottom' }}>
-              {/* <NavLink to="/MyProfile"> */}
               <MenuItem
                 onClick={() => navigate(`/profile/${userData.username}`)}
                 sx={{ bgcolor: 'white' }}>
@@ -260,8 +255,9 @@ const Header = ({ loading }) => {
                 </ListItemIcon>
                 My Profile
               </MenuItem>
-              {/* </NavLink> */}
+
               <Divider />
+              
               <MenuItem onClick={logout}>
                 <ListItemIcon>
                   <Logout fontSize="medium" />

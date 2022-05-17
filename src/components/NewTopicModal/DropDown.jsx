@@ -163,7 +163,7 @@ const DropDown = ({ test, set }) => {
                   maxLength="8192"
                   name="content"
                   rows="5"
-                  style={{ resize: 'none', fontSize: '15px' }}
+                  style={{ resize: 'none', fontSize: '18px', height:'18em' }}
                   onChange={(e) => setContent(e.target.value)}></textarea>
 
                 <Button

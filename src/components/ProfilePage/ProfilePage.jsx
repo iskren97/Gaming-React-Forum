@@ -49,7 +49,6 @@ const ProfilePage = () => {
         setUserProfile(res.val());
       });
     } else {
-      // eslint-disable-next-line no-shadow
       getUserData(userData?.uid).then((user) => {
         if (userProfile === '') {
           setUserProfile(user.val()[Object.keys(user.val())[0]]);
@@ -94,7 +93,6 @@ const ProfilePage = () => {
       const filtered = [];
 
       for (const post in data) {
-        // eslint-disable-next-line no-shadow
         getPostById(post).then((data) => {
           const currentPost = { ...data };
 
@@ -335,10 +333,12 @@ const ProfilePage = () => {
               </div>
             )}
           </Grid>
-        </Container>
+        </Container>    
       </div>
 
-      <Scroll showBelow={250} />
+      <div style={{ position:'absolute', right:'0', width:'3%', display:'inline-block', margin:'0', padding:'0' }}>
+        <Scroll showBelow={250} />
+      </div>
     </>
   );
 };

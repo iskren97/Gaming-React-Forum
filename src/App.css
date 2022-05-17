@@ -11,6 +11,8 @@ a {
 body {
   padding: 0px !important;
   overflow-y: visible !important;
+
+  overflow-x: hidden;
 }
 
 html {

@@ -17,7 +17,7 @@ h2 {
 }
 
 .category-container h1::before {
-  background-color: #c50000;
+  background-color: #db002f;
   border-radius: 0.25rem;
   content: '';
   display: block;

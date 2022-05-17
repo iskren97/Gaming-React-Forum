@@ -22,7 +22,8 @@
 
 .post-form textarea {
   width: 100%;
-  height: 25em;
+  height: 20em;
+  font-size: 18px;
 }
 .post-form label {
   line-height: 1;
