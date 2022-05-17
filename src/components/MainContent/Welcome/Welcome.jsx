@@ -31,7 +31,7 @@ const Welcome = () => {
             </div>
           ) : (
             <div>
-              <h1>Welcome to the forum!</h1>
+              <h1>“Kept you waiting, huh?”</h1>
               <a href="#/" className="join-button">
                 <LoginModal />
               </a>

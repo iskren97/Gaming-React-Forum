@@ -9,6 +9,7 @@ import Footer from '../../components/Footer/Footer';
 
 import Sort from './Sort';
 import postsImg from '../../assets/posts.jpg';
+import Scroll from '../../components/Scroll/Scroll';
 
 const Posts = () => {
   const [posts, setPosts] = useState([]);
@@ -90,6 +91,18 @@ const Posts = () => {
             <h3 style={{ textAlign: 'center' }}>There are no posts yet.</h3>
           )}
         </Container>
+      </div>
+
+      <div
+        style={{
+          position: 'absolute',
+          right: '0',
+          width: '3%',
+          display: 'inline-block',
+          margin: '0',
+          padding: '0'
+        }}>
+        <Scroll showBelow={250} />
       </div>
 
       <div className="sticky-footer">

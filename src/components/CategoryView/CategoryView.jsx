@@ -16,6 +16,7 @@ import SearchIcon from '@mui/icons-material/Search';
 import SortIcon from '@mui/icons-material/Sort';
 import Sort from '../../views/AllPosts/Sort';
 import { Divider, Tooltip } from '@mui/material';
+import Scroll from '../Scroll/Scroll';
 
 const CategoryView = ({ topic, img }) => {
   const [postModal, setPostModal] = useState(false);
@@ -142,6 +143,18 @@ const CategoryView = ({ topic, img }) => {
             )}
           </Grid>
         </Container>
+      </div>
+
+      <div
+        style={{
+          position: 'absolute',
+          right: '0',
+          width: '3%',
+          display: 'inline-block',
+          margin: '0',
+          padding: '0'
+        }}>
+        <Scroll showBelow={250} />
       </div>
     </>
   );

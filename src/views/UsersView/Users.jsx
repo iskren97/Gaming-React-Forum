@@ -10,6 +10,7 @@ import usersPic from '../../assets/users.jpg';
 import defaultPic from '../../assets/avatar.jpg';
 
 import SearchIcon from '@mui/icons-material/Search';
+import Scroll from '../../components/Scroll/Scroll';
 
 const UsersView = () => {
   const [users, setUsers] = useState([]);
@@ -122,6 +123,19 @@ const UsersView = () => {
           </Grid>
         </Container>
       </div>
+
+      <div
+        style={{
+          position: 'absolute',
+          right: '0',
+          width: '3%',
+          display: 'inline-block',
+          margin: '0',
+          padding: '0'
+        }}>
+        <Scroll showBelow={250} />
+      </div>
+
       <div className="sticky-footer">
         <Footer />
       </div>
