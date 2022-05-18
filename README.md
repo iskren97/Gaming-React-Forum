@@ -29,20 +29,50 @@ The private part provides the same as well as all user functionalities, which yo
 
 ![](markdown/1.png)
 
+---
+
+![](markdown/11.png)
+
+---
+
+![](markdown/12.png)
+
+---
+
 ![](markdown/6.png)
+
+---
 
 ![](markdown/5.png)
 
+---
+
 ![](markdown/4.png)
+
+---
+
+![](markdown/13.png)
+
+---
 
 ![](markdown/3.png)
 
+---
+
 ![](markdown/10.png)
+
+---
 
 ![](markdown/2.png)
 
+---
+
 ![](markdown/7.png)
 
+---
+
 ![](markdown/8.png)
+
+---
 
 ![](markdown/9.png)
