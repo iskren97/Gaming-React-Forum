@@ -1,12 +1,8 @@
-# Team 3 - React-Forum
+# React-Forum
 
-## Welcome to our first React Project in the Academy.
+The application focuses on the gaming industry, which means that our users can write, read, and discuss a wide variety of topics.
 
-### 1. We are Team 3, and we are pleased to present you our React - forum project.
-
-The application focus lays on the gaming industry, which means that our users can write, read and discuss a wide variety of topics.
-
-In our forum you can find all the information you need when it comes to the world of gaming.
+In our forum, you can find all the information you need when it comes to the world of gaming.
 
 For the build we used **React JS**, **CSS**, and some external libraries such as **Material UI**.
 
@@ -21,7 +17,7 @@ There are lots of interesting functionalities and some features, which make our 
 
 ---
 
-Our project has **public** and **private (user)** part.
+Our project has **public** and **private (user)** parts.
 
 The public is accessible for all viewers despite being registered or not.
 
